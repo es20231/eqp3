@@ -7,10 +7,12 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from djavu.db import get_db
 from djavu.repository import userRepository
+from djavu.repository import imageRepository
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
 repo = userRepository()
+repo2 = imageRepository()
 
 @bp.route('/', methods=('GET', 'POST'))
 def login():
@@ -93,3 +95,8 @@ def register_user():
 def show_users():
     users = repo.list_users()
     return render_template('users.html', users=users)
+
+
+
+
+

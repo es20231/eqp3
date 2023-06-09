@@ -28,3 +28,24 @@ class userRepository:
             'SELECT * FROM user WHERE id = ?', (user_id,)
             ).fetchone()
 
+class imageRepository:
+    def insert_image(self, filename, path_name, user_id):
+        db = get_db()
+        db.execute(
+            "INSERT INTO image (filename, path_name, user_id) VALUES (?, ?, ?)",
+            (filename, path_name, user_id),
+        )
+        db.commit()
+
+    def list_images(self):
+        db = get_db()
+        return db.execute(
+            'SELECT * FROM image'
+        ).fetchall()
+
+    def dashboard(self, user_id):
+        db = get_db()
+        return db.execute(
+            'SELECT * FROM image WHERE user_id = ?', (user_id,)
+        ).fetchall()
+

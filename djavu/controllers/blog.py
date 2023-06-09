@@ -1,11 +1,15 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for,
+    Blueprint, flash, session, g, redirect, render_template, request, url_for,
     redirect, send_from_directory, current_app
 )
 from werkzeug.exceptions import (abort, RequestEntityTooLarge)
 from werkzeug.utils import secure_filename
 from djavu.controllers.auth import login_required
 import os
+
+from djavu.repository import imageRepository
+
+repo = imageRepository()
 
 bp = Blueprint('blog', __name__, url_prefix='/')
 
@@ -28,6 +32,7 @@ def index():
 
 @bp.route('/upload', methods=['POST'])
 def upload():
+    user_id = session.get('user_id')
     try:
         file = request.files['file']
         extension = os.path.splitext(file.filename)[1].lower()
@@ -35,10 +40,9 @@ def upload():
         if file:
             if extension not in ALLOWED_EXTENSIONS:
                 return 'File not allowed'
-            file.save(os.path.join(
-                current_app.config['UPLOAD_FOLDER'],
-                secure_filename(file.filename)
-             ))
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'],filename))
+            repo.insert_image(filename,os.path.join(current_app.config['UPLOAD_FOLDER'],filename), user_id)
     except RequestEntityTooLarge:
         return 'File is larger than the 16MB limit.'
 

@@ -18,5 +18,8 @@ def create_app(test_config=None):
     from djavu.controllers import blog
     app.register_blueprint(blog.bp)
 
+    from djavu.controllers import dashboard
+    app.register_blueprint(dashboard.bp)
+
     return app
 
