@@ -1,0 +1,33 @@
+<li><a href="/logout">logout</a></li>
+
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} Djavú</title> 
+<head> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Uploads</title>
+</head>
+<body>
+  <div class="app">
+  
+    <div class="form-section">
+
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+      </form>
+  
+    </div>
+
+    <div class="images-section">
+      {% for image in images %}
+        <a href="{{ url_for('blog.serve_image', filename=image) }}" target="_blank">
+          <img src="{{ url_for('blog.serve_image', filename=image) }}"/>
+        </a>
+      {% endfor %}
+    </div>
+      
+  </div>
+</body> 
+</html>
