@@ -1,4 +1,4 @@
-### crie e ative o ambiente virtual, instale o Flask
+### crie e ative o ambiente virtual, instale o Flask (Windows)
 ```cmd
 py -3 -m venv .venv
 ```
