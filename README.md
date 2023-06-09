@@ -1,4 +1,4 @@
-## na pasta do projeto, crie e ative o ambiente virtual
+### na pasta do projeto, crie e ative o ambiente virtual
 ```cmd
 py -3 -m venv .venv
 ```
@@ -10,7 +10,10 @@ py -3 -m venv .venv
 ```cmd
 pip install Flask
 ```
-
+### executar a aplicação
+```cmd
+flask --app djavu run 
+```
 
 
 
