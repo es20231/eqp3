@@ -26,3 +26,8 @@ class userRepository:
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
+    def search_user_id(self, user_id):
+        return get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+            ).fetchone()
+

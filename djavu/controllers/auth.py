@@ -42,9 +42,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        g.user = repo.search_user_id(user_id)
 
 @bp.route('/logout')
 def logout():
@@ -81,7 +79,7 @@ def register_user():
 
         if error is None:
             repo.insert_user(username,fullname,email,password)
-            return redirect(url_for("register.users"))
+            return redirect(url_for("auth.login"))
         else:
             flash(error)
 
@@ -89,5 +87,5 @@ def register_user():
 
 @bp.route('/users')
 def show_users():
-    users =repo.list_users()
+    users = repo.list_users()
     return render_template('users.html', users=users)
