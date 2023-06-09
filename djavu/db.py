@@ -20,7 +20,7 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
-#só deu certo por que o db já foi iniciado
+
 def init_db():
     db = get_db()
 
