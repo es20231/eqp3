@@ -78,10 +78,14 @@ def register_user():
             error = 'Password is required.'
 
         if error is None:
-            repo.insert_user(username,fullname,email,password)
-            return redirect(url_for("auth.login"))
-        else:
-            flash(error)
+            db = get_db()
+            try:
+                repo.insert_user(username,fullname,email,password)
+            except db.IntegrityError:
+                error = f"User {username} is already registered."
+            else:
+                return redirect(url_for("auth.login"))
+        flash(error)
 
     return render_template('register.html')
 

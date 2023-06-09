@@ -6,6 +6,11 @@
 <body>
     <h1>Djavú</h1>
     <form action="/register" method="post">
+
+	{% for message in get_flashed_messages() %}
+	<font color="red"><div class="flash">{{ message }}</div></font>
+  	{% endfor %}
+
         <label for="username">Usuário:</label>
         <input type="text" id="username" name="username" required><br><br>
         
@@ -19,6 +24,9 @@
         <input type="password" id="password" name="password" required><br><br>
         
         <input type="submit" value="register">
+
+
+
     </form>
 </body>
 </html>
