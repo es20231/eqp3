@@ -1,4 +1,4 @@
-### na pasta do projeto, eqp3-main, crie e ative o ambiente virtual
+### na pasta do projeto, crie e ative o ambiente virtual
 ```cmd
 py -3 -m venv .venv
 ```
