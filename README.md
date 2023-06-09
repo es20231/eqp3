@@ -10,7 +10,7 @@ py -3 -m venv .venv
 ```cmd
 pip install Flask
 ```
-### executar a aplicação
+### execute a aplicação
 ```cmd
 flask --app djavu run 
 ```
