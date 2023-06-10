@@ -13,13 +13,15 @@ repo = imageRepository()
 
 bp = Blueprint('blog', __name__, url_prefix='/')
 
+MAIN_PATH = os.path.abspath(os.getcwd())
+UPLOAD_FOLDER = os.path.join(MAIN_PATH,'djavu/static/images')
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = ['.jpg','.jpeg','.png','.gif']
 
 @bp.route('/blog')
 @login_required
 def index():
-    files = os.listdir(current_app.config['UPLOAD_FOLDER'])
+    files = os.listdir(UPLOAD_FOLDER)
     images = []
 
     for file in files:
@@ -41,8 +43,8 @@ def upload():
             if extension not in ALLOWED_EXTENSIONS:
                 return 'File not allowed'
             filename = secure_filename(file.filename)
-            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'],filename))
-            repo.insert_image(filename,os.path.join(current_app.config['UPLOAD_FOLDER'],filename), user_id)
+            file.save(os.path.join(UPLOAD_FOLDER,filename))
+            repo.insert_image(filename,os.path.join(UPLOAD_FOLDER,filename), user_id)
     except RequestEntityTooLarge:
         return 'File is larger than the 16MB limit.'
 
@@ -50,7 +52,7 @@ def upload():
 
 @bp.route('/serve-image/<filename>', methods=['GET'])
 def serve_image(filename):
-   return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+   return send_from_directory(UPLOAD_FOLDER, filename)
 
 
 
