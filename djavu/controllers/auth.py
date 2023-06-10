@@ -8,7 +8,6 @@ from flask import (
 
 from djavu.db import get_db
 from djavu.repository import userRepository
-from djavu.repository import imageRepository
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
