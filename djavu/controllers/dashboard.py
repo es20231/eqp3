@@ -1,15 +1,13 @@
-import functools
 import os
 
-from flask import (
-    Blueprint, flash, current_app, g, redirect, render_template, 
-    request, session, url_for, send_from_directory
-)
 from werkzeug.exceptions import (abort, RequestEntityTooLarge)
 from werkzeug.utils import secure_filename
 
+from flask import (
+    Blueprint, flash, redirect, render_template, request, session, send_from_directory
+)
+
 from djavu.controllers.auth import login_required
-from djavu.db import get_db
 from djavu.repository import imageRepository
 
 MAIN_PATH = os.path.abspath(os.getcwd())
@@ -25,7 +23,7 @@ repo = imageRepository()
 @login_required
 def dashboard():
     user_id = session.get('user_id')
-    user_images = (repo.dashboard(user_id))
+    user_images = repo.dashboard(user_id)
 
     files = os.listdir(UPLOAD_FOLDER)
     images = []
