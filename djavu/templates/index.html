@@ -1,7 +1,6 @@
 <li><a href="/logout">logout</a></li>
 <li><a href="/users">users</a></li>
 <li><a href="/images">images</a></li>
-<li><a href="/dashboard">dashboard</a></li>
 
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} Djavú</title> 
@@ -25,8 +24,8 @@
 
     <div class="images-section">
       {% for image in images %}
-        <a href="{{ url_for('blog.serve_image', filename=image) }}" target="_blank">
-          <img src="{{ url_for('blog.serve_image', filename=image) }}"/>
+        <a href="{{ url_for('dashboard.serve_image', filename=image) }}" target="_blank">
+          <img src="{{ url_for('dashboard.serve_image', filename=image) }}"/>
         </a>
       {% endfor %}
     </div>
