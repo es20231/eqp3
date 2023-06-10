@@ -1,5 +1,4 @@
 from djavu.db import get_db
-from werkzeug.security import generate_password_hash
 
 class userRepository:
     def list_users(self):
@@ -13,7 +12,7 @@ class userRepository:
         db.execute(
             "INSERT INTO user (username, fullname, email, password) VALUES (?, ?, ?, ?)",
             (username, fullname,
-             email, generate_password_hash(password)),
+             email, password),
         )
         db.commit()
 

@@ -82,7 +82,7 @@ def register_user():
         if error is None:
             db = get_db()
             try:
-                repo.insert_user(username,fullname,email,password)
+                repo.insert_user(username,fullname,email,generate_password_hash(password))
             except db.IntegrityError:
                 error = f"User {username} is already registered."
             else:
