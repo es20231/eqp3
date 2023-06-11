@@ -9,7 +9,6 @@ CREATE TABLE user (
   password TEXT NOT NULL
 );
 
-
 CREATE TABLE image (
   filename TEXT UNIQUE NOT NULL,
   path_name TEXT NOT NULL,
