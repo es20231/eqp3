@@ -19,9 +19,8 @@ def admin_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
-        else:
-            if g.user['role'] != 'admin': 
-                return redirect(url_for('dashboard.dashboard'))
+        if g.user['role'] != 'admin': 
+            return redirect(url_for('dashboard.dashboard'))
 
         return view(**kwargs)
 
