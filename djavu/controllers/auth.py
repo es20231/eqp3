@@ -1,4 +1,5 @@
 import functools
+import click
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -13,8 +14,19 @@ bp = Blueprint('auth', __name__, url_prefix='/')
 
 repo = userRepository()
 
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = repo.search_user_id(user_id)
+
 @bp.route('/', methods=('GET', 'POST'))
 def login():
+    if g.user:
+        return redirect(url_for('dashboard.dashboard'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -36,15 +48,6 @@ def login():
 
     return render_template('login.html')
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = repo.search_user_id(user_id)
-
 @bp.route('/logout')
 def logout():
     session.clear()
@@ -57,7 +60,6 @@ def login_required(view):
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
-
     return wrapped_view
 
 @bp.route('/register', methods=('POST','GET'))
@@ -89,13 +91,5 @@ def register_user():
         flash(error)
 
     return render_template('register.html')
-
-@bp.route('/users')
-def show_users():
-    users = repo.list_users()
-    return render_template('users.html', users=users)
-
-
-
 
 

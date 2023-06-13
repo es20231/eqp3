@@ -1,3 +1,5 @@
+import random
+from werkzeug.security import generate_password_hash
 from djavu.db import get_db
 
 class userRepository:
@@ -9,10 +11,10 @@ class userRepository:
 
     def insert_user(self, username, fullname, email, password):
         db = get_db()
+        role = "user"
         db.execute(
-            "INSERT INTO user (username, fullname, email, password) VALUES (?, ?, ?, ?)",
-            (username, fullname,
-             email, password),
+            "INSERT INTO user (username, fullname, email, password, role) VALUES (?, ?, ?, ?, ?)",
+            (username, fullname, email, password, role),
         )
         db.commit()
 
@@ -26,6 +28,15 @@ class userRepository:
         return get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
             ).fetchone()
+
+    def generate_admin(self, password):
+        db = get_db()
+        password = generate_password_hash(password)
+        db.execute(
+            "INSERT INTO user (username, fullname, email, password, role) VALUES (?, ?, ?, ?, ?)",
+            (random.choice("X1923"), random.choice("o@#131"), random.choice("oei2098"), password, "admin"),
+        )
+        db.commit()
 
 class imageRepository:
     def insert_image(self, filename, path_name, user_id):

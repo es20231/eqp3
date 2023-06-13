@@ -6,7 +6,8 @@ CREATE TABLE user (
   username TEXT UNIQUE NOT NULL,
   fullname TEXT UNIQUE NOT NULL,
   email TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  role TEXT NOT NULL
 );
 
 CREATE TABLE image (
