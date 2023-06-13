@@ -12,7 +12,6 @@ pip install Flask
 ```cmd
 flask --app djavu run 
 ```
-teste branch
 
 # eqp3
 Equipe 3 - ES 2023.1
