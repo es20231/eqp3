@@ -23,7 +23,6 @@ def admin_required(view):
             return redirect(url_for('dashboard.dashboard'))
 
         return view(**kwargs)
-
     return wrapped_view
 
 @bp.cli.command('init-admin')

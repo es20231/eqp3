@@ -60,7 +60,6 @@ def login_required(view):
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
-
     return wrapped_view
 
 @bp.route('/register', methods=('POST','GET'))
