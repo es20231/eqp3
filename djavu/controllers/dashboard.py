@@ -33,12 +33,7 @@ def dashboard():
             if file == user_image['filename']:
                 images.append(file)
  
-    return render_template('index.html', images=images)
-
-@bp.route('/images')
-def list_images():
-    images = repo.list_images()
-    return render_template('images.html', images=images)
+    return render_template('user/index.html', images=images)
 
 @bp.route('/upload', methods=['POST'])
 def upload():

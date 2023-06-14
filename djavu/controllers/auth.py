@@ -46,7 +46,7 @@ def login():
 
         flash(error)
 
-    return render_template('login.html')
+    return render_template('auth/login.html')
 
 @bp.route('/logout')
 def logout():
@@ -90,6 +90,6 @@ def register_user():
                 return redirect(url_for("auth.login"))
         flash(error)
 
-    return render_template('register.html')
+    return render_template('auth/register.html')
 
 
