@@ -1,13 +1,10 @@
 import functools
 import click
 
-from werkzeug.security import check_password_hash, generate_password_hash
-
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, g, redirect, render_template, url_for
 )
 
-from djavu.db import get_db
 from djavu.repository import userRepository
 from djavu.repository import imageRepository
 
@@ -45,4 +42,4 @@ def init_admin_command(password):
     click.echo('Initialized admin.')
 
 def init_admin(password):
-    repo.generate_admin(password)
+    repoUser.generate_admin(password)
