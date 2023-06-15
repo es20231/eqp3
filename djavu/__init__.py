@@ -8,7 +8,7 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'djavu.sqlite'),
     )
 
-    from . import db
+    from djavu.database import db
     db.init_app(app)
 
     from djavu.controllers import auth

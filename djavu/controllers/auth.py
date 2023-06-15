@@ -7,7 +7,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from djavu.db import get_db
+from djavu.database.db import get_db
 from djavu.repository import userRepository
 
 bp = Blueprint('auth', __name__, url_prefix='/')

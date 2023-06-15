@@ -1,5 +1,5 @@
 import random
-from djavu.db import get_db
+from djavu.database.db import get_db
 
 class userRepository:
     def list_users(self):
