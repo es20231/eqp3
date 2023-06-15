@@ -1,5 +1,4 @@
 import random
-from werkzeug.security import generate_password_hash
 from djavu.db import get_db
 
 class userRepository:
@@ -31,7 +30,6 @@ class userRepository:
 
     def generate_admin(self, password):
         db = get_db()
-        password = generate_password_hash(password)
         db.execute(
             "INSERT INTO user (username, fullname, email, password, role) VALUES (?, ?, ?, ?, ?)",
             (random.choice("X1923"), random.choice("o@#131"), random.choice("oei2098"), password, "admin"),

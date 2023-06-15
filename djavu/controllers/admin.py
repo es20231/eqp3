@@ -1,5 +1,6 @@
 import functools
 import click
+from werkzeug.security import generate_password_hash
 
 from flask import (
     Blueprint, g, redirect, render_template, url_for
@@ -38,7 +39,7 @@ def list_images():
 @bp.cli.command('init-admin')
 @click.argument('password')
 def init_admin_command(password):
-    init_admin(password)
+    init_admin(generate_password_hash(password))
     click.echo('Initialized admin.')
 
 def init_admin(password):
