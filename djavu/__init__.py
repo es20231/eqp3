@@ -8,6 +8,11 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'djavu.sqlite'),
     )
 
+    if test_config is None:
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        app.config.from_mapping(test_config)
+
     from djavu.database import db
     db.init_app(app)
 
