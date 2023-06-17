@@ -1,0 +1,26 @@
+@startuml
+skin rose
+left to right direction
+title Djavú - Component Diagram
+
+:user: as user
+interface browser
+
+user <- [browser] : html
+'[email system] as email
+cloud "email system" as email
+email -> user : sends email
+'interface browser
+
+rectangle Djavú {
+component [Flask] as djavu
+database sqlite3
+collections archive
+}
+
+djavu <-> sqlite3 : read/write
+djavu <-left-> archive : read/write
+browser <--> djavu : https
+djavu -> email : email
+
+@enduml

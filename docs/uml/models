@@ -1,0 +1,59 @@
+@startuml
+skin rose
+title Djavú - Class Diagram
+
+class User {
+-username: String
+-fullname: String
+-email: String
+-password: String
+-description: String
+-id <<PK>>: Int
+like()
+dislike()
+upload()
+remove_image()
+post()
+}
+
+class Image {
+-filename: String
+-path_name: String
+-user_id <<FK>>: Int
+}
+
+class Post{
+-description: String
+-timestamp: Date
+-user_id <<FK>>: Int
+-id <<PK>>: Int
+}
+
+class Comment{
+-content: String
+-timestamp: Date
+-user_id <<FK>>: Int
+-id <<PK>>: Int
+}
+
+class Like{
+-type: Boolean
+-user_id <<FK>>: Int
+-post_id <<FK>>: Int
+-comment_id <<FK>>: Int
+-id <<PK>>: Int
+
+}
+
+note right of Like: type: 1 = like type: 0 = dislike
+
+'User "1" - "n" Post
+User "1" -right- "n" Image
+Image "1" - "n" Post
+'Post "1" -- "n" Comment
+Post "1" -- "n" Like
+Comment "1" -- "n" Like
+User "1" -- "n" Like
+User "1" -- "n" Comment
+
+@enduml
