@@ -1,4 +1,3 @@
-import random
 from djavu.database.db import get_db
 
 class userRepository:
@@ -32,7 +31,7 @@ class userRepository:
         db = get_db()
         db.execute(
             "INSERT INTO user (username, fullname, email, password, role) VALUES (?, ?, ?, ?, ?)",
-            (random.choice("X1923"), random.choice("o@#131"), random.choice("oei2098"), password, "admin"),
+            ("admin", "admin", "admin", password, "admin"),
         )
         db.commit()
 
@@ -44,6 +43,18 @@ class imageRepository:
             (filename, path_name, user_id),
         )
         db.commit()
+
+    def search_image(self, filename):
+        db = get_db()
+        return db.execute(
+            'SELECT * FROM image WHERE filename = ?', (filename,)
+        ).fetchone()
+
+    def search_image_id(self, user_id, img_id):
+        db = get_db()
+        return db.execute(
+            'SELECT * FROM image WHERE image.user_id=? AND image.id=?', (user_id, img_id)
+        ).fetchone()
 
     def list_images(self):
         db = get_db()
@@ -57,3 +68,4 @@ class imageRepository:
             'SELECT * FROM image WHERE user_id = ?', (user_id,)
         ).fetchall()
 
+   

@@ -16,14 +16,17 @@ def create_app(test_config=None):
     from djavu.database import db
     db.init_app(app)
 
+    from djavu.controllers import admin
+    app.register_blueprint(admin.bp)
+
     from djavu.controllers import auth
     app.register_blueprint(auth.bp)
 
     from djavu.controllers import dashboard
     app.register_blueprint(dashboard.bp)
 
-    from djavu.controllers import admin
-    app.register_blueprint(admin.bp)
+    from djavu.controllers import timeline
+    app.register_blueprint(timeline.bp)
 
     return app
 

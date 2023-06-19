@@ -1,0 +1,8 @@
+<li><a href="/dashboard">dashboard</a></li>
+{% for user in users %}
+<header>
+	<p>{{user.username, user.fullname, user.email}}</p>
+	<a href="/timeline/{{user['username']}}">timeline</a>
+<hr>
+{% endfor %}
+

@@ -1,6 +1,8 @@
 <li><a href="/logout">logout</a></li>
+<!--<li><a href="/admin/users">users list</a></li>-->
+<!--<li><a href="/images">images</a></li>-->
 <li><a href="/users">users</a></li>
-<li><a href="/images">images</a></li>
+<li><a href="/timeline/{{g.user['username']}}">timeline</a></li>
 
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} Djavú</title> 
@@ -18,9 +20,12 @@
 
     <div class="images-section">
       {% for image in images %}
+      <header>
         <a href="{{ url_for('dashboard.serve_image', filename=image) }}" target="_blank">
           <img src="{{ url_for('dashboard.serve_image', filename=image) }}"/>
+	  <a href="/post/{{image}}">post</a>
         </a>
+      <hr>
       {% endfor %}
     </div>
       

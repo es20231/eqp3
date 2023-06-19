@@ -24,7 +24,7 @@ def admin_required(view):
         return view(**kwargs)
     return wrapped_view
 
-@bp.route('/users')
+@bp.route('/admin/users')
 @admin_required
 def show_users():
     users = repoUser.list_users()
