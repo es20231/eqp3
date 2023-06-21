@@ -1,5 +1,11 @@
-<li><a href="/users">users</a></li>
-<li><a href="/dashboard">dashboard</a></li>
+<header>
+<span>
+  <a href="/logout">logout</a>
+  <a href="/dashboard">dashboard</a>
+  <a href="/users">users</a>
+  <a href="/timeline/{{g.user['username']}}">timeline</a>
+</span>
+<hr>
 {% block content %}
   {% for post in posts %}
     <article class="post">

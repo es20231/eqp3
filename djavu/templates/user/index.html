@@ -1,8 +1,13 @@
-<li><a href="/logout">logout</a></li>
-<!--<li><a href="/admin/users">users list</a></li>-->
-<li><a href="/images">images</a></li>
-<li><a href="/users">users</a></li>
-<li><a href="/timeline/{{g.user['username']}}">timeline</a></li>
+<header>
+<span>
+  <a href="/logout">logout</a>
+  <a href="/dashboard">dashboard</a>
+  <a href="/users">users</a>
+  <a href="/timeline/{{g.user['username']}}">timeline</a>
+</span>
+<hr>
+  <!--<a href="/images">images</a>-->
+  <!--<a href="/admin/users">users list</a>-->
 
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} Djavú</title> 
@@ -17,15 +22,15 @@
       </form>
   
     </div>
+    
+    <br>
 
     <div class="images-section">
       {% for image in images %}
-      <header>
         <a href="{{ url_for('dashboard.serve_image', filename=image) }}" target="_blank">
-          <img src="{{ url_for('dashboard.serve_image', filename=image) }}"/>
+          <img src="{{ url_for('dashboard.serve_image', filename=image) }}"width=123 height=123/>
 	  <a href="/post/{{image}}">post</a>
         </a>
-      <hr>
       {% endfor %}
     </div>
       
