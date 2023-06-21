@@ -50,12 +50,6 @@ class imageRepository:
             'SELECT * FROM image WHERE filename = ?', (filename,)
         ).fetchone()
 
-    def search_image_id(self, user_id, img_id):
-        db = get_db()
-        return db.execute(
-            'SELECT * FROM image WHERE image.user_id=? AND image.id=?', (user_id, img_id)
-        ).fetchone()
-
     def list_images(self):
         db = get_db()
         return db.execute(
@@ -68,4 +62,28 @@ class imageRepository:
             'SELECT * FROM image WHERE user_id = ?', (user_id,)
         ).fetchall()
 
-   
+class postRepository:
+    def search_post(self, username):
+        db = get_db()
+        return db.execute(
+            'SELECT p.id, description, filename, created, author_id, username'
+            ' FROM post p JOIN user u ON p.author_id = u.id WHERE u.username = ? '
+            ' ORDER BY created DESC', (username,)
+        ).fetchall()
+
+    def insert_post(self, description, filename, author_id):
+        db = get_db()
+        db.execute(
+            'INSERT INTO post (description, filename, author_id)'
+            ' VALUES (?, ?, ?)',
+            (description, filename, author_id)
+        )
+        db.commit()
+
+
+
+
+
+
+
+

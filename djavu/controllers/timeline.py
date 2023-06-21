@@ -5,49 +5,33 @@ from werkzeug.exceptions import abort
 import os
 
 from djavu.controllers.auth import login_required
-from djavu.repository import imageRepository
-from djavu.repository import userRepository
+from djavu.repository import *
 from djavu.database.db import get_db
 
 bp = Blueprint('timeline', __name__, url_prefix='/')
 
 repo = imageRepository()
 repoUsers = userRepository()
+repoPosts = postRepository()
 
 @bp.route('/timeline/<username>')
 @login_required
 def index(username):
     db = get_db()
-    posts = db.execute(
-        'SELECT p.id, description, filename, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id WHERE u.username = ? '
-        ' ORDER BY created DESC', (username,)
-    ).fetchall()
+    posts = repoPosts.search_post(username)
     return render_template('timeline/timeline.html', posts=posts)
 
 @bp.route('/post/<filename>', methods=['GET','POST'])
 @login_required
 def post(filename):
+    
     image = repo.search_image(filename)
-    validate = repo.search_image_id(g.user['id'],image['id'])  
-    if validate is None:
-        return redirect(url_for('dashboard.dashboard'))
 
-    if request.method == 'POST':
+    if request.method == 'POST' and image['user_id'] == g.user['id']:
         description = request.form['description']
-        error = None
+        repoPosts.insert_post(description, filename, g.user['id'])
 
-        if error is not None:
-            flash(error)
-        else:
-            db = get_db()
-            db.execute(
-                'INSERT INTO post (description, filename, author_id)'
-                ' VALUES (?, ?, ?)',
-                (description, filename, g.user['id'])
-            )
-            db.commit()
-            return redirect(url_for('dashboard.dashboard'))
+        return redirect(url_for('dashboard.dashboard'))
 
     return render_template('timeline/post.html', image=image)
 

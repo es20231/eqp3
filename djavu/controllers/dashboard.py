@@ -17,23 +17,23 @@ ALLOWED_EXTENSIONS = ['.jpg','.jpeg','.png','.gif']
 
 bp = Blueprint('dashboard', __name__, url_prefix='/')
 
-repo = imageRepository()
+images = imageRepository()
 
 @bp.route('/dashboard')
 @login_required
 def dashboard():
     user_id = session.get('user_id')
-    user_images = repo.dashboard(user_id)
+    user_images = images.dashboard(user_id)
 
     files = os.listdir(UPLOAD_FOLDER)
-    images = []
+    filenames = []
 
     for user_image in user_images:
         for file in files:
             if file == user_image['filename']:
-                images.append(file)
+                filenames.append(file)
  
-    return render_template('user/index.html', images=images)
+    return render_template('user/index.html', images=filenames)
 
 @bp.route('/upload', methods=['POST'])
 def upload():
@@ -47,7 +47,7 @@ def upload():
                 return 'File not allowed'
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER,filename))
-            repo.insert_image(filename,os.path.join(UPLOAD_FOLDER,filename), user_id)
+            images.insert_image(filename,os.path.join(UPLOAD_FOLDER,filename), user_id)
     except RequestEntityTooLarge:
         return 'File is larger than the 16MB limit.'
 

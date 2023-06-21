@@ -9,6 +9,7 @@ from flask import (
 
 from djavu.database.db import get_db
 from djavu.repository import userRepository
+from djavu.errors import check_register, check_login
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
@@ -29,14 +30,10 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        error = None
 
         user = repo.search_user(username)
 
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+        error = check_login(user,password)
 
         if error is None:
             session.clear()
@@ -68,16 +65,8 @@ def register_user():
         fullname = request.form['fullname']
         email = request.form['email']
         password = request.form['password']
-        error = None
 
-        if not username:
-            error = 'Username is required.'
-        elif not fullname:
-            error = 'Fullname is required.'
-        elif not email:
-            error = 'Email is required.'
-        elif not password:
-            error = 'Password is required.'
+        error = check_register(username,fullname,email,password)
 
         if error is None:
             db = get_db()
