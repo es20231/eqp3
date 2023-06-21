@@ -9,11 +9,11 @@ from flask import (
 
 from djavu.database.db import get_db
 from djavu.repository import userRepository
-from djavu.errors import check_register, check_login
+from djavu.utils.errors import check_register, check_login
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
-repo = userRepository()
+Users = userRepository()
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -21,7 +21,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = repo.search_user_id(user_id)
+        g.user = Users.search_id(user_id)
 
 @bp.route('/', methods=('GET', 'POST'))
 def login():
@@ -31,7 +31,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        user = repo.search_user(username)
+        user = Users.search(username)
 
         error = check_login(user,password)
 
@@ -71,7 +71,7 @@ def register_user():
         if error is None:
             db = get_db()
             try:
-                repo.insert_user(username,fullname,email,generate_password_hash(password))
+                Users.insert(username,fullname,email,generate_password_hash(password))
             except db.IntegrityError:
                 error = f"User {username} is already registered."
             else:

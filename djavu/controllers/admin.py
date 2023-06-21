@@ -11,8 +11,8 @@ from djavu.repository import imageRepository
 
 bp = Blueprint('admin', __name__, url_prefix='/')
 
-repoUser = userRepository()
-repoImage =  imageRepository()
+Users = userRepository()
+Images =  imageRepository()
 
 def admin_required(view):
     @functools.wraps(view)
@@ -27,13 +27,13 @@ def admin_required(view):
 @bp.route('/admin/users')
 @admin_required
 def show_users():
-    users = repoUser.list_users()
+    users = Users.get()
     return render_template("admin/users.html", users=users)
 
 @bp.route('/images')
 @admin_required
 def list_images():
-    images = repoImage.list_images()
+    images = Images.get()
     return render_template('admin/images.html', images=images)
 
 @bp.cli.command('init-admin')
@@ -43,4 +43,4 @@ def init_admin_command(password):
     click.echo('Initialized admin.')
 
 def init_admin(password):
-    repoUser.generate_admin(password)
+    Users.generate_admin(password)

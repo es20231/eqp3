@@ -16,7 +16,7 @@ CREATE TABLE image (
   filename TEXT NOT NULL,
   path_name TEXT NOT NULL,
   user_id INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE post (
@@ -25,5 +25,5 @@ CREATE TABLE post (
   filename TEXT NOT NULL,
   author_id INTEGER NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (author_id) REFERENCES user(id)
+  FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE
 );

@@ -10,26 +10,26 @@ from djavu.database.db import get_db
 
 bp = Blueprint('timeline', __name__, url_prefix='/')
 
-repo = imageRepository()
-repoUsers = userRepository()
-repoPosts = postRepository()
+Images = imageRepository()
+Users = userRepository()
+Posts = postRepository()
 
 @bp.route('/timeline/<username>')
 @login_required
 def index(username):
     db = get_db()
-    posts = repoPosts.search_post(username)
+    posts = Posts.timeline(username)
     return render_template('timeline/timeline.html', posts=posts)
 
 @bp.route('/post/<filename>', methods=['GET','POST'])
 @login_required
 def post(filename):
     
-    image = repo.search_image(filename)
+    image = Images.search_id(filename, g.user['id'])
 
-    if request.method == 'POST' and image['user_id'] == g.user['id']:
+    if request.method == 'POST' and image is not None:
         description = request.form['description']
-        repoPosts.insert_post(description, filename, g.user['id'])
+        Posts.insert(description, filename, g.user['id'])
 
         return redirect(url_for('dashboard.dashboard'))
 
@@ -37,5 +37,5 @@ def post(filename):
 
 @bp.route('/users')
 def show_users():
-    users = repoUsers.list_users()
+    users = Users.get()
     return render_template("timeline/users.html", users=users)
