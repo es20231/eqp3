@@ -28,7 +28,7 @@
     <div class="images-section">
       {% for image in images %}
         <a href="{{ url_for('dashboard.serve_image', filename=image) }}" target="_blank">
-          <img src="{{ url_for('dashboard.serve_image', filename=image) }}"width=123 height=123/>
+          <img src="{{ url_for('dashboard.serve_image', filename=image) }}"width=150 height=150/>
 	  <a href="/post/{{image}}">post</a>
         </a>
       {% endfor %}
