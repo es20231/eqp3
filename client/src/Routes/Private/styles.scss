@@ -1,0 +1,53 @@
+*{
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    
+}
+
+.cabeçalho{
+    display: flex;
+    flex-direction: row;
+    background: #1E2740;
+    justify-content: space-between;
+    width: 100%;
+    height: 150px;
+    align-items: center;
+    .avatarPerfil{
+        height: 10px;
+    }
+    .buttons_right{
+        display: flex;
+        width: 30%;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: row;
+    }
+
+}
+
+.Descrição{
+    width: 100%;
+    display: flex;
+    height: 102px;
+    background-color: #181F33;
+    flex-direction: row;
+    /* align-content: center; */
+    justify-content: flex-start;
+    align-items: center;
+    p{
+        margin-left:40px ;
+        color: with(#FFFFFF);
+        font-size: 1rem;
+    }
+}
+
+.Arquivos{ 
+    background-color: #040917;
+    width: 100%;
+    min-height: calc(100vh - 252px);
+    display: block;
+    
+}
+    
