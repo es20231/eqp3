@@ -16,6 +16,7 @@ import ToatsFlutuante from "../../Components/Toats";
 
 //toast 
 import { toast } from "react-toastify";
+import UploadImage from "../../Components/UploadImagens";
 
 //function toastify
 
@@ -58,7 +59,7 @@ function DashboardPerfil() {
                 <div className="buttons_right">
                     <Button> Adicionar Midia </Button>
 
-
+                    <UploadImage> </UploadImage>
 
                     <NavLink to="/" activeClassName="active" className="d-block">
                         <Button variant="primary" className="w-100 " >Sair</Button>{' '}
