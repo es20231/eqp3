@@ -11,7 +11,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 
 import './styles.scss'
-import ToatsFlutuante from "../../Components/Toats";
 
 //toast 
 import { toast } from "react-toastify";
@@ -20,29 +19,32 @@ import { useApi } from "../../hooks/UseApi";
 
 
 function Register() {
-    const { user } = useContext(UserContext)
+    const user  = useContext(UserContext)
     const navigate = useNavigate();
-    // const Button_toast = () => {
-    //     toast.success("Mensagem de sucesso");
-    // };
 
     const api = useApi();
 
     const [userEx, setUserEx] = useState(
         [
-            
             {
-                name: 'Dj Juninho',
-                token: '05',
+                name: user.name,
+                token: user.token,
                 image: 'https://th.bing.com/th/id/OIP.wJHORvBaGvZsOuEL6oP4tQHaE5?w=170&h=180&c=7&r=0&o=5&pid=1.7',
                 description: 'toca de mais papai'
             }
+            //,
+            // {
+            //     name: 'Dj Juninho',
+            //     token: '05',
+            //     image: 'https://th.bing.com/th/id/OIP.wJHORvBaGvZsOuEL6oP4tQHaE5?w=170&h=180&c=7&r=0&o=5&pid=1.7',
+            //     description: 'toca de mais papai'
+            // }
         ]
 
     );
 
     async function LogoutButton() {
-        const logoutCont = await api.logout()
+        const logoutCont = await user.logout();
 
         if (logoutCont) {
             toast.success("Deslogado!");
@@ -59,7 +61,7 @@ function Register() {
             <div className="cabeçalho">
                 <AvatarName data={userEx} />
                 {/* implementar um input para testart o pupUp */}
-                <ToatsFlutuante mensagem="Testando os parametros" cor="yellow" />
+                {/* <ToatsFlutuante mensagem="Testando os parametros" cor="yellow" /> */}
 
 
 

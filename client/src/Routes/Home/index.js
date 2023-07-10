@@ -27,45 +27,45 @@ function Home() {
         }
     );
 
-    //    //verificar se o usuário ja esta logado 
+       //verificar se o usuário ja esta logado 
 
-    // const isLogged = async () => {
-    //     if (dataTemp.userName && dataTemp.password) {
-    //         // console.log(dataTemp);
-    //         const isLogged = await user.login(dataTemp.userName, dataTemp.password);
-    //         // console.log(isLogged);
+    const isLogged = async () => {
+        if (dataTemp.userName && dataTemp.password) {
+            // console.log(dataTemp);
+            const isLogged = await user.login(dataTemp.userName, dataTemp.password);
+            // console.log(isLogged);
 
-    //         if (isLogged) {
+            if (isLogged) {
 
-    //             console.log(isLogged);
-    //             toast.success("Ja esta logado")
-    //             navigate('/Private')
-    //         } else {
-    //             toast.warning("necessário fazer um login")
-    //             console.log("erro no login")
-    //         }
-
-    //     }
-    // }
-
-    async function loginSubmit() {
-
-        const dataLogin = await api.login(dataTemp.userName, dataTemp.password);
-
-        console.log(dataLogin)
-        if (dataLogin) {
-            if (dataLogin.status == 200) {
-                toast.success("login ok")
-                navigate("/private");
-
+                console.log(isLogged);
+                // toast.success("Ja esta logado")
+                navigate('/Private')
             } else {
-                toast.error("dados errados")
+                toast.warning("necessário fazer um login")
+                // console.log("erro no login")
             }
-        }else {
-            toast.error("dados errados")
-        }
 
+        }
     }
+
+    // async function loginSubmit() {
+
+    //     const dataLogin = await api.login(dataTemp.userName, dataTemp.password);
+
+    //     console.log(dataLogin)
+    //     if (dataLogin) {
+    //         if (dataLogin.status == 200) {
+    //             toast.success("login ok")
+    //             navigate("/private");
+
+    //         } else {
+    //             toast.error("dados errados")
+    //         }
+    //     }else {
+    //         toast.error("dados errados")
+    //     }
+
+    // }
 
     return (<>
         {/* <Navbar1/> */}
@@ -80,7 +80,7 @@ function Home() {
                         className="FormularioInicial"
                         onSubmit={(e) => {
                             e.preventDefault();
-                            loginSubmit();
+                            isLogged();
                         }}
                     >
                         {/* imagem da Logo*/}

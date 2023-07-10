@@ -12,7 +12,6 @@ import { NavLink } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 
 import './styles.scss'
-import ToatsFlutuante from "../../Components/Toats";
 
 //toast 
 import { toast } from "react-toastify";
