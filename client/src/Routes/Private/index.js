@@ -11,7 +11,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 
 import './styles.scss'
-import ToatsFlutuante from "../../Components/Toats";
 
 //toast 
 import { toast } from "react-toastify";
@@ -59,7 +58,7 @@ function Register() {
             <div className="cabeçalho">
                 <AvatarName data={userEx} />
                 {/* implementar um input para testart o pupUp */}
-                <ToatsFlutuante mensagem="Testando os parametros" cor="yellow" />
+                {/* <ToatsFlutuante mensagem="Testando os parametros" cor="yellow" /> */}
 
 
 

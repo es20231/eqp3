@@ -2,7 +2,6 @@ import React from "react";
 // import './styles.scss'
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom"
-import ToatsFlutuante from "../../Components/Toats";
 
 // // import Navbar1 from "../../Components/Header";
 // import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -16,7 +15,7 @@ function Alerta() {
         <div className="Home">
             <div className=" DivLeft">
                 <h1>Nao possui Token</h1>
-                <ToatsFlutuante mensagem="Testando os parametros" cor="green"/>
+                {/* <ToatsFlutuante mensagem="Testando os parametros" cor="green"/> */}
             </div>
             <div className=" DivRight">
 
