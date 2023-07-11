@@ -24,9 +24,13 @@ const Button_toast = () => {
     toast.success("Mensagem de sucesso");
 };
 
-function DashboardPerfil() {
-    const { user } = useContext(UserContext)
 
+function DashboardPerfil() {
+
+    //const image= props.image;
+
+    const { user } = useContext(UserContext)
+    
     const [userEx, setUserEx] = useState(
         [
             //     {
@@ -40,12 +44,21 @@ function DashboardPerfil() {
                 token: '05',
                 image: 'https://th.bing.com/th/id/OIP.wJHORvBaGvZsOuEL6oP4tQHaE5?w=170&h=180&c=7&r=0&o=5&pid=1.7',
                 description: 'toca de mais papai'
-            }
+            },
+           
+            
         ]
 
+          
+
     );
-
-
+/*//Atualizar image no objeto acima
+         // map function
+         userEx = userEx.map(user => {
+            user.image = props.image;
+            return user;
+        }); 
+*/
     // 
     return (
         <>
@@ -57,8 +70,8 @@ function DashboardPerfil() {
                 <Button onClick={Button_toast}>Notify !</Button>
 
                 <div className="buttons_right">
-                    <Button> Adicionar Midia </Button>
-
+                
+                   {/* <Button> Adicionar Midia </Button> */}
                     <UploadImage> </UploadImage>
 
                     <NavLink to="/" activeClassName="active" className="d-block">
