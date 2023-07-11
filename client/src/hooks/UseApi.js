@@ -75,6 +75,20 @@ export const useApi = () => ({ //Retorna um objeto com funções
         //espero um boolean
         return response.data;
     },
+    //IMAGEM
+
+    UploadImage: async (_image) => {
+        // const data = {
+        //     file: _image
+        // }
+        const response = await api.post('/upload', _image, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          } );
+        //espero um boolean
+        return response.data;
+    }
 
 
 

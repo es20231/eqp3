@@ -15,6 +15,7 @@ import './styles.scss'
 //toast 
 import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
+import UploadImage from "../../Components/UploadImage";
 
 
 
@@ -66,8 +67,8 @@ function Register() {
 
 
                 <div className="buttons_right">
-                    <Button> Adicionar Midia </Button>
-
+                    {/* <Button> Adicionar Midia </Button> */}
+                    <UploadImage/>
 
 
                     <Button
