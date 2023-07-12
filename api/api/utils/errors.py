@@ -16,9 +16,9 @@ def check_login(username, password, user):
     if username == "":
         error = 'Username is Required.'
     elif password == "":
-        error = 'Password is Required'
+        error = 'Password is Required.'
     elif user is None:
-        error = 'No User'
+        error = 'Wrong Username.'
     
     return error
 

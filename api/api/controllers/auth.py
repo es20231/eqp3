@@ -36,7 +36,7 @@ def login():
                 session['user_id'] = user['id']
                 message = jsonify({"token": session['user_id']})
                 return make_response(message, 201)
-            error = "Wrong Password"
+            error = "Wrong Password."
 
         error_message = jsonify({"error": error})
         return make_response(error_message, 412) 
@@ -52,10 +52,10 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            error_message = jsonify({"error": "No User"})
+            error_message = jsonify({"error": "Wrong Username."})
             return make_response(error_message, 401)
 
-        return view(**kwargs)
+        #return view(**kwargs)
     return wrapped_view
 
 @bp.route('/register', methods=('POST','GET'))

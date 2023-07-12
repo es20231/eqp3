@@ -13,7 +13,7 @@ front/.pnp
 
 # testing
 /coverage
-
+.coverage
 # production
 /build
 
