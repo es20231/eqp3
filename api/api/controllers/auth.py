@@ -36,7 +36,7 @@ def login():
                 session.clear()
                 session['user_id'] = user['id']
                 message = jsonify({"token": session['user_id']})
-                return make_response(message, 201)
+                return make_response(message, 200)
             error = "Wrong Password."
 
         error_message = jsonify({"error": error})
