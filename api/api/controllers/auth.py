@@ -42,22 +42,23 @@ def login():
         error_message = jsonify({"error": error})
         return make_response(error_message, 412) 
 
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            error = jsonify({"error": "no user"})
+            return make_response(error, 401)
+
+        return view(**kwargs)
+    return wrapped_view
+
 
 @bp.route('/logout')
+@login_required
 def logout():
     session.clear()
     message = jsonify({"message": "logged out", "token": session.get('user_id')})
     return make_response(message, 200)
-
-    
-def login_required(self):
-    @functools.wraps(self)
-    def wrapped_login(**kwargs):
-        if g.user is None:
-            error_message = jsonify({"error": "Wrong Username."})
-            return make_response(error_message, 401)
-
-    return wrapped_login
 
 
 @bp.route('/register', methods=('POST','GET'))
