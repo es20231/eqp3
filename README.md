@@ -9,7 +9,7 @@ ative o ambiente virtual
 .venv/Scripts/Activate
 ```
 
-instale as dependências(flask,flask-cors)
+instale as dependências 
 ```powershell
 pip install -r requirements.txt
 ```
