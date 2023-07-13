@@ -1,12 +1,33 @@
-# flask_react_prototype
-react communicating to flask api, prototype
+## server
+no diretório api/, crie o ambiente virtual
+```powershell
+py -3 -m venv .venv
+```
 
-# Yarn
+ative o ambiente virtual
+```powershell
+.venv/Scripts/Activate
+```
 
-cd client
+instale as dependências 
+```powershell
+pip install -r requirements.txt
+```
 
-no terminal Client para baixar as dependências
+exporte a variável de ambiente
+```powershell
+$env:FLASK_APP = "\api\__init__.py"
+```
+execute a aplicação
+```powershell
+flask run
+```
+## client
+no diretório client/
+```powershell
+yarn
+```
 
-    yarn
-
-    yarn start
+```powershell
+yarn start
+```

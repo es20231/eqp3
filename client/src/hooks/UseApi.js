@@ -1,9 +1,12 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: process.env.REACT_APP_API_URL,
+    //withCredentials: true,
 });
+
 
 export const useApi = () => ({ //Retorna um objeto com funções 
     // validateToken: async (token:string ) => {
@@ -18,7 +21,8 @@ export const useApi = () => ({ //Retorna um objeto com funções
         }
         // const response = await api.post('/login', data);
         try {
-            const response = await api.post('/login', data);
+            const response = await axios.post('http://localhost:5000/login', data);
+            //const response = await api.post('/login', data);
             
             if (response.status == 200) {
                 // console.log('Login bem-sucedido!');
@@ -45,7 +49,8 @@ export const useApi = () => ({ //Retorna um objeto com funções
         // return response.data;
     },
     logout: async () => {
-        const response = await api.get('/logout');
+        const response = await axios.get('http://localhost:5000/logout')
+       // const response = await api.get('/logout');
         return response.data;
     },
     Register: async (name, _fullname, email, password) => {
