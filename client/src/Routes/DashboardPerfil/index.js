@@ -12,11 +12,9 @@ import { NavLink } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 
 import './styles.scss'
-import ToatsFlutuante from "../../Components/Toats";
 
 //toast 
 import { toast } from "react-toastify";
-import UploadImage from "../../Components/UploadImagens";
 
 //function toastify
 
@@ -70,8 +68,8 @@ function DashboardPerfil() {
                 <Button onClick={Button_toast}>Notify !</Button>
 
                 <div className="buttons_right">
-                
-                   {/* <Button> Adicionar Midia </Button> */}
+                    <Button> Adicionar Midia </Button>
+
                     <UploadImage> </UploadImage>
 
                     <NavLink to="/" activeClassName="active" className="d-block">

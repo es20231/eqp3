@@ -20,7 +20,7 @@ function Register() {
     const [password, setPassword] = useState('');
 
     //chamda da API
-    const {api} = useApi();
+    const api = useApi();
 
     const navigate = useNavigate();
     //testando a integração do axios com o BD
