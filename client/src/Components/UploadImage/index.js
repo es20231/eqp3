@@ -8,16 +8,18 @@ import { UserContext } from "../../Contexts/Auth/AuthContext";
 function UploadImage() {
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [fileImage, setFileImage] = useState(null);
+    const [fileImage, setFileImage] = useState('');
     const api = useApi();
-    const user = useContext(UserContext);
+    const userLocal = useContext(UserContext);
 
     const handleChange = (e) => {
+        e.preventDefault();
+
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
             setSelectedImage(url);
-            setFileImage(...fileImage,file);
+            setFileImage(...fileImage, file);
         }
     };
 
@@ -27,8 +29,14 @@ function UploadImage() {
             const formData = new FormData(); // Cria um objeto FormData
 
             formData.append('file', fileImage);
+            formData.append('name', "fileImage_Name");
+
+            console.log(formData);
+            {for (let pair of formData.entries()) {
+                console.log(pair[0] + ':', pair[1]);
+              }}
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
-            await api.UploadImage(formData);
+            await api.UploadImage(formData, userLocal.user.token);
 
             toast.success("Imagem enviada com sucesso!");
             handleClose();
@@ -58,7 +66,10 @@ function UploadImage() {
                 </Modal.Header>
                 <Modal.Body className="divImageUpload">
                     {selectedImage && <img src={selectedImage} alt="Imagem selecionada" />}
-                    <input type="file" accept="image/*" onChange={handleChange} />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleChange} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
