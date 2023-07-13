@@ -87,7 +87,8 @@ export const useApi = () => ({ //Retorna um objeto com funções
         //     file: _image,
         //     user_id: token
         // }
-        const response = await api.post('/upload', _image , {
+        const response = await axios.post('http://localhost:5000/upload', _image , {
+        // const response = await api.post('/upload', _image , {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
