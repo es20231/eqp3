@@ -6,14 +6,15 @@ import DashboardPerfil from "../../Routes/DashboardPerfil";
 //import DashboardPerfil from "../DashBoard";
 //import DeleteImage from "../DeleteImage";
  import "./styles.scss"
+ import { useApi } from "../../hooks/UseApi";
+
+
 
 function UploadImage() {
   // Criar um estado para armazenar a imagem selecionada pelo usuário
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
 
-  useEffect ( () => {
-    
-  },[image] );
+  const api = useApi();
 
 
   // Criar uma função para lidar com a mudança do input do tipo file
@@ -24,17 +25,23 @@ function UploadImage() {
       const file = e.target.files[0];
 
       //VERIFICAR O TAMANHO DA IMAGEM QUE É PERMITIDO
+      const size = file.size /1024 /1024 //Converter bytes para megabytes
+      const tamMax = 16
+        if (size > tamMax ){
+          setError(`Tamanho excede o tamanho máximo é ${tamMax} MB`)
+          setImage(null)//Remove imagem 
+        }else{
+          setError(null)//Remove mensagem de erro 
 
+        }
 
-      // Criar um objeto URL para representar o arquivo como uma string. Permite mostrar a imagem na tela sem precisar enviar par o servidor ou salvar no disco.
-      const url = URL.createObjectURL(file);
-      // Atualizar o estado da imagem com a url
-      setImage(url);
+      
+      setImage(file);//Atualiza o estado da mensagem 
     }
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     // Prevenir o comportamento padrão do formulário
     e.preventDefault();//Evita que a pagina seja recarregada ou redirecionada ao enviar o formuário
     // Verificar se há uma imagem selecionada
@@ -46,7 +53,14 @@ function UploadImage() {
       const formData = new FormData();
       // Adiciona o arquivo da imagem ao formData com o nome "image"
       formData.append("image", e.target.files[0]);
-      axios.post("http://localhost:5000/upload", formData)
+
+      const headers ={
+        'headers':{
+          'Content - Type ' : 'application/json'
+        }
+      }
+
+      await axios.post("http://localhost:5000/upload", formData,headers)
         .then(response => {
           // Se a requisição foi bem sucedida, mostra uma mensagem e atualiza o estado da imagem
           console.log(response);
