@@ -1,11 +1,11 @@
 import axios from "axios";
 
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 
 const api = axios.create({
     // baseURL: 'http://localhost:5000'
     baseURL: process.env.REACT_APP_API_URL,
-    //withCredentials: true,
+    withCredentials: true,
 });
 
 
@@ -91,14 +91,37 @@ export const useApi = () => ({ //Retorna um objeto com funções
         //     file: _image,
         //     user_id: token
         // }
+        console.log(_image)
         const response = await api.post('/upload', _image, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
         });
         //espero um boolean
         return response.data;
+    },
+
+    ImportImage: async () => {
+        // const data = {
+        //     file: _image,
+        //     user_id: token
+        // }
+        console.log("teste de import image")
+        const response = await api.get('/serve-image/mine_ead.jpg');
+        //espero um boolean
+        return response.data;
+    },
+    ImportListImage: async () => {
+        // const data = {
+        //     file: _image,
+        //     user_id: token
+        // }
+        console.log("teste de import image")
+        const response = await api.get('/dashboard');
+        //espero um boolean
+        return response.data;
     }
+
 
 
 

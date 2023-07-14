@@ -44,6 +44,19 @@ function Register() {
 
     );
 
+    async function ImportImagens(){
+
+        const importImages = await api.ImportImage();
+        console.log(importImages);
+    }
+
+    async function ImportListImagens(){
+
+        const importImages = await api.ImportListImage();
+        console.log(importImages);
+    }
+
+
     async function LogoutButton() {
         // apagando token user 
 
@@ -72,8 +85,10 @@ function Register() {
 
                 <div className="buttons_right">
                     {/* <Button> Adicionar Midia </Button> */}
-                    <UploadImage />
+                    <UploadImage /> 
 
+                    <Button type="button" onClick={ImportImagens}> import images </Button>
+                    <Button type="button" onClick={ImportListImagens}> import lista images </Button>
 
                     <Button
                         variant="primary"
