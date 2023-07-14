@@ -20,7 +20,7 @@ import UploadImage from "../../Components/UploadImage";
 
 
 function Register() {
-    const user  = useContext(UserContext)
+    const user = useContext(UserContext)
     const navigate = useNavigate();
 
     const api = useApi();
@@ -45,13 +45,17 @@ function Register() {
     );
 
     async function LogoutButton() {
+        // apagando token user 
+
         const logoutCont = await user.logout();
+        console.log(logoutCont)
 
         if (logoutCont) {
             toast.success("Deslogado!");
             navigate("/");
         } else {
-            toast.danger("Deslogado!");
+            toast.warning("Deslogado!");
+            navigate("/");
         }
     }
 
@@ -68,7 +72,7 @@ function Register() {
 
                 <div className="buttons_right">
                     {/* <Button> Adicionar Midia </Button> */}
-                    <UploadImage/>
+                    <UploadImage />
 
 
                     <Button

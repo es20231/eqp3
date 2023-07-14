@@ -3,6 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true
 
 const api = axios.create({
+    // baseURL: 'http://localhost:5000'
     baseURL: process.env.REACT_APP_API_URL,
     //withCredentials: true,
 });
@@ -21,9 +22,9 @@ export const useApi = () => ({ //Retorna um objeto com funções
         }
         // const response = await api.post('/login', data);
         try {
-            const response = await axios.post('http://localhost:5000/login', data);
-            //const response = await api.post('/login', data);
-            
+            // const response = await axios.post('/login', data);
+            const response = await api.post('/login', data);
+
             if (response.status == 200) {
                 // console.log('Login bem-sucedido!');
                 // console.log(response.data);
@@ -43,16 +44,19 @@ export const useApi = () => ({ //Retorna um objeto com funções
             }
         } catch (error) {
             console.error(error);
-            
+
         }
 
         // return response.data;
     },
+
     logout: async () => {
-        const response = await axios.get('http://localhost:5000/logout')
-       // const response = await api.get('/logout');
-        return response.data;
+        // const response = await axios.get('/logout')
+        const response = await api.get('/logout');
+        console.log("response logOut" + response);
+        return response;
     },
+
     Register: async (name, _fullname, email, password) => {
         const data = {
             username: name,
@@ -87,11 +91,11 @@ export const useApi = () => ({ //Retorna um objeto com funções
         //     file: _image,
         //     user_id: token
         // }
-        const response = await api.post('/upload', _image , {
+        const response = await api.post('/upload', _image, {
             headers: {
-              'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             }
-          } );
+        });
         //espero um boolean
         return response.data;
     }
