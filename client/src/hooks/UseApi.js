@@ -73,13 +73,28 @@ export const useApi = () => ({ //Retorna um objeto com funções
     ValidateToken: async (_email, _token) => {
         const data = {
             email: _email,
-            token: _token
+            // token: _token
         }
         const response = await api.post('/validateToken', data);
 
         //espero um boolean
         return response.data;
     },
+    //IMAGEM
+
+    UploadImage: async (_image, token) => {
+        // const data = {
+        //     file: _image,
+        //     user_id: token
+        // }
+        const response = await api.post('/upload', _image , {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          } );
+        //espero um boolean
+        return response.data;
+    }
 
 
 

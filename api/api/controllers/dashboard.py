@@ -18,7 +18,9 @@ Images = imageRepository()
 @bp.route('/dashboard')
 @login_required
 def dashboard():
-    user_id = session.get('user_id')
+    print("\n teste dashboard \n")
+    user_id = session.get('user_id') 
+    
     user_images = Images.get_id(user_id)
 
     files = os.listdir(PATH.UPLOAD)
@@ -33,9 +35,13 @@ def dashboard():
 
 
 @bp.route('/upload', methods=['POST', 'OPTIONS'])
-@login_required
+# @login_required
 def upload():
+    #  precisa pegar a passagem do token e associar a Session do usuário em questão 
     user_id = session.get('user_id')
+    file = request.files
+    print(file)
+    
     try:
         file = request.files['file']
         extension = os.path.splitext(file.filename)[1].lower()
