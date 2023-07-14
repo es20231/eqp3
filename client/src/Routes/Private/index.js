@@ -16,6 +16,7 @@ import './styles.scss'
 import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
+import ImportImage from "../../Components/ImportImage";
 
 
 
@@ -25,6 +26,7 @@ function Register() {
 
     const api = useApi();
 
+    
     const [userEx, setUserEx] = useState(
         [
             {
@@ -44,16 +46,14 @@ function Register() {
 
     );
 
-    async function ImportImagens(){
 
-        const importImages = await api.ImportImage();
-        console.log(importImages);
-    }
 
+    // const imagemTeste = ImportImagens();
     async function ImportListImagens(){
 
         const importImages = await api.ImportListImage();
         console.log(importImages);
+        
     }
 
 
@@ -87,9 +87,9 @@ function Register() {
                     {/* <Button> Adicionar Midia </Button> */}
                     <UploadImage /> 
 
-                    <Button type="button" onClick={ImportImagens}> import images </Button>
-                    <Button type="button" onClick={ImportListImagens}> import lista images </Button>
-
+                    
+                    {/* <Button type="button" onClick={ImportListImagens}> import lista images </Button> */}
+                    {/* <img src={ImportImagens} >exibir</img> */}
                     <Button
                         variant="primary"
                         className="w-70"
@@ -117,6 +117,7 @@ function Register() {
 
             <div className="Arquivos">
                 <Container >
+                    <ImportImage/>
                     <Row>
                         <Col><FotosGaleria /></Col>
                         <Col><FotosGaleria /></Col>

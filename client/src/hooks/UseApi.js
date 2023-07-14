@@ -98,19 +98,18 @@ export const useApi = () => ({ //Retorna um objeto com funções
             }
         });
         //espero um boolean
-        return response.data;
+        return response;
     },
-
     ImportImage: async () => {
-        // const data = {
-        //     file: _image,
-        //     user_id: token
-        // }
-        console.log("teste de import image")
-        const response = await api.get('/serve-image/mine_ead.jpg');
-        //espero um boolean
-        return response.data;
-    },
+        try {
+          const response = await api.get('/serve-image/mine_ead.jpg', { responseType: 'blob' });
+          const imgSrc = URL.createObjectURL(response.data);
+          return imgSrc;
+        } catch (error) {
+          console.log(error);
+          return null;
+        }
+      },
     ImportListImage: async () => {
         // const data = {
         //     file: _image,
