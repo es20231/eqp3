@@ -37,7 +37,7 @@ function UploadImage() {
                 console.log(pair[0] + ':', pair[1]);
               }}
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
-            await api.UploadImage(formData, userLocal.user.token);
+            await api.uploadImage(formData, userLocal.user.token);
 
             toast.success("Imagem enviada com sucesso!");
             handleClose();

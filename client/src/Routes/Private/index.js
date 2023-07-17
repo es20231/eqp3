@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
 import ImportImage from "../../Components/ImportImage";
+import ImportListImage from "../../Components/ImportListImage";
 
 
 
@@ -118,6 +119,7 @@ function Register() {
             <div className="Arquivos">
                 <Container >
                     <ImportImage/>
+                    <ImportListImage/>
                     <Row>
                         <Col><FotosGaleria /></Col>
                         <Col><FotosGaleria /></Col>

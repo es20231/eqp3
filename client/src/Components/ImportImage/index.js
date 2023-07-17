@@ -7,18 +7,19 @@ import './styles.scss'
 
 
 function ImportImage() {
-    const [imagemDownload,setImagemDownload] = useState('')
     const api = useApi();
-    async function ImportImagens() {
+    const [imagemDownload, setImagemDownload] = useState('')
 
-        const importImages = await api.ImportImage();
+    async function ImportImagensApi() {
+
+        const importImages = await api.importImage();
         // console.log(importImages);
         setImagemDownload(importImages);
     }
 
     return (
         <>
-            <Button type="button" onClick={ImportImagens}> import images </Button>
+            <Button type="button" onClick={ImportImagensApi}> import images </Button>
             {<img src={imagemDownload} />}
         </>
     )
