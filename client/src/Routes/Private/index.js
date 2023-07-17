@@ -16,15 +16,18 @@ import './styles.scss'
 import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
+import ImportImage from "../../Components/ImportImage";
+import ImportListImage from "../../Components/ImportListImage";
 
 
 
 function Register() {
-    const user  = useContext(UserContext)
+    const user = useContext(UserContext)
     const navigate = useNavigate();
 
     const api = useApi();
 
+    
     const [userEx, setUserEx] = useState(
         [
             {
@@ -44,14 +47,29 @@ function Register() {
 
     );
 
+
+
+    // const imagemTeste = ImportImagens();
+    async function ImportListImagens(){
+
+        const importImages = await api.ImportListImage();
+        console.log(importImages);
+        
+    }
+
+
     async function LogoutButton() {
+        // apagando token user 
+
         const logoutCont = await user.logout();
+        console.log(logoutCont)
 
         if (logoutCont) {
             toast.success("Deslogado!");
             navigate("/");
         } else {
-            toast.danger("Deslogado!");
+            toast.warning("Deslogado!");
+            navigate("/");
         }
     }
 
@@ -68,9 +86,11 @@ function Register() {
 
                 <div className="buttons_right">
                     {/* <Button> Adicionar Midia </Button> */}
-                    <UploadImage/>
+                    <UploadImage /> 
 
-
+                    
+                    {/* <Button type="button" onClick={ImportListImagens}> import lista images </Button> */}
+                    {/* <img src={ImportImagens} >exibir</img> */}
                     <Button
                         variant="primary"
                         className="w-70"
@@ -98,6 +118,8 @@ function Register() {
 
             <div className="Arquivos">
                 <Container >
+                    <ImportImage/>
+                    <ImportListImage/>
                     <Row>
                         <Col><FotosGaleria /></Col>
                         <Col><FotosGaleria /></Col>

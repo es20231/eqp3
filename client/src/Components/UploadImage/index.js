@@ -19,24 +19,25 @@ function UploadImage() {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
             setSelectedImage(url);
-            setFileImage(...fileImage, file);
+            setFileImage(file);
         }
     };
 
+    
     const handleSubmit = async () => {
         if (selectedImage) {
             //chamada da função
+           
             const formData = new FormData(); // Cria um objeto FormData
-
             formData.append('file', fileImage);
-            formData.append('name', "fileImage_Name");
+            // formData.append('user_id',userLocal.user.token);
 
             console.log(formData);
             {for (let pair of formData.entries()) {
                 console.log(pair[0] + ':', pair[1]);
               }}
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
-            await api.UploadImage(formData, userLocal.user.token);
+            await api.uploadImage(formData, userLocal.user.token);
 
             toast.success("Imagem enviada com sucesso!");
             handleClose();
@@ -45,9 +46,11 @@ function UploadImage() {
         }
     };
 
+
     const handleClose = () => {
         setShowModal(false);
         setSelectedImage(null);
+        
     };
 
     const handleShow = () => {

@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 function Home() {
     const navigate = useNavigate();
 
-    const api = useApi();
+    // const api = useApi();
     const user = useContext(UserContext)
     //  const navigate = useNavigate()
     const [dataTemp, setDataTemp] = useState(
