@@ -26,7 +26,7 @@ const api =useApi()
     useEffect(()=>{//Quando carregar a página chame a função getImages
         getImages();
     },[]);//Execute uma única vez
-
+ 
 
     return(
         <div>
