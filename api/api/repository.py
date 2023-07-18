@@ -105,10 +105,29 @@ class postRepository:
         )
         db.commit()
         
-    def get_json(self):
+    def get_all_posts(self):
         db = get_db()
         rows = db.execute(
             'SELECT * FROM post'
+        ).fetchall()
+        posts = []
+        for i in rows:
+            post = {}
+            post["id"] = i["id"]
+            post["description"] = i["description"]
+            post["filename"] = i["filename"]
+            post["author_id"] = i["author_id"]
+            post["created"] = i["created"]
+            posts.append(post)
+        
+        posts_json = json.dumps(posts)
+        
+        return posts_json
+    
+    def get_user_posts(self, author_id):
+        db = get_db()
+        rows = db.execute(
+            'SELECT * FROM post WHERE author_id = ?', (author_id,)
         ).fetchall()
         posts = []
         for i in rows:
