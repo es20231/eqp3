@@ -74,9 +74,9 @@ export const useApi = () => ({
         }
     },
 
-    importImage: async () => {
+    importImage: async (filename) => {
         try {
-            const response = await api.get("/serve-image/Ssnap6.jpg",{ responseType: "blob" });
+            const response = await api.get("/serve-image/"+filename,{ responseType: "blob" });
             console.log(response)
             const imgSrc = URL.createObjectURL(response.data);
             return imgSrc;
