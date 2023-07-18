@@ -22,7 +22,8 @@ Images = imageRepository()
 def dashboard():
     print("\n teste dashboard \n")
     user_id = session.get('user_id')
-    
+  
+      
 
     user_images = Images.get_id(user_id)
     files = os.listdir(PATH.UPLOAD)
