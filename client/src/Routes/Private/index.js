@@ -120,19 +120,6 @@ function Register() {
                 <Container >
                     <ImportImage/>
                     <ImportListImage/>
-                    <Row>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                    </Row>
                 </Container >
             </div>
 
