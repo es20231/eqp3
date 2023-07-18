@@ -1,4 +1,5 @@
 from api.db import get_db
+import json
 
 class userRepository:
     def get(self):
@@ -103,6 +104,25 @@ class postRepository:
             (description, filename, author_id)
         )
         db.commit()
+        
+    def get_json(self):
+        db = get_db()
+        rows = db.execute(
+            'SELECT * FROM post'
+        ).fetchall()
+        posts = []
+        for i in rows:
+            post = {}
+            post["id"] = i["id"]
+            post["description"] = i["description"]
+            post["filename"] = i["filename"]
+            post["author_id"] = i["author_id"]
+            post["created"] = i["created"]
+            posts.append(post)
+        
+        posts_json = json.dumps(posts)
+        
+        return posts_json
 
 
 
