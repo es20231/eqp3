@@ -1,0 +1,22 @@
+ID,Caso de Teste,Tipo de Teste,Resultado
+CT-TU-01-c1,Verificar criação da application factory em modo teste,Unitário,Passou
+CT-TU-02-c1,"Testar registro do usuário, verificar que o usuário foi inserido corrretamente no banco de dados",Unitário,Passou
+CT-TU-02-c2,"Testar registro do usuário com campos não preenchidos, verificar mensagem de erro e status code",Unitário,Passou
+CT-TU-02-c3,"Testar login do usuário, verificar se a sessão foi iniciada",Unitário,Passou
+CT-TU-02-c4,"Verificar login com credenciais erradas, verificar mensagem de erro e status code",Unitário,Passou
+CT-TU-03-c1,Verificar funcionamento correto da função get do repositório de usuários ( db.fetchall users ),Unitário,Passou
+CT-TU-03-c2,Verificar funcionamento correto da função insert  do repositório de usuários ( db.commit ),Unitário,Passou
+CT-TU-03-c3,Verificar funcionamento correto da função search do repositório de usuários ( db.fetchone user by username ),Unitário,Passou
+CT-TU-03-c4,Verificar funcionamento correto da função search_id do repositório de usuários ( db.fetchone user by user_id ),Unitário,Passou
+CT-TU-04-c1,Verificar status code 200 da rota de listagem de usuários,Unitário,Passou
+CT-TU-04-c2,Verificar status code 401 (unauthorized) do acesso à rota dashboard sem sessão de usuário ,Unitário,Passou
+,,,
+CT-TI-00-c0,Verificar retorno JSON das rotas da API,Integração,Passou
+CT-TI-01-c1,Testar o envio de credenciais de usuário válidas e verificar se o usuário é redirecionado para a página de dashboard,Integração,Passou
+CT-TI-01-c2,Testar o envio de credenciais inválidas e verificar se o usuário recebe uma mensagem de erro,Integração,Passou
+CT-TI-01-c3,Testar o envio de credenciais válidas no cadastro de usuário e verificar se o usuário é redirecionado para a página de login,Integração,Passou
+CT-TI-01-c4,Testar o envio de credenciais inválidas no cadastro de usuário e verificar se o usuário recebe uma mensagem de erro,Integração,Passou
+CT-TI-01-c5,Verificar se o acesso à páginas restritas (como o dashboard) é bloqueado para usuários não autenticados,Integração,Passou
+CT-TI-01-c6,Verifique se o acesso à páginas restritas é permitido apenas para usuários autenticados,Integração,Passou
+CT-TI-02-c1,Simule o envio de um arquivo de imagem válida e verifique se a imagem é salva corretamente no diretório de upload,Integração,Passou
+CT-T1-02-c1,Simule a requisição das imagens do usuário e verifique se o retorno objeto array de filenames é retornado corretamente,Integração,Passou
