@@ -35,7 +35,7 @@ def dashboard():
                 filenames.append(file)
     
     # return send_from_directory(user_images)
-    return jsonify(user_images)
+    return jsonify(filenames)
   
     
 
