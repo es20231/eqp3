@@ -14,21 +14,23 @@
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
+        img{
+            margin-left: 20px;
+            border-radius: 50%;
+            background-color: #5653EA;
+            align-items: center;
+            height: 82px;
+        }
+
+        p{
+            text-align: center;
+            font-size: 1.2rem;
+            color: white;
+            padding:0 6px;
+            margin-left: 10px ;
+            line-height: calc(50% - 1.2rem);
+        }
     }
 
-}
-img{
-    margin-left: 20px;
-    border-radius: 50%;
-    background-color: #5653EA;
-    align-items: center;
-    height: 82px;
-}
-
-p{
-    text-align: center;
-    font-size: 1.2rem;
-    color: white;
-    padding:0 3px;
-    line-height: calc(50% - 1.2rem);
+    
 }
