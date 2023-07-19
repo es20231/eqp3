@@ -43,9 +43,9 @@ export const useApi = () => ({
         }
     },
 
-    register: async (name, fullname, email, password) => {
+    register: async (username, fullname, email, password) => {
         try {
-            const response = await api.post("/register", { name, fullname, email, password });
+            const response = await api.post("/register", { username, fullname, email, password });
             return response.data;
         } catch (error) {
             console.error(error);
