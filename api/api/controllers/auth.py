@@ -42,6 +42,7 @@ def login():
         error_message = jsonify({"error": error})
         return make_response(error_message, 412) 
 
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
