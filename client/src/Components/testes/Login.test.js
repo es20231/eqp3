@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Home from '../../Routes/Home';
+import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 const mockNavigate = jest.fn();//Retorna uma função fake
@@ -11,13 +11,29 @@ jest.mock('react-router',  ()=>({
     useNavigate: () =>  mockNavigate
 } ))
 
+
+/*
 // Mock do contexto de usuário
 jest.mock('../../Contexts/Auth/AuthContext', () => ({
     UserContext: {
       Consumer: ({ children }) => children({ login: jest.fn() }), // Simula a função de login do contexto
     },
   }));
+*/
 
+// Mock do contexto de autenticação (UserContext)
+const mockUserContextValue = {
+    user: {
+      token: "mock-token",
+    },
+  };
+  
+  jest.mock("../../Contexts/Auth/AuthContext", () => ({
+    UserContext: {
+      Consumer: (props) => props.children(mockUserContextValue),
+    },
+  }));
+/*
 const renderComponente= ()=>{
     render (
         <BrowserRouter>
@@ -30,19 +46,21 @@ const renderComponente= ()=>{
     return { }
 }
 
+*/
 
 
-
-describe("Teste para a tela de login",()=>{
+describe("Login do usuário",()=>{
  
 test("testando o botão criar conta ",()=>{
 //Função para renderizar o componente
     render (
+        
         <BrowserRouter>
-            <UserProvider>
-                <Home/>
-            </UserProvider>
-        </BrowserRouter>
+        <UserProvider>
+            <Home/>
+        </UserProvider>
+    </BrowserRouter>
+            
     )
 
     expect(screen.getByText("Criar Conta")).toBeInTheDocument();
@@ -50,13 +68,11 @@ test("testando o botão criar conta ",()=>{
 })
 
 
-test("Testando botão de Entrar1",()=>{
+test("Testando botão de Entrar",()=>{
     render (
-        <BrowserRouter>
-        <UserProvider>
+        
             <Home/>
-        </UserProvider>
-    </BrowserRouter>
+        
     );
     //Salvar o elemento em uma constante
     const btnEntrar = screen.getByText("Entrar");
@@ -72,11 +88,9 @@ test('chama a função isLogged quando o formulário é enviado com dados válid
     const mockIsLogged = jest.fn(); // Simula a função isLogged
   
     render(
-         <BrowserRouter>
-        <UserProvider>
+        
             <Home/>
-        </UserProvider>
-    </BrowserRouter>
+        
     );
     const nameInput = screen.getByLabelText(/Name User/i);
     const passwordInput = screen.getByLabelText(/Password/i);
