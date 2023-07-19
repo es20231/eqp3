@@ -31,10 +31,10 @@ function Register() {
     const [userEx, setUserEx] = useState(
         [
             {
-                name: user.name,
+                name: "falta Receber",
                 token: user.token,
                 image: 'https://th.bing.com/th/id/OIP.wJHORvBaGvZsOuEL6oP4tQHaE5?w=170&h=180&c=7&r=0&o=5&pid=1.7',
-                description: 'toca de mais papai'
+                description: 'falta receber'
             }
             //,
             // {
@@ -109,30 +109,17 @@ function Register() {
 
             <div className="Descrição" >
                 {userEx.map((user, index) => (
-                    <div key={index}>
+                    <div className="textBox" key={index}>
                         <p>Description: {user.description}</p>
                     </div>
                 ))}
-                {/* <p>{userEx.description}</p> */}
+                <p>opa </p>
             </div>
 
             <div className="Arquivos">
                 <Container >
-                    <ImportImage/>
+                    {/* <ImportImage/> */}
                     <ImportListImage/>
-                    <Row>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                    </Row>
                 </Container >
             </div>
 

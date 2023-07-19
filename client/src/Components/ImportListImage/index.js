@@ -1,62 +1,54 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Row, Col } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
+import { useEffect } from "react";
 import './styles.scss'
-// import image from '../../../../api/api/static/images/dragon3.jpeg'
-
+import FotosGaleria from "../FotosGaleria";
 
 
 function ImportListImage() {
     const api = useApi();
-    const [imagesDashboard, setImagesDashboard] = useState([])
-    const [imagesObj, setImagesObj] = useState([])
-    async function ImportImagensApi() {
+    const [imagemDownload, setImagemDownload] = useState([]);
 
-        const importImages = await api.importListImage();
-        // const imagens = JSON.parse(importImages);
+    useEffect(() => {
+        //Runs only on the first render
+         const ImportImagensApi = async () => {
+            setImagemDownload([]);
+            const images = await api.importListImage();
+            console.log(images.data);
 
-        console.log(importImages);
-        // console.log(imagens);
-        setImagesDashboard(importImages.data);
+            images.data.map(async (dataName) => {
+                const importImages = await api.importImage(dataName);
+                setImagemDownload((prev) => [...prev, importImages]);
+            });
 
-        // useEffect(() => {
-        //     fetch('path/to/image')
-        //         .then((res) => res.blob())
-        //         .then((blob) => {
-        //             setImagesObj(URL.createObjectURL(blob));
-        //         });
-        // },[]);
+            console.log("teste de armazenamento");
+            console.log(imagemDownload);
+        }
 
-        // const base64 = btoa(
-        //     new Uint8Array(importImages).reduce(
-        //         (data, byte) => data + String.fromCharCode(byte),
-        //         ''
-        //     )
-        // )
-        // setImagesDashboard([...imagesDashboard, base64]);
-        // setImagemDownload(importImages);
-    }
+        ImportImagensApi();
+
+    }, []);
+
+
 
     return (
         <>
-            <Button type="button" onClick={ImportImagensApi}> import images </Button>
-            {/* <img src={imagesDashboard}></img> */}
-            {imagesDashboard.map((image, index) => (
-                <>
-                    <img key={index} src={image.filename} alt={image.filename} />
+            {/* <Button type="button" onClick={ImportImagensApi}>
+                baixar imagens do usuário
+            </Button> */}
+            <Row>
+                {imagemDownload.map((urlImg) => (
 
-                </>
-            ))}
-            {/* <img src={image} alt="test"></img> */}
-            {/* {imagesObj.map((image, index) => (
-                <>
-                    <img key={index} src={image} alt={"teste"} />
+                    <Col>
+                        <FotosGaleria data={urlImg}></FotosGaleria>
+                    </Col>
 
-                </>
-            ))} */}
+                ))}
+            </Row>
         </>
-    )
+    );
 }
 
 export default ImportListImage;

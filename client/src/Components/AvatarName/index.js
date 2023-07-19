@@ -11,7 +11,7 @@ function AvatarName(
         <div className= "perfil01">
             {props.data.map((userEx, index) => (
                 <div className="conjuntoFotoNome" key={index}>
-                    <img src={userEx.image} alt="Avatar" />
+                    <img id="imgAvatar" src={userEx.image} alt="Avatar" />
                     <p>{userEx.name}</p>
                 </div>
             ))}
