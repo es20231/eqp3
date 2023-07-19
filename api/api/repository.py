@@ -108,7 +108,7 @@ class postRepository:
     def get_all_posts(self):
         db = get_db()
         rows = db.execute(
-            'SELECT * FROM post'
+            'SELECT * FROM post ORDER BY created DESC'
         ).fetchall()
         posts = []
         for i in rows:
@@ -127,7 +127,7 @@ class postRepository:
     def get_user_posts(self, author_id):
         db = get_db()
         rows = db.execute(
-            'SELECT * FROM post WHERE author_id = ?', (author_id,)
+            'SELECT * FROM post WHERE author_id = ? ORDER BY created DESC', (author_id,)
         ).fetchall()
         posts = []
         for i in rows:
