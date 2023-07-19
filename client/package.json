@@ -16,11 +16,13 @@
     "sass": "^1.62.1",
     "web-vitals": "^2.1.0"
   },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "babel-node node_modules/jest/bin/jest.js",
-    
+    "test":  "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,8 +47,11 @@
     "@babel/core": "^7.22.9",
     "@babel/node": "^7.22.6",
     "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "jest": "^27.5.1"
+    "babel-jest": "^29.6.1",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.2.0"
   }
 }
