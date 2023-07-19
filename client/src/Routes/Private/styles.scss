@@ -36,11 +36,15 @@
     /* align-content: center; */
     justify-content: flex-start;
     align-items: center;
-    p{
-        margin-left:40px ;
-        color: with(#FFFFFF);
-        font-size: 1rem;
+    .textBox{
+        p{
+            margin-left:40px ;
+            // background-color: #fff;
+            color: #FFFFFF;
+            font-size: 1rem;
+        }
     }
+    
 }
 
 .Arquivos{ 

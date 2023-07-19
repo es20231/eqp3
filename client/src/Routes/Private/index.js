@@ -15,22 +15,26 @@ import './styles.scss'
 //toast 
 import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
+import UploadImage from "../../Components/UploadImage";
+import ImportImage from "../../Components/ImportImage";
+import ImportListImage from "../../Components/ImportListImage";
 
 
 
 function Register() {
-    const user  = useContext(UserContext)
+    const user = useContext(UserContext)
     const navigate = useNavigate();
 
     const api = useApi();
 
+    
     const [userEx, setUserEx] = useState(
         [
             {
-                name: user.name,
+                name: "falta Receber",
                 token: user.token,
                 image: 'https://th.bing.com/th/id/OIP.wJHORvBaGvZsOuEL6oP4tQHaE5?w=170&h=180&c=7&r=0&o=5&pid=1.7',
-                description: 'toca de mais papai'
+                description: 'falta receber'
             }
             //,
             // {
@@ -43,14 +47,29 @@ function Register() {
 
     );
 
+
+
+    // const imagemTeste = ImportImagens();
+    async function ImportListImagens(){
+
+        const importImages = await api.ImportListImage();
+        console.log(importImages);
+        
+    }
+
+
     async function LogoutButton() {
+        // apagando token user 
+
         const logoutCont = await user.logout();
+        console.log(logoutCont)
 
         if (logoutCont) {
             toast.success("Deslogado!");
             navigate("/");
         } else {
-            toast.danger("Deslogado!");
+            toast.warning("Deslogado!");
+            navigate("/");
         }
     }
 
@@ -66,10 +85,12 @@ function Register() {
 
 
                 <div className="buttons_right">
-                    <Button> Adicionar Midia </Button>
+                    {/* <Button> Adicionar Midia </Button> */}
+                    <UploadImage /> 
 
-
-
+                    
+                    {/* <Button type="button" onClick={ImportListImagens}> import lista images </Button> */}
+                    {/* <img src={ImportImagens} >exibir</img> */}
                     <Button
                         variant="primary"
                         className="w-70"
@@ -88,28 +109,17 @@ function Register() {
 
             <div className="Descrição" >
                 {userEx.map((user, index) => (
-                    <div key={index}>
+                    <div className="textBox" key={index}>
                         <p>Description: {user.description}</p>
                     </div>
                 ))}
-                {/* <p>{userEx.description}</p> */}
+                <p>opa </p>
             </div>
 
             <div className="Arquivos">
                 <Container >
-                    <Row>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                        <Col><FotosGaleria /></Col>
-                    </Row>
+                    {/* <ImportImage/> */}
+                    <ImportListImage/>
                 </Container >
             </div>
 
