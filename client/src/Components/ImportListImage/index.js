@@ -31,13 +31,27 @@ function ImportListImage() {
 
     }, []);
 
+    async function ImportImagensApi () {
+        setImagemDownload([]);
+        const images = await api.importListImage();
+        console.log(images.data);
+
+        images.data.map(async (dataName) => {
+            const importImages = await api.importImage(dataName);
+            setImagemDownload((prev) => [...prev, importImages]);
+        });
+
+        console.log("teste de armazenamento");
+        console.log(imagemDownload);
+    }
+
 
 
     return (
         <>
-            {/* <Button type="button" onClick={ImportImagensApi}>
+             <Button type="button" onClick={ImportImagensApi}>
                 baixar imagens do usuário
-            </Button> */}
+            </Button> 
             <Row>
                 {imagemDownload.map((urlImg) => (
 

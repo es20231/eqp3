@@ -28,7 +28,7 @@ function Register() {
         //salvando input 
 
         
-        const data = await api.Register(username, fullname, email, password)
+        const data = await api.register(username, fullname, email, password)
         if (data) {
             //se recebeu 200 
             
