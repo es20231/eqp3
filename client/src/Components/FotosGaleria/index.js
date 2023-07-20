@@ -9,7 +9,7 @@ function FotosGaleria(urlImg) {
     return (
         <div className="containerElement">
             <div className="ContainerImg">
-                <img src={urlImg.data} />
+                <img src={urlImg.data} alt={`Imagem ${urlImg.index + 1}`} />
             </div>
             <div className="queixoImage">
                 <button>

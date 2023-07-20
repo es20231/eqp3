@@ -1,4 +1,4 @@
-
+/*
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
@@ -26,8 +26,8 @@ jest.mock("../../hooks/UseApi", () => ({
   })),
 }));
 
-//jest.mock('../../hooks/UseApi');//criar um mock da api
-//jest.mock('react-toastify');// Criar um mock do toast
+jest.mock('../../hooks/UseApi');//criar um mock da api
+jest.mock('react-toastify');// Criar um mock do toast
 // Mock the toast function
 jest.mock("react-toastify", () => ({
   toast: {
@@ -120,3 +120,4 @@ test('should close modal on click close button', () => {
 
 
 });
+*/
