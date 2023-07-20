@@ -64,11 +64,13 @@ const UserProvider = ({ children }) => {
         setUser({ email: dataApi.email, name: dataApi.name, token: dataApi.token }); // Setting the user object
         // toast.success("dados recebidos");
         localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
+        // console.log("name" + user.name)
         return true;
       }
       // throw new Error("Invalid credentials");
      catch (error) {
       toast.error(error.message);
+
       return false;
     }
   };
@@ -78,9 +80,12 @@ const UserProvider = ({ children }) => {
   // Criar uma função para fazer logout do usuário
   const logout = async () => {
     try {
-      await api.logout();
+     
       setUser(null); // Clearing the user
       localStorage.removeItem("userToken"); // Clearing the localStorage
+      console.log("localStorage" + localStorage.getItem("userToken"));
+      console.log("user ->" + user.token);
+      await api.logout();
       return true;
     } catch (error) {
       console.error(error);

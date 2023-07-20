@@ -4,13 +4,12 @@ import './styles.scss'
 import postImgIcon from '../../icons/image_arrow_right_icon_251943 1.svg';
 import trash from '../../icons/trash_delete_remove_icon_251766 1.svg';
 
-function FotosGaleria(props) {
+function FotosGaleria(urlImg) {
 
     return (
         <div className="containerElement">
             <div className="ContainerImg">
-
-                <img src='https://th.bing.com/th/id/OIP.R0ncVbxDcwIslweprSNdbwHaE7?w=250&h=180&c=7&r=0&o=5&pid=1.7' />
+                <img src={urlImg.data} />
             </div>
             <div className="queixoImage">
                 <button>
