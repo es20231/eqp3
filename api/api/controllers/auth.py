@@ -89,3 +89,10 @@ def users():
     message = jsonify(users)
     return make_response(message, 200)
 
+@bp.route('/islogged', methods=['GET'])
+@login_required
+def islogged():
+    message = jsonify({"status": "logged"})
+    return make_response(message, 200)
+    
+
