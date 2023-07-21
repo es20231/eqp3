@@ -59,23 +59,19 @@ export const useApi = () => ({
     }
   },
 
-    register: async (name, fullname, email, password) => {
-        try {
-            const response = await api.post("/register", { name, fullname, email, password });
-            return response.data;
-        } catch (error) {
-            console.error(error);
-        }
-    },
-
-    validateToken: async (email) => {
-        try {
-            const response = await api.post("/validateToken", { email });
-            return response.data;
-        } catch (error) {
-            console.error(error);
-        }
-    },
+  register: async (username, fullname, email, password) => {
+    try {
+      const response = await api.post("/register", {
+        username,
+        fullname,
+        email,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
 
   uploadImage: async (image) => {
     try {
@@ -106,16 +102,18 @@ export const useApi = () => ({
     }
   },
 
-    importListImage: async () => {
-        try {
-            const response = await api.get("/dashboard");
-            // const imgSrc = URL.createObjectURL(response.data);
-            // return imgSrc;
-            return response;
-        } catch (error) {
-            console.error(error);
-        }
-    },
+  importListImage: async () => {
+    try {
+      const response = await api.get("/dashboard");
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
 });
 
 
