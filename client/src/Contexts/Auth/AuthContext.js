@@ -17,70 +17,87 @@ const UserProvider = ({ children }) => {
     name: '',
     email: '',
     password: '',
-    token: ''
+    token: '',
+
   });
 
   const api = useApi();
   const navigate = useNavigate();
-
- 
 
 
   //função de verificação de token do localStorage 
   useEffect(() => {
     const verificarToken = () => {
       const tokenLocalStorage = localStorage.getItem('userToken')
+
+
+
       if (tokenLocalStorage) {
-        //verifica se o token eh valido 
-        // toast.success("possui um token")
-        setUser({
-          ...user,
-          // email: localStorage.getItem('userEmail'),
-          // name: localStorage.getItem('userName'),
-          token: localStorage.getItem('userToken')
-        });
-        console.log(user.token)
-        navigate('/Private');
-        
-      } else {
-        // toast.warning("sem token no localStorage")
+        //verifica se o token eh valido
+        if (apiVerificaSession) {
+          toast.success("possui uma Session")
+          setUser({
+            ...user,
+            // email: localStorage.getItem('userEmail'),
+            // name: localStorage.getItem('userName'),
+            token: localStorage.getItem('userToken')
+          });
+
+          console.log(user.token)
+          navigate('/Private');
+        }
+        else {
+          // toast.warning("sem token no localStorage")
+          //limpando dados 
+          setUser(null); // Clearing the user
+          localStorage.removeItem("userToken"); // Clearing the localStorage
+          toast.warning("Sessão expirada. ")
+        }
       }
 
     }
     verificarToken();
   }, [])
 
-  // async function apiVerificaToken() {
-  //   const validateApiToken = await api.ValidateToken(user.email, user.token);
-  //   //retorna um boolean
-  //   return validateApiToken.data;
+  async function apiVerificaSession() {
+    const validateApiToken = await api.IsLogged();
+    //retorna um boolean
+    console.log("test isLogged:  " + validateApiToken)
+    if (validateApiToken == 200) {
+      return true;
+    } else {
+      return false;
+    }
 
-  // }
+  }
 
   // Vou mandar email e senha e vou receber Usuario email token 
   const login = async (userName, password) => {
     try {
       const dataApi = await api.login(userName, password); // REsposta do Back com token
-        setUser({ email: dataApi.email, name: dataApi.name, token: dataApi.token }); // Setting the user object
-        // toast.success("dados recebidos");
-        localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
-        // console.log("name" + user.name)
-        return true;
-      }
-      // throw new Error("Invalid credentials");
-     catch (error) {
-      toast.error(error.message);
+
+
+      setUser({ email: dataApi.email, name: dataApi.name, token: dataApi.token }); // Setting the user object
+      // toast.success("dados recebidos");
+      localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
+      // console.log("name" + user.name)
+      return true;
+
+    }
+    // throw new Error("Invalid credentials");
+    catch (error) {
+      toast.error("error");
 
       return false;
     }
   };
-  
-  
+
+
 
   // Criar uma função para fazer logout do usuário
   const logout = async () => {
     try {
-     
+
       setUser(null); // Clearing the user
       localStorage.removeItem("userToken"); // Clearing the localStorage
       console.log("localStorage" + localStorage.getItem("userToken"));
