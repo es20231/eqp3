@@ -8,14 +8,6 @@ class userRepository:
         rows = db.execute(
             'SELECT * FROM user'
         ).fetchall()
-        '''users = []
-        for i in rows:
-            user = {}
-            user["username"] = i["username"]
-            user["fullname"] = i["fullname"]
-            user["email"] = i["email"]
-            user["password"] = i["password"]
-            users.append(user)'''
         users = rows_to_dict(rows)
         return users
 
@@ -86,14 +78,6 @@ class imageRepository:
         rows = db.execute(
             'SELECT * FROM image WHERE user_id = ?', (user_id,)
         ).fetchall()
-        '''images = []
-        for i in rows:
-            image = {}
-            image["filename"] = i["filename"]
-            image["path_name"] = i["path_name"]
-            image["user_id"] = i["user_id"]
-            image["id"] = i["id"]
-            images.append(image)'''
         images = rows_to_dict(rows)
         return images
 
@@ -123,9 +107,7 @@ class postRepository:
         
         posts = rows_to_dict(rows)
         
-        posts_json = json.dumps(posts)
-        
-        return posts_json
+        return posts
     
     def get_user_posts(self, author_id):
         db = get_db()
@@ -135,9 +117,7 @@ class postRepository:
         
         posts = rows_to_dict(rows)
         
-        posts_json = json.dumps(posts)
-        
-        return posts_json
+        return posts
 
 
 
