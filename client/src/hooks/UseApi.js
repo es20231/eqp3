@@ -97,6 +97,18 @@ export const useApi = () => ({
             console.error(error);
         }
     },
+
+    deleteImage : async()=>{
+        try{
+            const response = await api.delete("");
+
+            return response;
+        }
+        catch(error){
+            console.error(error);
+        }
+
+    }
 });
 
 

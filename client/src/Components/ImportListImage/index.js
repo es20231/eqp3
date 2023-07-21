@@ -34,7 +34,7 @@ function ImportListImage() {
     async function ImportImagensApi () {
         setImagemDownload([]);
         const images = await api.importListImage();
-       // console.log(images.data);
+        console.log(images.data);
 
         images.data.map(async (dataName) => {
             const importImages = await api.importImage(dataName);
