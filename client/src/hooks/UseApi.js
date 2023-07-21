@@ -90,7 +90,9 @@ export const useApi = () => ({
     try {
       const response = await api.get("/serve-image/" + filename, { responseType: "blob" });
       if (response.status == 200) {
+        // console.log(response.data);
         const imgSrc = URL.createObjectURL(response.data);
+        // console.log(imgSrc);
         return imgSrc;
       } else {
         return response;

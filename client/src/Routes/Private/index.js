@@ -4,8 +4,8 @@ import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Container, Row, Col } from 'react-bootstrap';
+import {  useNavigate } from "react-router-dom";
+import { Container,  } from 'react-bootstrap';
 
 import './styles.scss'
 
@@ -21,7 +21,7 @@ function Register() {
     const user = useContext(UserContext)
     const navigate = useNavigate();
 
-    const api = useApi();
+    
 
     
     const [userEx, setUserEx] = useState(
