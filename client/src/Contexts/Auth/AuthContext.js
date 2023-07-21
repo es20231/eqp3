@@ -21,7 +21,7 @@ const UserProvider = ({ children }) => {
   });
 
   const [userUpdateData, setUserUpdateData] = useState(false)
-
+  // const [userUpdateLogin, setUserUpdateLogin] = useState(false)
   const api = useApi();
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ const UserProvider = ({ children }) => {
 
       if (tokenLocalStorage) {
         //verifica se o token eh valido
+        toast.success("possui um token")
         if (apiVerificaSession) {
           toast.success("possui uma Session")
           setUser({
@@ -76,12 +77,12 @@ const UserProvider = ({ children }) => {
   const login = async (userName, password) => {
     try {
       const dataApi = await api.login(userName, password); // REsposta do Back com token
-
-
+      
       setUser({ email: dataApi.email, name: dataApi.name, token: dataApi.token }); // Setting the user object
-      // toast.success("dados recebidos");
+      toast.success("dados recebidos");
+      
       localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
-      // console.log("name" + user.name)
+      navigate("/private");
       return true;
 
     }
