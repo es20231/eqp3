@@ -14,7 +14,7 @@ function UploadImage() {
 
     const handleChange = (e) => {
         e.preventDefault();
-
+        // test sync
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
@@ -38,7 +38,7 @@ function UploadImage() {
               }}
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
             await api.uploadImage(formData, userLocal.user.token);
-
+            userLocal.setUserUpdateData( ! userLocal.userUpdateData  ) // indicar que esta atualizando
             toast.success("Imagem enviada com sucesso!");
             handleClose();
         } else {

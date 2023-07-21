@@ -59,3 +59,9 @@ def upload():
 @bp.route('/serve-image/<filename>', methods=['GET'])
 def serve_image(filename):
     return send_from_directory(PATH.UPLOAD, filename)
+
+
+@bp.route('/delete-image/<filename>', methods=['GET'])
+def delete_image(filename):
+    Images.delete(filename)
+    return jsonify({"message": filename+" deleted"})

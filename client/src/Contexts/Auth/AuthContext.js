@@ -18,8 +18,9 @@ const UserProvider = ({ children }) => {
     email: '',
     password: '',
     token: '',
-
   });
+
+  const [userUpdateData, setUserUpdateData] = useState(false)
 
   const api = useApi();
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ const UserProvider = ({ children }) => {
 
   // Retornar o componente provedor com o valor do contexto
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, userUpdateData, setUserUpdateData, login, logout }}>
       {children}
     </UserContext.Provider>
   );
