@@ -15,11 +15,13 @@
         align-items: center;
         justify-content: flex-start;
         img{
+            border: 1px solid white;
             margin-left: 20px;
             border-radius: 50%;
             background-color: #5653EA;
             align-items: center;
             height: 82px;
+            width: 82px;
         }
 
         p{
