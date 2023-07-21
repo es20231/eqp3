@@ -14,7 +14,7 @@ function UploadImage() {
 
     const handleChange = (e) => {
         e.preventDefault();
-
+        // test sync
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
