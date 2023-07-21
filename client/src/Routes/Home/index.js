@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import './styles.scss'
 import { Button, Toast } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom"
-
-import { UserContext } from "../../Contexts/Auth/AuthContext";
-import { useContext } from "react";
+;
 
 // import Navbar1 from "../../Components/Header";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -13,12 +11,13 @@ import Form from 'react-bootstrap/Form';
 //Api
 import { useApi } from "../../hooks/UseApi";
 import { toast } from "react-toastify";
+import { UserContext } from "../../Contexts/Auth/AuthContext";
 
 function Home() {
     const navigate = useNavigate();
 
     const api = useApi();
-    const user = useContext(UserContext)
+    const userLocal = useContext(UserContext);
     //  const navigate = useNavigate()
     const [dataTemp, setDataTemp] = useState(
         {
@@ -29,17 +28,14 @@ function Home() {
 
     async function loginSubmit() {
 
-        const dataLogin = await api.login(dataTemp.userName, dataTemp.password);
+        const dataLogin = await userLocal.login(dataTemp.userName, dataTemp.password);
 
-        console.log(dataLogin)
+      
         if (dataLogin) {
             if (dataLogin.status == 200) {
                 toast.success("login ok")
-                navigate("/private");
 
-            } else {
-                toast.error("dados errados")
-            }
+            } 
         }else {
             toast.error("dados errados")
         }
