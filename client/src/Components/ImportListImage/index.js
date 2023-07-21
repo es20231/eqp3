@@ -1,23 +1,23 @@
-import React from "react";
-import { useState } from "react";
+import { useContext ,useState ,useEffect} from "react";
+
 import { Row, Col } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
-import { useEffect } from "react";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
+import { UserContext } from "../../Contexts/Auth/AuthContext";
 
 
 function ImportListImage() {
     const api = useApi();
     const [imagemDownload, setImagemDownload] = useState([]);
-
+    const userLocal = useContext(UserContext);
 
 
     useEffect(() => {
         //Runs only on the first render
         const importImagensApi = async () => {
             const images = await api.importListImage();
-
+            // console.log(images);
             // Use Promise.all to fetch all images in parallel
             if (images) {
                 const importImages = await Promise.all(images.data.map(dataName => api.importImage(dataName)));
@@ -27,7 +27,7 @@ function ImportListImage() {
 
         importImagensApi();
 
-    }, []);
+    }, [userLocal.userUpdateData]);
 
 
 
