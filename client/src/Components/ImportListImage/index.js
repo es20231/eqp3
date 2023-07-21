@@ -1,35 +1,33 @@
-import React from "react";
-import { useState } from "react";
-import { Button, Row, Col } from "react-bootstrap";
+import { useContext ,useState ,useEffect} from "react";
+
+import { Row, Col } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
-import { useEffect } from "react";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
+import { UserContext } from "../../Contexts/Auth/AuthContext";
 
 
 function ImportListImage() {
     const api = useApi();
     const [imagemDownload, setImagemDownload] = useState([]);
+    const userLocal = useContext(UserContext);
+
 
     useEffect(() => {
         //Runs only on the first render
-         const ImportImagensApi = async () => {
-            setImagemDownload([]);
+        const importImagensApi = async () => {
             const images = await api.importListImage();
-            console.log(images.data);
-
-            images.data.map(async (dataName) => {
-                const importImages = await api.importImage(dataName);
-                setImagemDownload((prev) => [...prev, importImages]);
-            });
-
-            console.log("teste de armazenamento");
-            console.log(imagemDownload);
+            // console.log(images);
+            // Use Promise.all to fetch all images in parallel
+            if (images) {
+                const importImages = await Promise.all(images.data.map(dataName => api.importImage(dataName)));
+                setImagemDownload(importImages);
+            }
         }
 
-        ImportImagensApi();
+        importImagensApi();
 
-    }, []);
+    }, [userLocal.userUpdateData]);
 
     async function ImportImagensApi () {
         setImagemDownload([]);
@@ -53,10 +51,10 @@ function ImportListImage() {
                 baixar imagens do usuário
             </Button> 
             <Row>
-                {imagemDownload.map((urlImg) => (
+                {imagemDownload.length > 0 && imagemDownload.map((urlImg, index) => (
 
-                    <Col>
-                        <FotosGaleria data={urlImg}></FotosGaleria>
+                    <Col key={index}>
+                        <FotosGaleria key={index} data={urlImg}></FotosGaleria>
                     </Col>
 
                 ))}

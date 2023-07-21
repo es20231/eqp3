@@ -1,14 +1,11 @@
 import React from "react";
-// import { Button } from "react-bootstrap";
-// import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
-import FotosGaleria from "../../Components/FotosGaleria";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Container, Row, Col } from 'react-bootstrap';
+import {  useNavigate } from "react-router-dom";
+import { Container,  } from 'react-bootstrap';
 
 import './styles.scss'
 
@@ -16,7 +13,6 @@ import './styles.scss'
 import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
-import ImportImage from "../../Components/ImportImage";
 import ImportListImage from "../../Components/ImportListImage";
 
 
@@ -25,7 +21,7 @@ function Register() {
     const user = useContext(UserContext)
     const navigate = useNavigate();
 
-    const api = useApi();
+    
 
     
     const [userEx, setUserEx] = useState(
@@ -33,7 +29,7 @@ function Register() {
             {
                 name: "falta Receber",
                 token: user.token,
-                image: 'https://th.bing.com/th/id/OIP.wJHORvBaGvZsOuEL6oP4tQHaE5?w=170&h=180&c=7&r=0&o=5&pid=1.7',
+                image: "https://clipground.com/images/profile-png-5.png",
                 description: 'falta receber'
             }
             //,
@@ -48,14 +44,6 @@ function Register() {
     );
 
 
-
-    // const imagemTeste = ImportImagens();
-    async function ImportListImagens(){
-
-        const importImages = await api.ImportListImage();
-        console.log(importImages);
-        
-    }
 
 
     async function LogoutButton() {

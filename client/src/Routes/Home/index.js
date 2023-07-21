@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 function Home() {
     const navigate = useNavigate();
 
-    // const api = useApi();
+    const api = useApi();
     const user = useContext(UserContext)
     //  const navigate = useNavigate()
     const [dataTemp, setDataTemp] = useState(
@@ -27,45 +27,24 @@ function Home() {
         }
     );
 
-       //verificar se o usuário ja esta logado 
+    async function loginSubmit() {
 
-    const isLogged = async () => {
-        if (dataTemp.userName && dataTemp.password) {
-            // console.log(dataTemp);
-            const isLogged = await user.login(dataTemp.userName, dataTemp.password);
-            // console.log(isLogged);
+        const dataLogin = await api.login(dataTemp.userName, dataTemp.password);
 
-            if (isLogged) {
+        console.log(dataLogin)
+        if (dataLogin) {
+            if (dataLogin.status == 200) {
+                toast.success("login ok")
+                navigate("/private");
 
-                console.log(isLogged);
-                // toast.success("Ja esta logado")
-                navigate('/Private')
             } else {
-                toast.warning("necessário fazer um login")
-                // console.log("erro no login")
+                toast.error("dados errados")
             }
-
+        }else {
+            toast.error("dados errados")
         }
+
     }
-
-    // async function loginSubmit() {
-
-    //     const dataLogin = await api.login(dataTemp.userName, dataTemp.password);
-
-    //     console.log(dataLogin)
-    //     if (dataLogin) {
-    //         if (dataLogin.status == 200) {
-    //             toast.success("login ok")
-    //             navigate("/private");
-
-    //         } else {
-    //             toast.error("dados errados")
-    //         }
-    //     }else {
-    //         toast.error("dados errados")
-    //     }
-
-    // }
 
     return (<>
         {/* <Navbar1/> */}
@@ -80,7 +59,7 @@ function Home() {
                         className="FormularioInicial"
                         onSubmit={(e) => {
                             e.preventDefault();
-                            isLogged();
+                            loginSubmit();
                         }}
                     >
                         {/* imagem da Logo*/}

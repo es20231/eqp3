@@ -42,6 +42,7 @@ def login():
         error_message = jsonify({"error": error})
         return make_response(error_message, 412) 
 
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -87,4 +88,11 @@ def users():
     users = Users.get()
     message = jsonify(users)
     return make_response(message, 200)
+
+@bp.route('/islogged', methods=['GET'])
+@login_required
+def islogged():
+    message = jsonify({"status": "logged"})
+    return make_response(message, 200)
+    
 
