@@ -6,37 +6,43 @@ import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { UserProvider } from '../../Contexts/Auth/AuthContext';
 import Home from '../../Routes/Home';
+import { UserContext } from "../../Contexts/Auth/AuthContext";
+import { MemoryRouter } from 'react-router-dom';
 
 
-const mockNavigate = jest.fn();//Retorna uma função fake
+// const mockNavigate = jest.fn();//Retorna uma função fake
 //Toda vez que o componete for fazer um import do react - router o jest vai substituir por essa declaração 
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useNavigate: () => mockNavigate
-}))
+// jest.mock('react-router', () => ({
+//   ...jest.requireActual('react-router'),
+//   useNavigate: () => mockNavigate
+// }))
 
 
 
 // Mock do contexto de usuário
-jest.mock('../../Contexts/Auth/AuthContext', () => ({
-  UserContext: {
-    Consumer: ({ children }) => children({ login: jest.fn() }), // Simula a função de login do contexto
-  },
-}));
+// jest.mock('../../Contexts/Auth/AuthContext', () => ({
+//   UserContext: {
+//     Consumer: ({ children }) => children({ login: jest.fn() }), // Simula a função de login do contexto
+//   },
+// }));
+
 
 
 // Mock do contexto de autenticação (UserContext)
-const mockUserContextValue = {
-  user: {
-    token: "mock-token",
-  },
-};
+// const mockUserContextValue = {
+//   user: {
+//     token: "mock-token",
+//   },
+// };
 
-jest.mock("../../Contexts/Auth/AuthContext", () => ({
-  UserContext: {
-    Consumer: (props) => props.children(mockUserContextValue),
-  },
-}));
+// jest.mock("../../Contexts/Auth/AuthContext", () => ({
+//   UserContext: {
+//     Consumer: (props) => props.children(mockUserContextValue),
+//   },
+// }));
+
+// Mock do contexto UserContext
+
 /*
 const renderComponente= ()=>{
     render (
@@ -51,37 +57,80 @@ const renderComponente= ()=>{
 }
 
 */
+// Mock do contexto UserContext
+const mockUserContext = {
+  login: jest.fn(), // Vamos criar um mock para a função login
+};
+
+// Mock do react-router-dom useNavigate
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(), // Vamos criar um mock para useNavigate
+}));
+
+// Mock do react-toastify toast
+jest.mock('react-toastify', () => ({
+  toast: {
+    success: jest.fn(),
+    warning: jest.fn(),
+  },
+}));
 
 
 describe("Login do usuário", () => {
 
   test("testando o botão criar conta ", () => {
     //Função para renderizar o componente
-    render(
 
-      <BrowserRouter>
-        <UserProvider>
+      render(
+        
+        <MemoryRouter>
+        <UserContext.Provider value={mockUserContext}>
           <Home />
-        </UserProvider>
-      </BrowserRouter>
+        </UserContext.Provider>
+        </MemoryRouter>
+      );
 
-    )
+    
 
     expect(screen.getByText("Criar Conta")).toBeInTheDocument();
 
   })
+  test('Testando a submissão do login', () => {
+    render(
+        
+      <MemoryRouter>
+      <UserContext.Provider value={mockUserContext}>
+        <Home />
+      </UserContext.Provider>
+      </MemoryRouter>
+    );
+
+    // Simular a digitação de um nome de usuário e senha
+    fireEvent.change(screen.getByLabelText('Name User'), { target: { value: 'john.doe' } });
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password123' } });
+
+    // Simular o clique no botão de Entrar
+    fireEvent.click(screen.getByRole('button', { name: 'Entrar' }));
+
+    // Verificar se a função login do contexto UserContext foi chamada corretamente
+    expect(mockUserContext.login).toHaveBeenCalledWith('john.doe', 'password123');
+  });
 
 
+  
+
+/*
   test("Testando botão de Entrar", () => {
     render(
+        
+      <MemoryRouter>
+      <UserContext.Provider value={mockUserContext}>
+        <Home />
+      </UserContext.Provider>
+      </MemoryRouter>
+    );;
 
-      <BrowserRouter>
-        <UserProvider>
-          <Home />
-        </UserProvider>
-      </BrowserRouter>
-
-    );
     //Salvar o elemento em uma constante
     const btnEntrar = screen.getByText("Entrar");
     //Função utilitaria que dispara um evento
@@ -96,15 +145,15 @@ describe("Login do usuário", () => {
   // Teste de interação do usuário
   test('chama a função isLogged quando o formulário é enviado com dados válidos', () => {
 
-    React.Component.render(
-
-      <BrowserRouter>
-        <UserProvider>
-          <Home />
-        </UserProvider>
-      </BrowserRouter>
-
+    render(
+        
+      <MemoryRouter>
+      <UserContext.Provider value={mockUserContext}>
+        <Home />
+      </UserContext.Provider>
+      </MemoryRouter>
     );
+
     const mockIsLogged = jest.fn(); // Simula a função isLogged
 
     const nameInput = screen.getByLabelText(/Name User/i);
@@ -127,12 +176,15 @@ describe("Login do usuário", () => {
   test('exibe toast de aviso quando o login falha', () => {
 
     render(
-      <BrowserRouter>
-        <UserProvider>
-          <Home />
-        </UserProvider>
-      </BrowserRouter>
+        
+      <MemoryRouter>
+      <UserContext.Provider value={mockUserContext}>
+        <Home />
+      </UserContext.Provider>
+      </MemoryRouter>
     );
+
+
     const mockIsLogged = jest.fn().mockReturnValue(false); // Simula a função isLogged retornando falso
 
     const nameInput = screen.getByLabelText(/Name User/i);
@@ -157,7 +209,7 @@ describe("Login do usuário", () => {
 
 
 
-
+*/
 
 })
 

@@ -14,10 +14,6 @@ function FotosGaleria(urlImg) {
 
     }
 
-
-
-
-
     return (
         <div className="containerElement">
             <div className="ContainerImg">
