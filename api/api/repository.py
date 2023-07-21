@@ -58,6 +58,13 @@ class imageRepository:
         return db.execute(
             'SELECT * FROM image WHERE filename = ?', (filename,)
         ).fetchone()
+
+    def delete(self, filename):
+        db = get_db()
+        db.execute(
+            'DELETE FROM image WHERE filename = ?', (filename,)
+        )
+        db.commit()
         
     def search_id(self, filename, user_id):
         db = get_db()
