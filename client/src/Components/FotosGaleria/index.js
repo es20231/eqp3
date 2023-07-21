@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "react-bootstrap";
 import './styles.scss'
 import postImgIcon from '../../icons/image_arrow_right_icon_251943 1.svg';
