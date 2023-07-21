@@ -28,6 +28,9 @@ def create_app(test_config=None):
 
     from api.controllers import dashboard
     app.register_blueprint(dashboard.bp)
+    
+    from api.controllers import profile
+    app.register_blueprint(profile.bp)
 
     return app
 

@@ -8,7 +8,8 @@ CREATE TABLE user (
   fullname TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  role TEXT NOT NULL
+  role TEXT NOT NULL,
+  description TEXT DEFAULT ''
 );
 
 CREATE TABLE image (

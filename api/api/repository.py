@@ -38,6 +38,14 @@ class userRepository:
             ("admin", "admin", "admin", password, "admin"),
         )
         db.commit()
+        
+    def alter_description(self, user_id, new_description):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET description = ? WHERE id = ?",
+            (new_description, user_id)
+        )
+        db.commit()
 
 class imageRepository:
     def insert(self, filename, path_name, user_id):
