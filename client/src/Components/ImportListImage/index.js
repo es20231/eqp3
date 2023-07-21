@@ -1,15 +1,19 @@
-import { useContext ,useState ,useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 
 import { Row, Col } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
+import { Await } from "react-router-dom";
 
 
 function ImportListImage() {
     const api = useApi();
-    const [imagemDownload, setImagemDownload] = useState([]);
+    const [imagemDownload, setImagemDownload] = useState({
+        url: '',
+        filename: ''
+      });
     const userLocal = useContext(UserContext);
 
 
@@ -20,7 +24,13 @@ function ImportListImage() {
             // console.log(images);
             // Use Promise.all to fetch all images in parallel
             if (images) {
-                const importImages = await Promise.all(images.data.map(dataName => api.importImage(dataName)));
+                const importImages = await Promise.all(images.data.map( async(dataName) => {
+                    return ({
+                        url:await api.importImage(dataName),
+                        filename: dataName
+                    });
+
+                }));
                 setImagemDownload(importImages);
             }
         }
