@@ -115,10 +115,9 @@ class imageRepository:
 
     def get_id(self, user_id):
         db = get_db()
-        rows = db.execute(
+        images = db.execute(
             'SELECT * FROM image WHERE user_id = ?', (user_id,)
         ).fetchall()
-        images = rows_to_dict(rows)
         return images
 
 class postRepository:

@@ -64,4 +64,5 @@ def serve_image(filename):
 @bp.route('/delete-image/<filename>', methods=['GET'])
 def delete_image(filename):
     Images.delete(filename)
+    os.remove(os.path.join(PATH.UPLOAD, filename))
     return jsonify({"message": filename+" deleted"})
