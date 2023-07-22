@@ -39,6 +39,38 @@ class userRepository:
         )
         db.commit()
         
+    def alter_username(self, user_id, new_username):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET username = ? WHERE id = ?",
+            (new_username, user_id)
+        )
+        db.commit()
+    
+    def alter_fullname(self, user_id, new_fullname):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET fullname = ? WHERE id = ?",
+            (new_fullname, user_id)
+        )
+        db.commit()
+    
+    def alter_email(self, user_id, new_email):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET email = ? WHERE id = ?",
+            (new_email, user_id)
+        )
+        db.commit()
+    
+    def alter_password(self, user_id, new_password):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET password = ? WHERE id = ?",
+            (new_password, user_id)
+        )
+        db.commit()
+        
     def alter_description(self, user_id, new_description):
         db = get_db()
         db.execute(
