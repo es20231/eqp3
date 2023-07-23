@@ -29,6 +29,7 @@ function Register() {
             {
                 name: "falta Receber",
                 token: user.token,
+                // token: "1", // para uso de test
                 image: "https://clipground.com/images/profile-png-5.png",
                 description: 'falta receber'
             }

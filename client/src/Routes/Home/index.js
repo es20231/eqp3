@@ -50,7 +50,7 @@ function Home() {
 
             </div>
             <div className=" DivRight">
-                <div className="backgraundFormulario">
+                <div className="BackgraundFormulario">
                     <Form
                         className="FormularioInicial"
                         onSubmit={(e) => {
