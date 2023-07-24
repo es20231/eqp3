@@ -59,6 +59,50 @@ export const useApi = () => ({
     }
   },
 
+  dataUser: async () => {
+    try {
+      const response = await api.get("/userdata");
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  editUserName: async (new_username) => {
+    try {
+      const response = await api.post("/change_username", { new_username });
+      return response;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  editFullName: async (new_fullname) => {
+    try {
+      const response = await api.post("/change_fullname", { new_fullname });
+      return response;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  
+  editDescription: async (new_description) => {
+    try {
+      const response = await api.post("/change_description", {new_description });
+      return response;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  editEmail: async (new_email) => {
+    try {
+      const response = await api.post("/change_email", {new_email });
+      return response;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  
+
   register: async (username, fullname, email, password) => {
     try {
       const response = await api.post("/register", {

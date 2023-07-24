@@ -16,8 +16,10 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
+    fullname:'',
     password: '',
     token: '',
+    description:''
   });
 
   const [userUpdateData, setUserUpdateData] = useState(false)
@@ -58,7 +60,31 @@ const UserProvider = ({ children }) => {
       }
 
     }
+
+    const dataUserApi = async () => {
+      try {
+        const dataApi = await api.dataUser(); // REsposta do Back com token
+        
+        // console.log("----Data APi ----");
+        console.log(dataApi);
+
+        setUser({ email: dataApi.email, description: dataApi.description , fullname: dataApi.fullname,name: dataApi.username, token: dataApi.token }); // Setting the user object
+        // toast.success("dados recebidos");
+        
+        // localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
+        // navigate("/private");
+        // return true;
+  
+      }
+      // throw new Error("Invalid credentials");
+      catch (error) {
+        toast.error("error");
+  
+        return false;
+      }
+    }
     verificarToken();
+    dataUserApi();
   }, [])
 
   async function apiVerificaSession() {
@@ -94,6 +120,7 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  
 
 
   // Criar uma função para fazer logout do usuário
