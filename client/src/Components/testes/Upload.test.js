@@ -1,4 +1,4 @@
-/*
+
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
@@ -120,4 +120,3 @@ test('should close modal on click close button', () => {
 
 
 });
-*/

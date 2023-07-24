@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
 import ImportListImage from "../../Components/ImportListImage";
+import EditProfile from "../../Components/EditProfile";
 
 
 
@@ -69,7 +70,7 @@ function Register() {
                 <AvatarName data={userEx} />
                 {/* implementar um input para testart o pupUp */}
                 {/* <ToatsFlutuante mensagem="Testando os parametros" cor="yellow" /> */}
-
+                <EditProfile/>
 
 
                 <div className="buttons_right">

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col,Button } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
