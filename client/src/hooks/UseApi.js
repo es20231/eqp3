@@ -101,6 +101,34 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+  uploadImageProfile: async (image) => {
+    try {
+      const response = await api.post("/set-profile-picture", image, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response;
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  importImageProfile: async () => {
+    try {
+      const response = await api.get("/serve-profile-picture", { responseType: "blob" });
+      if (response.status == 200) {
+        // console.log(response.data);
+        const imgSrc = URL.createObjectURL(response.data);
+        // console.log(imgSrc);
+        return imgSrc;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
   
 
   register: async (username, fullname, email, password) => {

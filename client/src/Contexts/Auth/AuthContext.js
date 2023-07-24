@@ -16,6 +16,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
+    imagePerfil:'',
     fullname: '',
     password: '',
     token: '',
@@ -30,12 +31,13 @@ const UserProvider = ({ children }) => {
   const dataUserApi = async () => {
     try {
       const dataApi = await api.dataUser(); // REsposta do Back com token
-
+      const dataIMgPerfil = await api.importImageProfile();
       // console.log("----Data APi ----");
       console.log(dataApi);
 
       setUser({
         user,
+        imagePerfil: dataIMgPerfil,
         email: dataApi.email,
         description: dataApi.description,
         fullname: dataApi.fullname,

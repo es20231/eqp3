@@ -17,6 +17,8 @@ import ImportListImage from "../../Components/ImportListImage";
 
 //icons
 import pen_edit from "../../icons/pen_edit.svg"
+import ImportImageProfile from "../../Components/ImportImageProfile";
+import UploadImageProfile from "../../Components/UploadImageProfile";
 
 
 function Register() {
@@ -112,8 +114,7 @@ function Register() {
             <>
                 <div className="cabeçalho">
                     <AvatarName data={userLocal.user} />
-                    {console.log(fullName + " : " + userName+ " : " + description+ " : " + email)}
-
+                    
 
                     <div className="buttons_right">
 
@@ -154,6 +155,8 @@ function Register() {
                                         <Modal.Title>Perfil do Usuario</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
+                                        <p>Foto de Perfil</p>
+                                        <UploadImageProfile/>
 
                                         <p>User Name</p>
                                         <InputGroup className="mb-3">
@@ -256,7 +259,7 @@ function Register() {
                             <h5> {userLocal.user.fullname} </h5>
                         </ div>
 
-                        <p>Description: {userLocal.user.description}</p>
+                        <p> {userLocal.user.description}</p>
                     </div>
 
 

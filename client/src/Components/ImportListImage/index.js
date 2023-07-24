@@ -21,7 +21,7 @@ function ImportListImage() {
         //Runs only on the first render
         const importImagensApi = async () => {
             const images = await api.importListImage();
-            // console.log(images);
+            console.log(images);
             // Use Promise.all to fetch all images in parallel
             if (images) {
                 const importImages = await Promise.all(images.data.map( async(dataName) => {
