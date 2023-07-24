@@ -31,7 +31,4 @@ yarn-error.log*
 # db
 api.sqlite
 
-# images
-static/images
-/static/images
 
