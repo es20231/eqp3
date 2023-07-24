@@ -1,8 +1,8 @@
 import os
 
-class PATH():
-    MAIN = os.path.abspath(os.getcwd())
-    UPLOAD = os.path.join(MAIN,'api/static/images')
+class PATH:
+    MAIN = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', ))
+    UPLOAD = os.path.join(MAIN, 'static', 'images')
     
 class FILE():
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
