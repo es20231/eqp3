@@ -1,5 +1,6 @@
 import os
 import tempfile
+from api.controllers.dashboard import Images
 
 from flask import json
 import pytest
@@ -55,3 +56,20 @@ class AuthActions(object):
 @pytest.fixture
 def auth(client):
     return AuthActions(client)
+
+@pytest.fixture
+def mock_images(monkeypatch):
+    def get_id_mock(self):
+        return [{'filename': 'image1.jpg'}, {'filename': 'image2.png'}]
+
+    monkeypatch.setattr(Images, 'get_id', get_id_mock)
+
+@pytest.fixture
+def mock_files(monkeypatch):
+    def listdir_mock(self):
+        return ['image1.jpg', 'image2.png']
+
+    monkeypatch.setattr(os, 'listdir', listdir_mock)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_PATH = os.path.join(BASE_DIR, '../api', 'static', 'images')
