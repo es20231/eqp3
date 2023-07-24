@@ -9,7 +9,8 @@ CREATE TABLE user (
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   role TEXT NOT NULL,
-  description TEXT DEFAULT ''
+  description TEXT DEFAULT '',
+  profile_picture TEXT DEFAULT ''
 );
 
 CREATE TABLE image (
