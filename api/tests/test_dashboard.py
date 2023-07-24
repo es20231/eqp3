@@ -1,24 +1,7 @@
 import json
-from api import create_app
 import pytest
-import os
 from flask import session, jsonify
-from conftest import UPLOAD_PATH
 from werkzeug.datastructures import FileStorage
-
-@pytest.fixture
-def app():
-    test_config = {
-        'UPLOAD_PATH': UPLOAD_PATH
-    }
-
-    app = create_app(test_config)
-
-    yield app
-
-@pytest.fixture
-def client(app):
-    return app.test_client()
 
 def test_dashboard_unauthorized(client):
     response = client.get('/dashboard')
