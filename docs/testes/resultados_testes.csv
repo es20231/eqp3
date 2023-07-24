@@ -6,7 +6,13 @@ CT-TU-02-c3,"Testar login do usuário, verificar se a sessão foi iniciada",Unit
 CT-TU-02-c4,"Verificar login com credenciais erradas, verificar mensagem de erro e status code",Unitário,Passou
 CT-TU-03-c1,Verificar funcionamento correto da função get do repositório de usuários ( db.fetchall users ),Unitário,Passou
 CT-TU-03-c2,Verificar funcionamento correto da função insert  do repositório de usuários ( db.commit ),Unitário,Passou
+CT-TU-03-c2,Verificar o funcionamento da rota de requisição de todos os dados do usuario,Unitário,Passou
 CT-TU-03-c3,Verificar funcionamento correto da função search do repositório de usuários ( db.fetchone user by username ),Unitário,Passou
+CT-TU-03-c3,Verificar o funcionamento completo da rota de alteração do nome de usuario,Unitário,Passou
+CT-TU-03-c3,Verificar o funcionamento completo da rota de alteração do nome completo do usuario,Unitário,Passou
+CT-TU-03-c3,Verificar o funcionamento completo da rota de alteração do email,Unitário,Passou
+CT-TU-03-c4,Verificar o funcionamento completo da rota de alteração de senha,Unitário,Passou
+CT-TU-03-c5,Verificar o funcionamento completo da rota de alteração da descrição do usuario,Unitário,Passou
 CT-TU-03-c4,Verificar funcionamento correto da função search_id do repositório de usuários ( db.fetchone user by user_id ),Unitário,Passou
 CT-TU-04-c1,Verificar status code 200 da rota de listagem de usuários,Unitário,Passou
 CT-TU-04-c2,Verificar status code 401 (unauthorized) do acesso à rota dashboard sem sessão de usuário ,Unitário,Passou
