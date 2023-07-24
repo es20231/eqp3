@@ -7,15 +7,10 @@ function AvatarName(
     //array contendo imagem e nome
 ) {
     return (
-        <div className="perfil01">
-            {/* {props.data.map((userEx, index) => (
-                <div className="conjuntoFotoNome" key={index}>
-                {<img id="imgAvatar" src={userEx.image}  /> || null}
-                <p>{userEx.name}</p>
-            </div>
-            ))} */}
-            <div className="conjuntoFotoNome" >
-                {<img id="imgAvatar" src={props.data.image} /> || null}
+        <div className="Perfil01">
+           
+            <div className="ConjuntoFotoNome" >
+                {<img id="ImgAvatar" src={props.data.image} /> || null}
                 <p>{props.data.name}</p>
             </div>
         </div>
