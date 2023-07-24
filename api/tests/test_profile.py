@@ -18,8 +18,7 @@ def test_userdata(client):
         'username': 'test',
         'fullname': 'test',
         'email': 'test',
-        'description': '',
-        'profile_picture': None
+        'description': ''
     }
     assert response.json == expected_data
     
@@ -137,23 +136,3 @@ def test_change_description_route(client):
     response = client.post('/change_description', json={"new_description": "Nova descrição do usuário"})
     assert response.status_code == 200
     assert response.json == {"new_description": "Nova descrição do usuário"}
-    
-def test_change_profile_pic_without_login(client):
-    response = client.post('/change_profile_picture', json={"new_profile_pic": "profile_pic"})
-    assert response.status_code == 401
-    
-def test_change_profile_pic_without_new_picture(client):
-    with client.session_transaction() as sess:
-        sess['user_id'] = 1
-
-    response = client.post('/change_profile_picture', json={})
-    assert response.status_code == 400
-
-def test_change_profile_pic_route(client):
-    with client.session_transaction() as sess:
-        sess['user_id'] = 1
-
-    response = client.post('/change_profile_picture', json={"new_profile_pic": "profile_pic"})
-    assert response.status_code == 200
-    assert response.json == {"new_profile_pic": "profile_pic"}
-    
