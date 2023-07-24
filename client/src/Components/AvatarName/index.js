@@ -5,17 +5,19 @@ import "./styles.scss"
 function AvatarName(
     props
     //array contendo imagem e nome
-
 ) {
     return (
-        <div className= "perfil01">
-            {props.data.map((userEx, index) => (
+        <div className="perfil01">
+            {/* {props.data.map((userEx, index) => (
                 <div className="conjuntoFotoNome" key={index}>
-                    {<img id="imgAvatar" src={userEx.image}  /> || null}
-                    <p>{userEx.name}</p>
-                </div>
-            ))}
-
+                {<img id="imgAvatar" src={userEx.image}  /> || null}
+                <p>{userEx.name}</p>
+            </div>
+            ))} */}
+            <div className="conjuntoFotoNome" >
+                {<img id="imgAvatar" src={props.data.image} /> || null}
+                <p>{props.data.name}</p>
+            </div>
         </div>
     )
 }

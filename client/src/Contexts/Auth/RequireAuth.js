@@ -21,7 +21,6 @@ export const RequireAuth = ({ children }) => {
   //   validateSession();
   // }, []); // utilizando a variavel para fazer o reload da função
 
-  console.log(tokenLocalStorage)
 
   if (tokenLocalStorage) {
     toast.success("Bem-vindo");

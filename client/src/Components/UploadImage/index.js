@@ -45,8 +45,8 @@ function UploadImage() {
             toast.warning("Por favor, selecione uma imagem!");
         }
     };
-
-
+   
+    // upload image
     const handleClose = () => {
         setShowModal(false);
         setSelectedImage(null);

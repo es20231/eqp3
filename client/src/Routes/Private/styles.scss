@@ -37,6 +37,22 @@
     justify-content: flex-start;
     align-items: center;
     .textBox{
+        .edit_perfil_name{
+            
+            margin-left:40px ;
+            button{
+                font-size: 0.8rem;
+                color: #eeeeee9a;
+                background-color: transparent;   
+            }
+            h5{
+            font-style: italic;
+            color: #eeeeee9a;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        }
+        
         p{
             margin-left:40px ;
             // background-color: #fff;
