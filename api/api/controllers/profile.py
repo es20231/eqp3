@@ -96,9 +96,23 @@ def change_password():
 @login_required
 def change_description():
     user_id = session.get('user_id')
-    new_description = request.get_json()
+    new_description = request.get_json().get('new_description', '')
     
-    Users.alter_description(user_id=user_id, new_description=new_description['new_description'])
+    Users.alter_description(user_id, new_description)
     
-    message = jsonify({"new_description": new_description['new_description']})
+    message = jsonify({"new_description": new_description})
+    return make_response(message, 200)
+
+@bp.route('/change_profile_picture', methods=['POST',])
+@login_required
+def change_profile_picture():
+    user_id = session.get('user_id')
+    profile_pic_filename = request.get_json().get('new_profile_pic')
+    
+    if not profile_pic_filename:
+        return make_response(jsonify(message='Nova imagem não fornecida.'), 400)
+    
+    Users.alter_profile_pic(user_id, profile_pic_filename)
+    
+    message = jsonify({"new_profile_pic": profile_pic_filename})
     return make_response(message, 200)
