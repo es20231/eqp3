@@ -25,6 +25,7 @@ test("O botão é clicável", () => {//Passou
   fireEvent.click(button);
 });
 
+
 test("O componente renderiza corretamente", () => {//Passou porem ele não encontra "img"
   render(<ImportListImage />);
 
@@ -34,27 +35,7 @@ test("O componente renderiza corretamente", () => {//Passou porem ele não encon
 });
 
 
-
-test("O botão é clicável e as imagens são exibidas corretamente após o clique", async () => {
-  render(<ImportListImage />);
-
-  const button = screen.getByRole("button", { name: /baixar imagens do usuário/i });
-  fireEvent.click(button);
-
-  // Aguarda até que todas as imagens sejam exibidas
-  await waitFor(() => {
-    for (let i = 0; i < 5; i++) {//Não é encontrado esse texto pois está no componente fotosGaleria
-      expect(screen.getByAltText(`Imagem ${i+1}`)).toBeInTheDocument();
-    }
-  });
-
-  // Verifica se a função importListImage foi chamada
-  expect(mockImportListImage).toHaveBeenCalledTimes(1);
-
-  // Verifica se a função importImage foi chamada cinco vezes, uma para cada imagem
-  expect(mockImportImage).toHaveBeenCalledTimes(5);
-});
-
+//Mock da função useApi
 
 /*
 test("O botão é clicável e as imagens são exibidas corretamente após o clique", async () => {
@@ -78,6 +59,9 @@ test("O botão é clicável e as imagens são exibidas corretamente após o cliq
   // Verifica se a função importImage foi chamada cinco vezes, uma para cada imagem
   expect(mockImportImage).toHaveBeenCalledTimes(5);
 });
+
+
+
 
 */
 

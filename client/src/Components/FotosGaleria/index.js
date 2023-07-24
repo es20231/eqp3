@@ -23,7 +23,7 @@ function FotosGaleria(urlImg) {
                 <button>
                     <img src={postImgIcon} />
                 </button>
-                <button onClick={handleDelete}>
+                <button data-testid="trash-button" onClick={handleDelete}>
                     <img src={trash} />
                 </button>
             </div>

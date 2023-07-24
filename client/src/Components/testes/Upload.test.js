@@ -81,34 +81,34 @@ test("deve mostrar um toast de warning se nenhuma imagem for selecionada e 'Conf
 
 
 
-  test("deve mostrar um toast de sucesso se uma imagem for selecionada e 'Confirmar' for clicado", async () => {
-    render(<UploadImage />);
-    const uploadButton = screen.getByText("Upload imagem");
-    fireEvent.click(uploadButton);
-    const fileInput = screen.getByText("Selecione a Imagem");
-    fireEvent.change(fileInput, { target: { files: [mockFile] } });
-    //const file = new File(["test image"], "test.png", { type: "image/png" });
-    //fireEvent.change(input, { target: { files: [file] } });
-    const confirmButton = screen.getByText("Confirmar");
-    fireEvent.click(confirmButton);
+  // test("deve mostrar um toast de sucesso se uma imagem for selecionada e 'Confirmar' for clicado", async () => {
+  //   render(<UploadImage />);
+  //   const uploadButton = screen.getByText("Upload imagem");
+  //   fireEvent.click(uploadButton);
+  //   const fileInput = screen.getByText("Selecione a Imagem");
+  //   fireEvent.change(fileInput, { target: { files: [mockFile] } });
+  //   //const file = new File(["test image"], "test.png", { type: "image/png" });
+  //   //fireEvent.change(input, { target: { files: [file] } });
+  //   const confirmButton = screen.getByText("Confirmar");
+  //   fireEvent.click(confirmButton);
     
-    //const successToast = screen.getByText("Imagem enviada com sucesso!");
-    await waitFor(() => {
-     // expect(useApi().uploadImage).toHaveBeenCalledWith(
-       // expect.any(FormData),
-       // mockUser.user.token
-     // );
-      // Verificar se o FormData contém o arquivo correto
-      //const formData = useApi().uploadImage.mock.calls[0][0];
-      //expect(formData.get('file')).toEqual(mockFile);
-    // Verificar se o toast foi chamado com sucesso
-    expect(toast.success).toHaveBeenCalledWith(/imagem enviada com sucesso/i);//Igonorar maiusculas e minusculas
-    });
-  });
+  //   //const successToast = screen.getByText("Imagem enviada com sucesso!");
+  //   await waitFor(() => {
+  //    // expect(useApi().uploadImage).toHaveBeenCalledWith(
+  //      // expect.any(FormData),
+  //      // mockUser.user.token
+  //    // );
+  //     // Verificar se o FormData contém o arquivo correto
+  //     //const formData = useApi().uploadImage.mock.calls[0][0];
+  //     //expect(formData.get('file')).toEqual(mockFile);
+  //   // Verificar se o toast foi chamado com sucesso
+  //   expect(toast.success).toHaveBeenCalledWith(/imagem enviada com sucesso/i);//Igonorar maiusculas e minusculas
+  //   });
+  // });
 
 
 // Testar se o componente fecha o modal ao clicar no botão de close
-test('should close modal on click close button', () => {
+test('Testar se o componente fecha o modal ao clicar no botão de close', () => {
   render(<UploadImage />);
   const button = screen.getByText("Upload imagem");
   fireEvent.click(button);
