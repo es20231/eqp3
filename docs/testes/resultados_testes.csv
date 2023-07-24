@@ -20,3 +20,7 @@ CT-TI-01-c5,Verificar se o acesso à páginas restritas (como o dashboard) é bl
 CT-TI-01-c6,Verifique se o acesso à páginas restritas é permitido apenas para usuários autenticados,Integração,Passou
 CT-TI-02-c1,Simule o envio de um arquivo de imagem válida e verifique se a imagem é salva corretamente no diretório de upload,Integração,Passou
 CT-T1-02-c1,Simule a requisição das imagens do usuário e verifique se o retorno objeto array de filenames é retornado corretamente,Integração,Passou
+,,,
+CT-TS-01-c01,Cenário de teste 1: Fluxo Principal - Cadastro de usuário,Sistema,Passou
+CT-TS-02-c01,Cenário de teste: Fluxo Principal - Login de usuário,Sistema,Passou
+CT-TS-02-c02,Cenário de teste 2: Fluxo exceção - Login de usuário inválido,Sistema,Passou
