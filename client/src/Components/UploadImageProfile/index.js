@@ -38,7 +38,9 @@ function UploadImageProfile() {
               }}
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
             await api.uploadImageProfile(formData);
-            userLocal.setUserUpdateData( ! userLocal.userUpdateData  ) // indicar que esta atualizando
+            setTimeout(userLocal.setUserUpdateData( ! userLocal.userUpdateData ),200);
+             // indicar que esta atualizando
+            
             toast.success("Imagem enviada com sucesso!");
             handleClose();
         } else {

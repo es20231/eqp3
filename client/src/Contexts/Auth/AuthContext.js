@@ -96,7 +96,7 @@ const UserProvider = ({ children }) => {
     
     verificarToken();
     dataUserApi();
-  }, [])
+  }, [userUpdateData])
 
   async function apiVerificaSession() {
     const validateApiToken = await api.IsLogged();
