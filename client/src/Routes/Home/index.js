@@ -1,24 +1,26 @@
 import React, { useContext, useState } from "react";
 import './styles.scss'
-import { Button, Toast } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom"
-;
+    ;
 
 // import Navbar1 from "../../Components/Header";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
 //Api
-import { useApi } from "../../hooks/UseApi";
+
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 
 function Home() {
-    const navigate = useNavigate();
 
-    const api = useApi();
+    const navigate = useNavigate();
+    function GotoRegister(){
+        navigate('/Register')
+    }
     const userLocal = useContext(UserContext);
-    //  const navigate = useNavigate()
+
     const [dataTemp, setDataTemp] = useState(
         {
             userName: '',
@@ -30,13 +32,13 @@ function Home() {
 
         const dataLogin = await userLocal.login(dataTemp.userName, dataTemp.password);
 
-      
+
         if (dataLogin) {
             if (dataLogin.status == 200) {
                 toast.success("login ok")
 
-            } 
-        }else {
+            }
+        } else {
             toast.error("dados errados")
         }
 
@@ -60,9 +62,9 @@ function Home() {
                     >
                         {/* imagem da Logo*/}
 
-                        <NavLink to="/Register" activeClassName="active" className="d-block">
-                            <Button variant="primary" className="w-100 " >Criar Conta</Button>{' '}
-                        </NavLink>
+
+                        <Button variant="primary" className="w-100 " onClick={GotoRegister} >Criar Conta</Button>{' '}
+
 
                         {/* Divisoria */}
                         <FloatingLabel controlId="floatingInput" label="Name User" className="mb-2">

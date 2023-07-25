@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext, useState, useCallback } from "react";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
@@ -18,12 +18,39 @@ import EditProfile from "../../Components/EditProfile";
 
 //icons
 import pen_edit from "../../icons/pen_edit.svg"
+import ImportImageProfile from "../../Components/ImportImageProfile";
+import UploadImageProfile from "../../Components/UploadImageProfile";
 
 
 function Register() {
+
     const userLocal = useContext(UserContext)
     const navigate = useNavigate();
     const api = useApi();
+    //Modal Edit perfil 
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    // function Modal edit
+    const [fullName, setFullName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [description, setDescription] = useState('');
+    const [email, setEmail] = useState('');
+
+
+    
+
+    useEffect(() => {
+
+        setFullName(userLocal.user.fullname)
+        setUserName(userLocal.user.name)
+        setDescription(userLocal.user.description)
+        setEmail(userLocal.user.email)
+        toast.success("Ola " + userLocal.user.name + userName)
+    }, [])
 
 
     async function LogoutButton() {
@@ -41,22 +68,11 @@ function Register() {
         }
     }
 
-    //Modal Edit perfil 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    // function Modal edit
-    const [fullName, setFullName] = useState(userLocal.user.fullname);
-    const [userName, setUserName] = useState(userLocal.user.name);
-    const [description, setDescription] = useState(userLocal.user.description);
-    const [email, setEmail] = useState(userLocal.user.email);
-
     const handleEditUserName = useCallback(async () => {
         try {
             await api.editUserName(userName);
             toast.success("atualizado " + userName);
+            userLocal.setUser({ ...userLocal.user, name: userName })
         } catch (error) {
             toast.warning("erro na atualização");
         }
@@ -66,7 +82,7 @@ function Register() {
         try {
             await api.editFullName(fullName);
             toast.success("atualizado " + fullName);
-
+            userLocal.setUser({ ...userLocal.user, fullname: fullName })
         } catch (error) {
             toast.warning("erro na atualização");
         }
@@ -76,6 +92,7 @@ function Register() {
             await api.editDescription(description);
             toast.success("atualizado " + description);
 
+            userLocal.setUser({ ...userLocal.user, description: description })
         } catch (error) {
             toast.warning("erro na atualização");
         }
@@ -85,132 +102,136 @@ function Register() {
         try {
             await api.editEmail(email);
             toast.success("atualizado " + email);
-
+            userLocal.setUser({ ...userLocal.user, email: email })
         } catch (error) {
             toast.warning("erro na atualização");
         }
     }, [email]);
 
-    return (
-        <>
-            <div className="cabeçalho">
-                <AvatarName data={userLocal.user} />
+    if (!userLocal.user) {
+        return (<p>Loading</p>)
+    } else {
+        return (
+            <>
+                <div className="cabeçalho">
+                    <AvatarName data={userLocal.user} />
+                    
+
+                    <div className="buttons_right">
+
+                        <UploadImage />
 
 
 
-                <div className="buttons_right">
-                    {/* <Button> Adicionar Midia </Button> */}
-                    <UploadImage />
+                        <Button
+                            variant="primary"
+                            className="w-70"
+                            type="button"
+                            onClick={
+                                LogoutButton
+                            }
+                        >
+                            Sair
+                        </Button>{' '}
 
-
-                    {/* <Button type="button" onClick={ImportListImagens}> import lista images </Button> */}
-                    {/* <img src={ImportImagens} >exibir</img> */}
-                    <Button
-                        variant="primary"
-                        className="w-70"
-                        type="button"
-                        onClick={
-                            LogoutButton
-                        }
-                    >
-                        Sair
-                    </Button>{' '}
-
+                    </div>
                 </div>
-            </div>
 
 
 
-            <div className="Descrição" >
+                <div className="Descrição" >
 
-                <div className="textBox" >
-                    <div className="edit_perfil_name">
-                        {/* Edit Button */}
-                        <>
+                    <div className="textBox" >
+                        <div className="edit_perfil_name">
+                            {/* Edit Button */}
+                            <>
 
-                            <button variant="primary" onClick={handleShow}>
-                                <img src={pen_edit}></img>
-                                Edit 
-                            </button>
+                                <button variant="primary" onClick={handleShow}>
+                                    <img src={pen_edit}></img>
+                                    Edit
+                                </button>
 
-                            <Modal show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Perfil do Usuario</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
+                                <Modal show={show} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Perfil do Usuario</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <p>Foto de Perfil</p>
+                                        <UploadImageProfile/>
 
-                                    <p>User Name</p>
-                                    <InputGroup className="mb-3">
+                                        <p>User Name</p>
+                                        <InputGroup className="mb-3">
 
-                                        <Form.Control
-                                            placeholder={userLocal.user.name}
-                                            aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2"
-                                            value={userName}
-                                            onChange={(e) => setUserName(e.target.value)}
+                                            <Form.Control
+                                                placeholder={userLocal.user.name}
+                                                aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                                value={userName}
+                                                onChange={(e) => setUserName(e.target.value)}
 
-                                        />
-                                        <Button variant="outline-secondary" id="button-addon2" onClick={handleEditUserName}>
-                                            Button
-                                        </Button>
-
-
-                                    </InputGroup>
-
-                                    <p>Full Name</p>
-                                    <InputGroup className="mb-3">
-
-                                        <Form.Control
-                                            placeholder={userLocal.user.fullname}
-                                            aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2"
-                                            value={fullName}
-                                            onChange={(e) => setFullName(e.target.value)}
-
-                                        />
-                                        <Button variant="outline-secondary" id="button-addon2" onClick={handleEditFullName}>
-                                            Button
-                                        </Button>
+                                            />
+                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditUserName}>
+                                                Button
+                                            </Button>
 
 
-                                    </InputGroup>
+                                        </InputGroup>
+
+                                        <p>Full Name</p>
+                                        <InputGroup className="mb-3">
+
+                                            <Form.Control
+                                                placeholder={userLocal.user.fullname}
+                                                aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                                value={fullName}
+                                                onChange={(e) => setFullName(e.target.value)}
+
+                                            />
+                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditFullName}>
+                                                Button
+                                            </Button>
 
 
-                                    <p>Description</p>
-                                    <InputGroup className="mb-3">
-
-                                        <Form.Control
-                                            placeholder={userLocal.user.description}
-                                            aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2"
-                                            value={description}
-                                            onChange={(e) => setDescription(e.target.value)}
-
-                                        />
-                                        <Button variant="outline-secondary" id="button-addon2" onClick={handleEditDescription}>
-                                            Button
-                                        </Button>
-                                    </InputGroup>
-
-                                    <p>Email</p>
-
-                                    <InputGroup className="mb-3">
-
-                                        <Form.Control
-                                            placeholder={userLocal.user.email}
-                                            aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-
-                                        />
-                                        <Button variant="outline-secondary" id="button-addon2" onClick={handleEditEmail}>
-                                            Button
-                                        </Button>
-                                    </InputGroup>
+                                        </InputGroup>
 
 
-                                    {/* <p>Password</p>
+                                        <p>Description</p>
+                                        <InputGroup className="mb-3">
+
+                                            <Form.Control
+                                                placeholder={userLocal.user.description}
+                                                aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                                value={description}
+                                                onChange={(e) => setDescription(e.target.value)}
+
+                                            />
+                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditDescription}>
+                                                Button
+                                            </Button>
+                                        </InputGroup>
+
+                                        <p>Email</p>
+
+                                        <InputGroup className="mb-3">
+
+                                            <Form.Control
+                                                type="email"
+                                                placeholder={userLocal.user.email}
+                                                aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+
+                                            />
+                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditEmail}>
+                                                Button
+                                            </Button>
+                                        </InputGroup>
+
+
+                                        {/* <p>Password</p>
                             <InputGroup className="mb-3">
 
                                 <Form.Control
@@ -227,34 +248,33 @@ function Register() {
 
 
 
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="primary" onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                    {/* <Button variant="primary" onClick={handleClose}>
-                                Save Changes
-                            </Button> */}
-                                </Modal.Footer>
-                            </Modal>
-                        </>
-                        <h5> {userLocal.user.fullname} </h5>
-                    </ div>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="primary" onClick={handleClose}>
+                                            Close
+                                        </Button>
 
-                    <p>Description: {userLocal.user.description}</p>
+                                    </Modal.Footer>
+                                </Modal>
+                            </>
+                            <h5> {userLocal.user.fullname} </h5>
+                        </ div>
+
+                        <p> {userLocal.user.description}</p>
+                    </div>
+
+
                 </div>
 
-
-            </div>
-
-            <div className="Arquivos">
-                <Container >
-                    {/* <ImportImage/> */}
-                    <ImportListImage />
-                </Container >
-            </div>
-        </>
-    )
+                <div className="Arquivos">
+                    <Container >
+                        {/* <ImportImage/> */}
+                        <ImportListImage />
+                    </Container >
+                </div>
+            </>
+        )
+    }
 }
 
 export default Register

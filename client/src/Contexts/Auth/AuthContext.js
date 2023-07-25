@@ -16,10 +16,11 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
-    fullname:'',
+    imagePerfil:'',
+    fullname: '',
     password: '',
     token: '',
-    description:''
+    description: ''
   });
 
   const [userUpdateData, setUserUpdateData] = useState(false)
@@ -27,6 +28,36 @@ const UserProvider = ({ children }) => {
   const api = useApi();
   const navigate = useNavigate();
 
+  const dataUserApi = async () => {
+    try {
+      const dataApi = await api.dataUser(); // REsposta do Back com token
+      const dataIMgPerfil = await api.importImageProfile();
+      // console.log("----Data APi ----");
+      console.log(dataApi);
+
+      setUser({
+        user,
+        imagePerfil: dataIMgPerfil,
+        email: dataApi.email,
+        description: dataApi.description,
+        fullname: dataApi.fullname,
+        name: dataApi.username,
+        token: dataApi.token
+      }); // Setting the user object
+      // toast.success("dados recebidos");
+
+      // localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
+      // navigate("/private");
+      // return true;
+
+    }
+    // throw new Error("Invalid credentials");
+    catch (error) {
+      toast.error("error context");
+
+      return false;
+    }
+  }
 
   //função de verificação de token do localStorage 
   useEffect(() => {
@@ -37,9 +68,9 @@ const UserProvider = ({ children }) => {
 
       if (tokenLocalStorage) {
         //verifica se o token eh valido
-        toast.success("possui um token")
+        // toast.success("possui um token")
         if (apiVerificaSession) {
-          toast.success("possui uma Session")
+          // toast.success("possui uma Session")
           setUser({
             ...user,
             // email: localStorage.getItem('userEmail'),
@@ -48,6 +79,7 @@ const UserProvider = ({ children }) => {
           });
 
           console.log(user.token)
+
           navigate('/Private');
         }
         else {
@@ -61,31 +93,10 @@ const UserProvider = ({ children }) => {
 
     }
 
-    const dataUserApi = async () => {
-      try {
-        const dataApi = await api.dataUser(); // REsposta do Back com token
-        
-        // console.log("----Data APi ----");
-        console.log(dataApi);
-
-        setUser({ email: dataApi.email, description: dataApi.description , fullname: dataApi.fullname,name: dataApi.username, token: dataApi.token }); // Setting the user object
-        // toast.success("dados recebidos");
-        
-        // localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
-        // navigate("/private");
-        // return true;
-  
-      }
-      // throw new Error("Invalid credentials");
-      catch (error) {
-        toast.error("error");
-  
-        return false;
-      }
-    }
+    
     verificarToken();
     dataUserApi();
-  }, [])
+  }, [userUpdateData])
 
   async function apiVerificaSession() {
     const validateApiToken = await api.IsLogged();
@@ -103,10 +114,15 @@ const UserProvider = ({ children }) => {
   const login = async (userName, password) => {
     try {
       const dataApi = await api.login(userName, password); // REsposta do Back com token
-      
-      setUser({ email: dataApi.email, name: dataApi.name, token: dataApi.token }); // Setting the user object
+
+      setUser({
+        email: dataApi.email,
+        fullname: dataApi.fullname,
+        name: dataApi.name,
+        token: dataApi.token
+      }); // Setting the user object
       toast.success("dados recebidos");
-      
+      dataUserApi();
       localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
       navigate("/private");
       return true;
@@ -120,7 +136,7 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  
+
 
 
   // Criar uma função para fazer logout do usuário
@@ -141,7 +157,7 @@ const UserProvider = ({ children }) => {
 
   // Retornar o componente provedor com o valor do contexto
   return (
-    <UserContext.Provider value={{ user, userUpdateData, setUserUpdateData, login, logout }}>
+    <UserContext.Provider value={{ user, setUser, userUpdateData, setUserUpdateData, login, logout }}>
       {children}
     </UserContext.Provider>
   );

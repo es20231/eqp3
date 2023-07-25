@@ -79,6 +79,14 @@ class userRepository:
         )
         db.commit()
 
+    def set_profile_picture(self, user_id, filename):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET profile_picture = ? WHERE id = ?",
+            (filename, user_id)
+        )
+        db.commit()
+
 class imageRepository:
     def insert(self, filename, path_name, user_id):
         db = get_db()
