@@ -57,11 +57,14 @@ def upload():
     return jsonify({"message": "upload success"})
 
 @bp.route('/serve-image/<filename>', methods=['GET'])
+@login_required
 def serve_image(filename):
     return send_from_directory(PATH.UPLOAD, filename)
 
 
 @bp.route('/delete-image/<filename>', methods=['GET'])
+@login_required
 def delete_image(filename):
     Images.delete(filename)
+    os.remove(os.path.join(PATH.UPLOAD, filename))
     return jsonify({"message": filename+" deleted"})

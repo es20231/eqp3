@@ -1,4 +1,6 @@
 from api.db import get_db
+from api.utils.utils import rows_to_dict
+import json
 
 class userRepository:
     def get(self):
@@ -6,14 +8,7 @@ class userRepository:
         rows = db.execute(
             'SELECT * FROM user'
         ).fetchall()
-        users = []
-        for i in rows:
-            user = {}
-            user["username"] = i["username"]
-            user["fullname"] = i["fullname"]
-            user["email"] = i["email"]
-            user["password"] = i["password"]
-            users.append(user)
+        users = rows_to_dict(rows)
         return users
 
     def insert(self, username, fullname, email, password):
@@ -41,6 +36,46 @@ class userRepository:
         db.execute(
             "INSERT INTO user (username, fullname, email, password, role) VALUES (?, ?, ?, ?, ?)",
             ("admin", "admin", "admin", password, "admin"),
+        )
+        db.commit()
+        
+    def alter_username(self, user_id, new_username):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET username = ? WHERE id = ?",
+            (new_username, user_id)
+        )
+        db.commit()
+    
+    def alter_fullname(self, user_id, new_fullname):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET fullname = ? WHERE id = ?",
+            (new_fullname, user_id)
+        )
+        db.commit()
+    
+    def alter_email(self, user_id, new_email):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET email = ? WHERE id = ?",
+            (new_email, user_id)
+        )
+        db.commit()
+    
+    def alter_password(self, user_id, new_password):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET password = ? WHERE id = ?",
+            (new_password, user_id)
+        )
+        db.commit()
+        
+    def alter_description(self, user_id, new_description):
+        db = get_db()
+        db.execute(
+            "UPDATE user SET description = ? WHERE id = ?",
+            (new_description, user_id)
         )
         db.commit()
 
@@ -80,17 +115,9 @@ class imageRepository:
 
     def get_id(self, user_id):
         db = get_db()
-        rows = db.execute(
+        images = db.execute(
             'SELECT * FROM image WHERE user_id = ?', (user_id,)
         ).fetchall()
-        images = []
-        for i in rows:
-            image = {}
-            image["filename"] = i["filename"]
-            image["path_name"] = i["path_name"]
-            image["user_id"] = i["user_id"]
-            image["id"] = i["id"]
-            images.append(image)
         return images
 
 class postRepository:
@@ -110,6 +137,26 @@ class postRepository:
             (description, filename, author_id)
         )
         db.commit()
+        
+    def get_all_posts(self):
+        db = get_db()
+        rows = db.execute(
+            'SELECT * FROM post ORDER BY created DESC'
+        ).fetchall()
+        
+        posts = rows_to_dict(rows)
+        
+        return posts
+    
+    def get_user_posts(self, author_id):
+        db = get_db()
+        rows = db.execute(
+            'SELECT * FROM post WHERE author_id = ? ORDER BY created DESC', (author_id,)
+        ).fetchall()
+        
+        posts = rows_to_dict(rows)
+        
+        return posts
 
 
 
