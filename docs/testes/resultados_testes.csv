@@ -13,11 +13,10 @@ CT-TU-04-c2,Verificar status code 401 (unauthorized) do acesso à rota dashboard
 ,,,
 CT-TU-01-c1,Testa se renderiza todos os campos do formulário,Unitário,Passou
 CT-TU-01-c2,Verifica se o cadastro é enviado ao clicar no botão 'Entrar,Unitário,Passou
-
-CT-TU-03-c1, Testa o botão 'Upload Image' para verificar se ao clicado abri a caixa de diálogo/pop-up,Unitátio,Passou.
-CT-TU-03-c2, Testa se o botão 'Confirmar' for clicado e nenhuma imagem ter sido selecionada deve mostrar um toast de warning,Unitátio,Passou.
-CT-TU-03-c3, Testar se o componente fecha o modal ao clicar no botão de close,Unitátio,Passou.
-CT-TU-04-c1,Testa se a imagem é renderizada corretamente e verifica se a função 'handledelete' é chamada ao clicar no botão de lixeira,Unitátio,Passou.
+CT-TU-03-c1, Testa o botão 'Upload Image' para verificar se ao clicado abri a caixa de diálogo/pop-up,Unitátio,Passou
+CT-TU-03-c2, Testa se o botão 'Confirmar' for clicado e nenhuma imagem ter sido selecionada deve mostrar um toast de warning,Unitátio,Passou
+CT-TU-03-c3, Testar se o componente fecha o modal ao clicar no botão de close,Unitátio,Passou
+CT-TU-04-c1,Testa se a imagem é renderizada corretamente e verifica se a função 'handledelete' é chamada ao clicar no botão de lixeira,Unitátio,Passou
 ,,,
 CT-TI-00-c0,Verificar retorno JSON das rotas da API,Integração,Passou
 CT-TI-01-c1,Testar o envio de credenciais de usuário válidas e verificar se o usuário é redirecionado para a página de dashboard,Integração,Passou
@@ -34,7 +33,6 @@ CT-TS-02-c01,Cenário de teste 1: Fluxo Principal - Login de usuário,Sistema,Pa
 CT-TS-02-c02,Cenário de teste 2: Fluxo exceção - Login de usuário inválido,Sistema,Passou
 CT-TS-03-c01,Cenário de teste: Fluxo Principal - Logout de usuário,Sistema,Passou
 CT-TS-04-c01,Cénario de teste: Fluxo Principal - Testar o upload de uma imagem válida,Sistema,Passou
-CT-TS-04-c02,Cenário de teste 2: Fluxo de exceção - Testar o upload de uma imagem inválida,Sistema,
 CT-TS-05-c01,Testa a listagem das imagens de upload no dashboard do usuário,Sistema,Passou
 CT-TS-06-c01,Testar deletar a imagem ao apertar botão de deletar imagem, Sistema,Passou
 CT-TS-07-c01,Testar a edição de perfil ao apertar botão 'editar perfil',Sistema,Passou
