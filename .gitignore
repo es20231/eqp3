@@ -29,6 +29,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # db
+<<<<<<< HEAD
 api.sqlite
 
 
+=======
+*.sqlite
+>>>>>>> 7942a0f93af06115769bc2a1cce48c0cded5a12f

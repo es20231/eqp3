@@ -31,7 +31,7 @@
     justify-content: space-evenly;
     flex-direction: column;
 
-    .backgraundFormulario{
+    .BackgraundFormulario{
         display: flex;
         min-width: 350px;
         min-height: 520px;
@@ -50,10 +50,8 @@
             max-height: 264px;
             /* border-radius: 25px; */
             justify-content: space-evenly;
-            
-            #button{
-                height:56px;
-                // margin: 40px auto;
+            .ButtonCriarConta{
+               margin-bottom:10px; 
             }
 
     }
