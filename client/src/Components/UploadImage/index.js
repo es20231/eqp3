@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import "./styles.scss";
+// import "./styles.scss";
 import { useApi } from "../../hooks/UseApi";
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";

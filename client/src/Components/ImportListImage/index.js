@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col,Button } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
@@ -38,6 +38,20 @@ function ImportListImage() {
         importImagensApi();
 
     }, [userLocal.userUpdateData]);
+
+    async function ImportImagensApi () {
+        setImagemDownload([]);
+        const images = await api.importListImage();
+        console.log(images.data);
+
+        images.data.map(async (dataName) => {
+            const importImages = await api.importImage(dataName);
+            setImagemDownload((prev) => [...prev, importImages]);
+        });
+
+        console.log("teste de armazenamento");
+        console.log(imagemDownload);
+    }
 
 
 

@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
 import ImportListImage from "../../Components/ImportListImage";
+import EditProfile from "../../Components/EditProfile";
 
 //icons
 import pen_edit from "../../icons/pen_edit.svg"
