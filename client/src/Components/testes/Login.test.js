@@ -167,6 +167,8 @@ jest.mock("react-toastify", () => ({
   ToastContainer: jest.fn(({ children }) => <div>{children}</div>),
 
 }));
+
+
 test("Renderiza os campos do formulário e realiza o login corretamente", async () => {
   // Definindo um valor de usuário e senha válidos para o teste de login bem-sucedido
   const validUsername = "testuser";
@@ -180,6 +182,7 @@ test("Renderiza os campos do formulário e realiza o login corretamente", async 
     </BrowserRouter>
   );
 
+
   // Verifica se os campos do formulário estão renderizados corretamente
   const nameInput = screen.getByLabelText(/name user/i);
   const passwordInput = screen.getByLabelText(/password/i);
@@ -190,7 +193,7 @@ test("Renderiza os campos do formulário e realiza o login corretamente", async 
   fireEvent.change(passwordInput, { target: { value: validPassword } });
 
   // Simula a submissão do formulário
-  fireEvent.click(submitButton);
+  await fireEvent.click(submitButton);
 
   // Aguarda até que a função toast.success seja chamada
   await waitFor(() => {
