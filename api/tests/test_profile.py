@@ -18,7 +18,8 @@ def test_userdata(client):
         'username': 'test',
         'fullname': 'test',
         'email': 'test',
-        'description': ''
+        'description': '',
+        'profile_picture': ''
     }
     assert response.json == expected_data
     
