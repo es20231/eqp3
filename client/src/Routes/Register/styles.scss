@@ -4,7 +4,7 @@
     box-sizing: border-box;
     
 }
-.Home{
+.Register{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -13,7 +13,8 @@
 .DivLeft{
     width: 100%;
     height: 100vh ;
-    background-color: aquamarine;
+    background-color: #040917;
+    color: #26C0F3;
     text-align: center;
     display: flex;
     align-items: center;
@@ -22,27 +23,28 @@
 }
 
 .DivRight{
+
     width: 100%;
     height: 100vh;
-    background-color: greenyellow;
+    background-color: #181F33;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
-
     #NavLinkExit{
         position: absolute;
         top: 35px;
         right: 60px;
-        
+        width: 100px;
     }
 
     .backgraundFormulario{
+
         display: flex;
         min-width: 350px;
         min-height: 520px;
-        background-color: rgb(111, 167, 112);
+        background-color: #3C4E80;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -56,8 +58,7 @@
             height: 70vh;
             max-height: 264px;
             /* border-radius: 25px; */
-            justify-content: space-evenly;
-            #button{
+            justify-content: space-evenly;#button{
                 height:56px;
                 margin: 40px auto;
             }

@@ -5,6 +5,9 @@ import { useApi } from "../../hooks/UseApi";
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 
+
+import perfil_avatar from "../../icons/perfil_avatar_icon_.svg"
+
 function UploadImageProfile() {
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -61,8 +64,10 @@ function UploadImageProfile() {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Upload imagem Profile
+            <Button variant="tp_2 text-light" onClick={handleShow}>
+                <img src={perfil_avatar}/>
+        
+                Perfil
             </Button>
 
             <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
@@ -77,10 +82,10 @@ function UploadImageProfile() {
                         onChange={handleChange} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="tp_1" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button variant="tp_2" onClick={handleSubmit}>
                         Confirmar
                     </Button>
                 </Modal.Footer>
