@@ -4,6 +4,7 @@ import "./styles.scss";
 import { useApi } from "../../hooks/UseApi";
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
+import image_plus_icon from "../../icons/image_plus_icon.svg"
 
 function UploadImage() {
     const [showModal, setShowModal] = useState(false);
@@ -23,34 +24,36 @@ function UploadImage() {
         }
     };
 
-    
+
     const handleSubmit = async () => {
         if (selectedImage) {
             //chamada da função
-           
+
             const formData = new FormData(); // Cria um objeto FormData
             formData.append('file', fileImage);
             // formData.append('user_id',userLocal.user.token);
 
             console.log(formData);
-            {for (let pair of formData.entries()) {
-                console.log(pair[0] + ':', pair[1]);
-              }}
+            {
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ':', pair[1]);
+                }
+            }
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
             await api.uploadImage(formData, userLocal.user.token);
-            userLocal.setUserUpdateData( ! userLocal.userUpdateData  ) // indicar que esta atualizando
+            userLocal.setUserUpdateData(!userLocal.userUpdateData) // indicar que esta atualizando
             toast.success("Imagem enviada com sucesso!");
             handleClose();
         } else {
             toast.warning("Por favor, selecione uma imagem!");
         }
     };
-   
+
     // upload image
     const handleClose = () => {
         setShowModal(false);
         setSelectedImage(null);
-        
+
     };
 
     const handleShow = () => {
@@ -59,8 +62,9 @@ function UploadImage() {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Upload imagem
+            <Button variant="tp_2 text-light border-0 bg-transparent" onClick={handleShow}>
+                <img src={image_plus_icon} />
+                 
             </Button>
 
             <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
@@ -79,6 +83,7 @@ function UploadImage() {
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
+
                         Confirmar
                     </Button>
                 </Modal.Footer>
