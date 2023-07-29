@@ -28,21 +28,21 @@ def test_dashboard_data(client, auth):
 def test_upload(client, auth):
     auth.login()
     
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open('data_test/test_image.jpg', 'rb') as f:
         response = client.post('/upload', data={'file': f})
     data = response.json
     assert response.status_code == 200
     assert data['message'] == 'upload success'
     
 def test_upload_unauthorized(client):
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open('data_test/test_image.jpg', 'rb') as f:
         response = client.post('/upload', data={'file': f})
     assert response.status_code == 401
 
 def test_serve_image(client, auth):
     auth.login()
     
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open('data_test/test_image.jpg', 'rb') as f:
         file = FileStorage(f, filename='test_serve.jpg')
         response = client.post('/upload', data={'file': file})
     
@@ -57,7 +57,7 @@ def test_serve_image_unauthorized(client):
 def test_delete_image(client, auth):
     auth.login()
     
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open('data_test/test_image.jpg', 'rb') as f:
         file = FileStorage(f, filename='test_delete.jpg')
         response = client.post('/upload', data={'file': file})
     
