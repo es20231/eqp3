@@ -72,4 +72,4 @@ def mock_files(monkeypatch):
     monkeypatch.setattr(os, 'listdir', listdir_mock)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_PATH = os.path.join(BASE_DIR, '../api', 'static', 'images')
+UPLOAD_PATH = os.path.join(BASE_DIR, '../api', 'tests', 'data_test')
