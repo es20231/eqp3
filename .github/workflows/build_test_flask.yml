@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f api/requirements.txt ]; then pip install -r api/requirements.txt; fi
+          pip install -r api/requirements.txt
       - name: Test with pytest
         run: |
           pytest
