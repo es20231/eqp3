@@ -13,8 +13,8 @@ from api.utils.utils import rows_to_dict
 
 bp = Blueprint('timeline', __name__, url_prefix='/')
 
-repo = imageRepository()
-repoUsers = userRepository()
+Images = imageRepository()
+Users = userRepository()
 
 @bp.route('/timeline/<username>')
 @login_required
@@ -34,18 +34,22 @@ def post(filename):
 
     description = request.get_json()
 
-    db = get_db()
-    db.execute(
-        'INSERT INTO post (description, filename, author_id)'
-        ' VALUES (?, ?, ?)',
-        (description['description'], filename, g.user['id'])
-    )
-    db.commit()
+    if Images.search_id(filename, g.user['id']) is not None:
+        db = get_db()
+        db.execute(
+            'INSERT INTO post (description, filename, author_id)'
+            ' VALUES (?, ?, ?)',
+            (description['description'], filename, g.user['id'])
+        )
+        db.commit()
+        return make_response(jsonify({"message": "posted"}), 201)
+    else: 
+        return make_response(jsonify({"error": "image not in dashboard"}), 404)
 
-    return jsonify({"message": "posted"})
 
-
-@bp.route('/users')
-def show_users():
-    users = repoUsers.list_users()
-    return jsonify(users)
+@bp.route('/users', methods=['GET'])
+@login_required
+def users():
+    users = Users.get()
+    message = jsonify(users)
+    return make_response(message, 200)
