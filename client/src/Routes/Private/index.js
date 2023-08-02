@@ -14,9 +14,12 @@ import { toast } from "react-toastify";
 import { useApi } from "../../hooks/UseApi";
 import UploadImage from "../../Components/UploadImage";
 import ImportListImage from "../../Components/ImportListImage";
+import EditProfile from "../../Components/EditProfile";
 
 //icons
 import pen_edit from "../../icons/pen_edit.svg"
+import logout_icon from "../../icons/logout_icon.svg"
+
 import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
 
@@ -123,13 +126,14 @@ function Register() {
 
 
                         <Button
-                            variant="primary"
-                            className="w-70"
+                            variant="tp_1"
+                            className="w-25  d-flex justify-content-center  align-items-center text-light"
                             type="button"
                             onClick={
                                 LogoutButton
                             }
                         >
+                            <img src={logout_icon}/>
                             Sair
                         </Button>{' '}
 
@@ -249,7 +253,7 @@ function Register() {
 
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="primary" onClick={handleClose}>
+                                        <Button variant="tp_1" onClick={handleClose}>
                                             Close
                                         </Button>
 

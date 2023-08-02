@@ -16,6 +16,13 @@ CT-TU-03-c4,Verificar funcionamento correto da função search_id do repositóri
 CT-TU-03-c5,Verificar o funcionamento completo da rota de alteração da descrição do usuario,Unitário,Passou
 CT-TU-04-c1,Verificar status code 200 da rota de listagem de usuários,Unitário,Passou
 CT-TU-04-c2,Verificar status code 401 (unauthorized) do acesso à rota dashboard sem sessão de usuário ,Unitário,Passou
+CT-TU-04-c3,Verificar status code 200 (unauthorized) do acesso à rota dashboard com sessão de usuário ,Unitário,Passou
+CT-TU-04-c4,Verificar status code 200 (unauthorized) do acesso à rota dashboard com sessão de usuário ,Unitário,Passou
+CT-TU-04-c2,Verificar leitura de imagens do diretório de upload ,Unitário,Passou
+CT-TU-04-c2,Verificar upload com sessão imagem permitida ,Unitário,Passou
+CT-TU-04-c2,Verificar upload sem sessão ,Unitário,Passou
+CT-TU-04-c2,Testar receber image request ,Unitário,Passou
+CT-TU-04-c2,Testar receber deletar imagem ,Unitário,Passou
 ,,,
 CT-TU-01-c1,Testa se renderiza todos os campos do formulário,Unitário,Passou
 CT-TU-01-c2,Verifica se o cadastro é enviado ao clicar no botão 'Entrar,Unitário,Passou
