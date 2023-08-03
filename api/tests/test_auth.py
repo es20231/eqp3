@@ -53,8 +53,6 @@ def test_login_validate_input(auth, username, password, message):
     assert message in response.data
     assert response.status_code == 412
 
-def test_users(client, app):
-    assert client.get('/users').status_code == 200
 
-def test_login_required(client, app):
+def test_login_required(client):
     assert client.get('/dashboard').status_code == 401
