@@ -32,5 +32,8 @@ def create_app(test_config=None):
     from api.controllers import profile
     app.register_blueprint(profile.bp)
 
+    from api.controllers import timeline
+    app.register_blueprint(timeline.bp)
+
     return app
 

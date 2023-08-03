@@ -83,11 +83,6 @@ def register_user():
         return make_response(error_message, 412)
 
 
-@bp.route('/users', methods=['GET'])
-def users():
-    users = Users.get()
-    message = jsonify(users)
-    return make_response(message, 200)
 
 @bp.route('/islogged', methods=['GET'])
 @login_required
