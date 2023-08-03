@@ -1,6 +1,5 @@
 from api.db import get_db
 from api.utils.utils import rows_to_dict
-import json
 
 class userRepository:
     def get(self):
@@ -131,11 +130,12 @@ class imageRepository:
 class postRepository:
     def timeline(self, username):
         db = get_db()
-        return db.execute(
-            'SELECT p.id, description, filename, created, author_id, username'
+        posts = db.execute(
+            'SELECT p.id, p.description, filename, created, author_id, username'
             ' FROM post p JOIN user u ON p.author_id = u.id WHERE u.username = ? '
             ' ORDER BY created DESC', (username,)
         ).fetchall()
+        return rows_to_dict(posts)
 
     def insert(self, description, filename, author_id):
         db = get_db()
@@ -165,11 +165,4 @@ class postRepository:
         posts = rows_to_dict(rows)
         
         return posts
-
-
-
-
-
-
-
 
