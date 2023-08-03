@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import image_plus_icon from "../../icons/image_plus_icon.svg"
 
+
 function UploadImage() {
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -64,7 +65,7 @@ function UploadImage() {
         <>
             <Button variant="tp_2 text-light border-0 bg-transparent" onClick={handleShow}>
                 <img src={image_plus_icon} />
-                 
+                 {/* <img src={logo}/> */}
             </Button>
 
             <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>

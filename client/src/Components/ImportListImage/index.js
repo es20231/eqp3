@@ -5,6 +5,7 @@ import { useApi } from "../../hooks/UseApi";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
+import PaginationTp1 from "../Paginação";
 
 
 
@@ -53,6 +54,8 @@ function ImportListImage() {
 
                 ))}
             </Row>
+            <PaginationTp1 tamanho={imagemDownload.length} />
+            <br />
         </>
     );
 }

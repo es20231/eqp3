@@ -21,6 +21,7 @@ import logout_icon from "../../icons/logout_icon.svg"
 
 import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
+import PaginationTp1 from "../../Components/Paginação";
 
 
 function Register() {
@@ -42,7 +43,7 @@ function Register() {
     const [email, setEmail] = useState('');
 
 
-    
+
 
     useEffect(() => {
 
@@ -116,7 +117,7 @@ function Register() {
             <>
                 <div className="cabeçalho">
                     <AvatarName data={userLocal.user} />
-                    
+
 
                     <div className="buttons_right">
 
@@ -132,7 +133,7 @@ function Register() {
                                 LogoutButton
                             }
                         >
-                            <img src={logout_icon}/>
+                            <img src={logout_icon} />
                             Sair
                         </Button>{' '}
 
@@ -159,7 +160,7 @@ function Register() {
                                     </Modal.Header>
                                     <Modal.Body>
                                         <p>Foto de Perfil</p>
-                                        <UploadImageProfile/>
+                                        <UploadImageProfile />
 
                                         <p>User Name</p>
                                         <InputGroup className="mb-3">
@@ -272,7 +273,9 @@ function Register() {
                     <Container >
                         {/* <ImportImage/> */}
                         <ImportListImage />
+                      
                     </Container >
+                   
                 </div>
             </>
         )
