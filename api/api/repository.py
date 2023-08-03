@@ -6,7 +6,7 @@ class userRepository:
     def get(self):
         db = get_db()
         rows = db.execute(
-            'SELECT * FROM user'
+            'SELECT username, fullname, description, profile_picture FROM user'
         ).fetchall()
         users = rows_to_dict(rows)
         return users

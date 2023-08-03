@@ -19,14 +19,17 @@ Users = userRepository()
 @bp.route('/timeline/<username>')
 @login_required
 def index(username):
-    db = get_db()
-    posts = db.execute(
-        'SELECT p.id, p.description, filename, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id WHERE u.username = ? '
-        ' ORDER BY created DESC', (username,)
-    ).fetchall()
-    posts = rows_to_dict(posts)
-    return jsonify(posts)
+    if Users.search(username):
+        db = get_db()
+        posts = db.execute(
+            'SELECT p.id, p.description, filename, created, author_id, username'
+            ' FROM post p JOIN user u ON p.author_id = u.id WHERE u.username = ? '
+            ' ORDER BY created DESC', (username,)
+        ).fetchall()
+        posts = rows_to_dict(posts)
+        return jsonify(posts)
+    else:
+        return make_response(jsonify({"error": "user not found"}),404)
 
 @bp.route('/post/<filename>', methods=['POST'])
 @login_required
