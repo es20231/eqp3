@@ -25,9 +25,20 @@ flask run
 ## client
 no diretório client/
 ```powershell
-yarn
+yarn --force
+```
+ou 
+
+```powershell
+npm clean-install 
 ```
 
 ```powershell
 yarn start
+```
+
+ou 
+
+```powershell
+npm start 
 ```
