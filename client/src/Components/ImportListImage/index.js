@@ -62,7 +62,8 @@ function ImportListImage() {
                 {imagemDownload.length > 0 && imagemDownload.map((urlImg, index) => (
 
                     <Col key={index} sm={true}>
-                        <FotosGaleria key={index} data={urlImg}></FotosGaleria>
+                        <FotosGaleria key={index} data={urlImg.url}></FotosGaleria>
+                        
                     </Col>
 
                 ))}
