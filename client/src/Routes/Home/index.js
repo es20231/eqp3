@@ -1,24 +1,24 @@
 import React, { useContext, useState } from "react";
-import './styles.scss'
-import { Button, Toast } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom"
-;
-
+import './styles.scss';
+import { Button,Container,FloatingLabel,Form } from "react-bootstrap";
+import {  useNavigate } from "react-router-dom";
+import icon_user  from '../../icons/user_icon.svg'
+import icon_login  from '../../icons/login_icon.svg'
 // import Navbar1 from "../../Components/Header";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
 
 //Api
-import { useApi } from "../../hooks/UseApi";
+
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 
 function Home() {
-    const navigate = useNavigate();
 
-    const api = useApi();
+    const navigate = useNavigate();
+    function GotoRegister(){
+        navigate('/Register')
+    }
     const userLocal = useContext(UserContext);
-    //  const navigate = useNavigate()
+
     const [dataTemp, setDataTemp] = useState(
         {
             userName: '',
@@ -30,13 +30,13 @@ function Home() {
 
         const dataLogin = await userLocal.login(dataTemp.userName, dataTemp.password);
 
-      
+
         if (dataLogin) {
             if (dataLogin.status == 200) {
                 toast.success("login ok")
 
-            } 
-        }else {
+            }
+        } else {
             toast.error("dados errados")
         }
 
@@ -45,11 +45,11 @@ function Home() {
     return (<>
         {/* <Navbar1/> */}
         <div className="Home">
-            <div className=" DivLeft">
+            <Container className="DivLeftH "     >
                 <h1>Teste</h1>
 
-            </div>
-            <div className=" DivRight">
+            </Container>
+            <div className=" DivRightH">
                 <div className="BackgraundFormulario">
                     <Form
                         className="FormularioInicial"
@@ -60,9 +60,12 @@ function Home() {
                     >
                         {/* imagem da Logo*/}
 
-                        <NavLink to="/Register" activeClassName="active" className="d-block">
-                            <Button variant="primary" className="w-100 " >Criar Conta</Button>{' '}
-                        </NavLink>
+
+                        <Button variant="tp_2" className="w-full d-flex justify-content-center  align-items-center text-light" onClick={GotoRegister} >
+                            <img src={icon_user}/>
+                            Criar Conta
+                            </Button>{' '}
+
 
                         {/* Divisoria */}
                         <FloatingLabel controlId="floatingInput" label="Name User" className="mb-2">
@@ -84,10 +87,11 @@ function Home() {
                         </FloatingLabel>
 
                         <Button
-                            variant="primary"
+                            variant="tp_1"
                             className="w-100 "
                             type="submit"
                         >
+                            <img src={icon_login}/>
                             Entrar
                         </Button>{' '}
 

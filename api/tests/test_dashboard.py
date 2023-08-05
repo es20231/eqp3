@@ -1,8 +1,12 @@
+import os
 import json
 import pytest
 from flask import session, jsonify
 from werkzeug.datastructures import FileStorage
 from unittest import mock
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_PATH = os.path.join(BASE_DIR, 'data_test')
 
 def test_dashboard_unauthorized(client):
     response = client.get('/dashboard')

@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col,Button } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
 import './styles.scss'
 import FotosGaleria from "../FotosGaleria";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
-import { Await } from "react-router-dom";
+
 
 
 function ImportListImage() {
@@ -21,7 +21,7 @@ function ImportListImage() {
         //Runs only on the first render
         const importImagensApi = async () => {
             const images = await api.importListImage();
-            // console.log(images);
+            console.log(images);
             // Use Promise.all to fetch all images in parallel
             if (images) {
                 const importImages = await Promise.all(images.data.map( async(dataName) => {
@@ -39,18 +39,31 @@ function ImportListImage() {
 
     }, [userLocal.userUpdateData]);
 
+    async function ImportImagensApi () {
+        setImagemDownload([]);
+        const images = await api.importListImage();
+        console.log(images.data);
+
+        images.data.map(async (dataName) => {
+            const importImages = await api.importImage(dataName);
+            setImagemDownload((prev) => [...prev, importImages]);
+        });
+
+        console.log("teste de armazenamento");
+        console.log(imagemDownload);
+    }
+
 
 
     return (
         <>
-            {/* <Button type="button" onClick={ImportImagensApi}>
-                baixar imagens do usuário
-            </Button> */}
-            <Row>
+           
+            <Row md = {3}>
                 {imagemDownload.length > 0 && imagemDownload.map((urlImg, index) => (
 
-                    <Col key={index}>
-                        <FotosGaleria key={index} data={urlImg}></FotosGaleria>
+                    <Col key={index} sm={true}>
+                        <FotosGaleria key={index} data={urlImg.url}></FotosGaleria>
+                        
                     </Col>
 
                 ))}
