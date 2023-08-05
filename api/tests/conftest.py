@@ -1,5 +1,8 @@
+from cgi import FieldStorage
+from io import BytesIO
 import os
 import tempfile
+from unittest.mock import MagicMock
 from api.controllers.dashboard import Images
 
 from flask import json
@@ -73,3 +76,10 @@ def mock_files(monkeypatch):
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_PATH = os.path.join(BASE_DIR, '../api', 'static', 'images')
+
+@pytest.fixture
+def file_mock():
+    with open('./data_test/test_image.jpg', 'rb') as f:
+        file_mock = BytesIO(f.read())
+        file_mock.name = 'test_serve.jpg'  # Define o nome do arquivo
+        return file_mock
