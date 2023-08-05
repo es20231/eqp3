@@ -1,4 +1,3 @@
-from cgi import FieldStorage
 from io import BytesIO
 import os
 import tempfile
