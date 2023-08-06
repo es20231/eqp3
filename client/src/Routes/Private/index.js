@@ -22,7 +22,7 @@ import logout_icon from "../../icons/logout_icon.svg"
 
 import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
-import PaginationTp1 from "../../Components/Paginação";
+import Pagination from "../../Components/Pagination";
 
 
 function Register() {
@@ -43,6 +43,8 @@ function Register() {
     const [description, setDescription] = useState('');
     const [email, setEmail] = useState('');
 
+    
+  
 
 
 
@@ -275,6 +277,7 @@ function Register() {
                         {/* <ImportImage/> */}
                         <ImportListImage />
                       
+                   
                     </Container >
                    
                 </div>
