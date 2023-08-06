@@ -75,10 +75,11 @@ def mock_files(monkeypatch):
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_PATH = os.path.join(BASE_DIR, '../api', 'tests', 'data_test')
+TEST_IMAGE_PATH = os.path.join(BASE_DIR, 'data_test', 'test_image.jpg')
 
 @pytest.fixture
 def file_mock():
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open(TEST_IMAGE_PATH, 'rb') as f:
         file_mock = BytesIO(f.read())
         file_mock.name = 'test_serve.jpg'  # Define o nome do arquivo
         return file_mock

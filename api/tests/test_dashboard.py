@@ -7,6 +7,7 @@ from unittest import mock
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_PATH = os.path.join(BASE_DIR, 'data_test')
+TEST_IMAGE_PATH = os.path.join(BASE_DIR, 'data_test', 'test_image.jpg')
 
 def test_dashboard_unauthorized(client):
     response = client.get('/dashboard')
@@ -33,7 +34,7 @@ def test_dashboard_data(client, auth):
 def test_upload(client, auth):
     auth.login()
 
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open(TEST_IMAGE_PATH, 'rb') as f:
         file_mock = mock.MagicMock(spec=f)
         file_mock.read.return_value = f.read()
 
@@ -53,7 +54,7 @@ def test_upload(client, auth):
 def test_upload_unauthorized(client, auth):
     auth.login()
 
-    with open('./data_test/test_image.jpg', 'rb') as f:
+    with open(TEST_IMAGE_PATH, 'rb') as f:
         file_mock = mock.MagicMock(spec=f)
         file_mock.read.return_value = f.read()
 
