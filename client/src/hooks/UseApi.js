@@ -198,5 +198,33 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+
+  postImage: async (filename, description) => {
+    try {
+      const response = await api.post("/post/" + filename,{description: description});
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  importListTimelineImage: async (userName) => {
+    try {
+      const response = await api.get("/timeline/" + userName);
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+
 });
 
