@@ -28,6 +28,7 @@ function ImportListDashboardImage() {
     const importImagensApi = async () => {
       const imagesAux = await api.importListTimelineImage(userLocal.user.name);
       setImagesListLength(imagesAux.data.length);
+      {console.log(imagesListLength)}
       console.log("import lista Dash")
       console.log(imagesAux)
 

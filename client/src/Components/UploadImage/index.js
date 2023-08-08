@@ -41,7 +41,7 @@ function UploadImage() {
                 }
             }
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
-            await api.uploadImage(formData, userLocal.user.token);
+            await api.uploadImage(formData); //, userLocal.user.token
             userLocal.setUserUpdateData(!userLocal.userUpdateData) // indicar que esta atualizando
             toast.success("Imagem enviada com sucesso!");
             handleClose();
