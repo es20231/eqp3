@@ -85,7 +85,7 @@ function Register() {
                             />
                         </FloatingLabel>
 
-                        <FloatingLabel controlId="floatingInput" label="User_Full_Name" className="mb-2" >
+                        <FloatingLabel controlId="floatingInputFullName" label="User_Full_Name" className="mb-2" >
                             <Form.Control
                                 type="text"
                                 placeholder="UserOliveira"
@@ -94,7 +94,7 @@ function Register() {
                             />
                         </FloatingLabel>
 
-                        <FloatingLabel controlId="floatingInput" label="Email address" className="mb-2">
+                        <FloatingLabel controlId="floatingInputEmail" label="Email address" className="mb-2">
                             <Form.Control
                                 type="email"
                                 placeholder="name@example.com"

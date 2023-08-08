@@ -1,7 +1,7 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
-(async function example() {
+(async function Login2() {
   // Configuração do driver Chrome
   const options = new chrome.Options();
   options.addArguments('--start-maximized');
@@ -25,7 +25,9 @@ const chrome = require('selenium-webdriver/chrome');
       until.elementLocated(By.xpath('//div[contains(text(), "dados errados")]')),
       10000
     );
-    
+    await driver.sleep(1000)
+
+
     // Verifica se o login foi bem-sucedido
     const errorMessage = await driver.findElements(By.xpath('//div[contains(text(), "dados errados")]'));
 

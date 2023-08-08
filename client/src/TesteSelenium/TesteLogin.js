@@ -1,7 +1,7 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
-(async function example() {
+(async function Login() {
   // Configuração do driver Chrome
   const options = new chrome.Options();
   options.addArguments('--start-maximized');
@@ -23,7 +23,9 @@ const chrome = require('selenium-webdriver/chrome');
     // Aguarde até que a URL atual contenha a URL do dashboard
     await driver.wait(until.urlContains('http://localhost:3000/private') , 10000)//Se for realizado o login com os dados corretos
  
- 
+    await driver.sleep(1000)
+
+
 
 
     // Verifique se a URL corresponde à URL do dashboard
