@@ -90,6 +90,7 @@ function Home() {
                             variant="tp_1"
                             className="w-100 "
                             type="submit"
+                            controlId="buttonEntrar"
                         >
                             <img src={icon_login}/>
                             Entrar
