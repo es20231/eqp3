@@ -62,7 +62,11 @@ function UploadImage() {
 
     return (
         <>
-            <Button variant="tp_2 text-light border-0 bg-transparent" onClick={handleShow}>
+            <Button 
+                variant="tp_2 text-light border-0 bg-transparent" 
+                onClick={handleShow}
+                id = 'buttonUploadImage'
+                >
                 <img src={image_plus_icon} />
                  
             </Button>
@@ -76,13 +80,19 @@ function UploadImage() {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        id = 'inputUploadImage' 
+                        />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button 
+                        variant="primary" 
+                        onClick={handleSubmit}
+                        id = 'buttonConfirmUploadImage'
+                        >
 
                         Confirmar
                     </Button>
