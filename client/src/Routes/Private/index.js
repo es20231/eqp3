@@ -58,7 +58,7 @@ function Register() {
         setUserName(userLocal.user.name)
         setDescription(userLocal.user.description)
         setEmail(userLocal.user.email)
-        toast.success("Ola " + userLocal.user.name + userName)
+        // toast.success("Ola " + userLocal.user.name + userName)
     }, [])
 
 

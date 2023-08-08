@@ -40,9 +40,12 @@ function ImportListDashboardImage() {
       if (currentImages.length > 0) {
         const importImages = await Promise.all(
           currentImages.map(async (dataName) => {
+            console.log(dataName)
             return {
               url: await api.importImage(dataName.filename),
               filename: dataName.filename,
+              created:dataName.created,
+              description:dataName.description
             };
           })
         );

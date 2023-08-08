@@ -7,6 +7,7 @@
     padding: 15px;
     .ContainerImg{
         img{
+            background-color: #3C4E80;
             border-radius: 10px 10px 0 0 ;
             height: 300px;
             width: 320px;
@@ -23,22 +24,78 @@
         margin-bottom: 5px;
     }
 
-    .queixoImage{
+    .queixoImageDashboard{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content:space-around;
-        height: 36px;
+        min-height: 36px;
         width:320px;
         background-color: #181F33;
         margin-top: 5px;
         border-radius: 0 0 10px 10px;
-        button {
-            background-color: transparent;
-            :hover {
-                filter: drop-shadow(0px 0px 5px rgba(225, 225, 225, 0.774)); 
+        align-items: center;
+       .ButtonLikes{
+        display: flex;
+        
+            min-height: 45px;
+            padding: 5px 0;
+            width: 90%;
+            margin: 5px;
+            >button{
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                color: #fff;
+               >img{
+                margin-right:3px;
+               }
             }
-            // height: 100%;
+
         }
+        .DescriptionPost{
+            width: 90%;
+            height: 50px;
+            margin: 5px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: #3C4E80;
+            padding: 5px 10px;
+            
+
+            // slide bar
+            overflow: auto;
+            &.custom-scrollbar {
+                /* Adicione esta parte para ocultar a barra de rolagem */
+                ::-webkit-scrollbar {
+                    width: 0.5em; /* Largura da barra de rolagem */
+                }
+        
+                ::-webkit-scrollbar-track {
+                    background: transparent; /* Cor de fundo da área da barra de rolagem */
+                }
+        
+                ::-webkit-scrollbar-thumb {
+                    background: transparent; /* Cor da alça da barra de rolagem */
+                }
+            }
+            h1{
+                color: #BFBDBD;
+                // font-family: Space Mono;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+            p{
+                color: #BFBDBD;
+                // font-family: Space Mono;
+                font-size: 8px;
+                font-style: normal;
+                font-weight: 200;
+                line-height: normal;
+            }
+        }
+
         img{
             height: px;
             border-radius: 0;

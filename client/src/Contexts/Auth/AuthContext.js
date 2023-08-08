@@ -53,7 +53,7 @@ const UserProvider = ({ children }) => {
     }
     // throw new Error("Invalid credentials");
     catch (error) {
-      toast.error("error context");
+       toast.warning("Login necessário");
 
       return false;
     }
