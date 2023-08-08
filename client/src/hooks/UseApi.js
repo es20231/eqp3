@@ -1,5 +1,6 @@
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, useProgress } from "react-toastify";
+
 
 const config = {
   withCredentials: true,
@@ -7,6 +8,9 @@ const config = {
 };
 
 const api = axios.create(config);
+
+// options upload progress
+
 
 const handleError = (error) => {
   console.error(error);
@@ -84,10 +88,10 @@ export const useApi = () => ({
       handleError(error);
     }
   },
-  
+
   editDescription: async (new_description) => {
     try {
-      const response = await api.post("/change_description", {new_description });
+      const response = await api.post("/change_description", { new_description });
       return response;
     } catch (error) {
       handleError(error);
@@ -95,7 +99,7 @@ export const useApi = () => ({
   },
   editEmail: async (new_email) => {
     try {
-      const response = await api.post("/change_email", {new_email });
+      const response = await api.post("/change_email", { new_email });
       return response;
     } catch (error) {
       handleError(error);
@@ -129,7 +133,7 @@ export const useApi = () => ({
       handleError(error);
     }
   },
-  
+
 
   register: async (username, fullname, email, password) => {
     try {
@@ -146,12 +150,21 @@ export const useApi = () => ({
   },
 
   uploadImage: async (image) => {
+
     try {
-      const response = await api.post("/upload", image, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const response = await api.post('/upload', image,
+
+        {
+          // onUploadProgress: (progressEvent) => {
+          //   const { loaded, total } = progressEvent;
+          //   const percent = Math.floor((loaded * 100) / total);
+          //   console.log(`${loaded} bytes uploaded | ${percent}%`);
+          // },
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      });
+      );
       return response;
     } catch (error) {
       handleError(error);
@@ -198,5 +211,33 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+
+  postImage: async (filename, description) => {
+    try {
+      const response = await api.post("/post/" + filename, { description: description });
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  importListTimelineImage: async (userName) => {
+    try {
+      const response = await api.get("/timeline/" + userName);
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+
 });
 

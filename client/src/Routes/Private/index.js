@@ -19,9 +19,12 @@ import EditProfile from "../../Components/EditProfile";
 //icons
 import pen_edit from "../../icons/pen_edit.svg"
 import logout_icon from "../../icons/logout_icon.svg"
+import home from "../../icons/home.svg"
+import user_icon from "../../icons/user_icon.svg"
 
 import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
+import Pagination from "../../Components/Pagination";
 
 
 function Register() {
@@ -42,8 +45,12 @@ function Register() {
     const [description, setDescription] = useState('');
     const [email, setEmail] = useState('');
 
+    function GotoTimeline(){
+        navigate('/DashboardPerfil')
+    }
 
-    
+
+
 
     useEffect(() => {
 
@@ -117,7 +124,36 @@ function Register() {
             <>
                 <div className="cabeçalho">
                     <AvatarName data={userLocal.user} />
-                    
+
+                    <div className="NavBar">
+                        <Button
+                            variant="transparent"
+                            className="text-light"
+                            type="button"
+                            disabled
+                        >
+                            <img src={home}></img>
+                            Home
+                        </Button>{' '}
+                        <Button
+                            variant="tp_1 "
+                            className=" text-light "
+                            type="button"
+
+                        >
+                            <img src={user_icon}></img>
+                            Perfil
+                        </Button>{' '}
+                        <Button
+                            variant="transparent"
+                            className=" text-light"
+                            type="button"
+                            onClick={ GotoTimeline }
+                        >
+                            <img src={user_icon}></img>
+                            TimeLine
+                        </Button>{' '}
+                    </div>
 
                     <div className="buttons_right">
 
@@ -133,7 +169,7 @@ function Register() {
                                 LogoutButton
                             }
                         >
-                            <img src={logout_icon}/>
+                            <img src={logout_icon} />
                             Sair
                         </Button>{' '}
 
@@ -160,7 +196,7 @@ function Register() {
                                     </Modal.Header>
                                     <Modal.Body>
                                         <p>Foto de Perfil</p>
-                                        <UploadImageProfile/>
+                                        <UploadImageProfile />
 
                                         <p>User Name</p>
                                         <InputGroup className="mb-3">
@@ -273,7 +309,10 @@ function Register() {
                     <Container >
                         {/* <ImportImage/> */}
                         <ImportListImage />
+
+
                     </Container >
+
                 </div>
             </>
         )
