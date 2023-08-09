@@ -29,7 +29,9 @@ def post(filename):
     description = request.get_json()
 
     if Images.search_id(filename, g.user['id']) is not None:
-        Posts.insert(description['description'],filename,g.user['id'])
+        #image_id = int(str(Images.getImage_id(filename))
+        image = Images.search(filename)
+        Posts.insert(description['description'],filename,g.user['id'],image['id'])
         return make_response(jsonify({"message": "posted"}), 201)
     else: 
         return make_response(jsonify({"error": "image not in dashboard"}), 404)
