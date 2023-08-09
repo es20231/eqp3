@@ -16,7 +16,7 @@ function ImportListImage() {
   const userLocal = useContext(UserContext);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const imagesPerPage = 3;
+  const imagesPerPage = 6;
 
   const indexOfFirstImage = (currentPage - 1) * imagesPerPage;
   const indexOfLastImage = currentPage * imagesPerPage;

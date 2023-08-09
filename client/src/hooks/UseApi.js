@@ -237,6 +237,19 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+  ListTimelineUsers: async () => {
+    try {
+      const response = await api.get("/users");
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
 
 
 });
