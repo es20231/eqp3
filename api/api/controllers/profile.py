@@ -125,7 +125,7 @@ def set_profile_picture():
                 return 'File not allowed'
             filename = secure_filename(file.filename)
             file.save(os.path.join(PATH.UPLOAD, filename))
-            Images.insert(filename, os.path.join(PATH.UPLOAD, filename), user_id)
+            Images.insertProfilePicture(filename, os.path.join(PATH.UPLOAD, filename), user_id)
             Users.set_profile_picture(user_id, filename)
     except RequestEntityTooLarge:
         return 'File is larger than the 16MB limit.'

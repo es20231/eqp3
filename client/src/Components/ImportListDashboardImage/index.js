@@ -26,7 +26,8 @@ function ImportListDashboardImage() {
 
   useEffect(() => {
     const importImagensApi = async () => {
-      const imagesAux = await api.importListTimelineImage(userLocal.user.name);
+      console.log("name para timeline " + userLocal.user.username);
+      const imagesAux = await api.importListTimelineImage(userLocal.user.username);
       setImagesListLength(imagesAux.data.length);
       {console.log(imagesListLength)}
       console.log("import lista Dash")
