@@ -59,7 +59,7 @@ function DashboardPerfil() {
     useEffect(() => {
 
         setFullName(userLocal.user.fullname)
-        setUserName(userLocal.user.name)
+        setUserName(userLocal.user.username)
         setDescription(userLocal.user.description)
         setEmail(userLocal.user.email)
         // toast.success("Ola " + userLocal.user.name + userName)
