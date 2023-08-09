@@ -185,3 +185,17 @@ class postRepository:
         
         return posts
 
+
+    def alter_post_description(self, new_description, post_id):
+        db = get_db()
+        db.execute(
+            "UPDATE post SET description = ? WHERE id = ?", (new_description, post_id),
+        )
+        db.commit()
+
+    def delete(self, post_id):
+        db = get_db()
+        db.execute(
+            'DELETE FROM post WHERE id = ?', (post_id,)
+        )
+        db.commit()

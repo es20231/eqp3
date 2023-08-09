@@ -43,3 +43,16 @@ def users():
     users = Users.get()
     message = jsonify(users)
     return make_response(message, 200)
+
+@bp.route('/change_post_description/<post_id>', methods=['POST'])
+@login_required
+def change_post_description(post_id):
+    description = request.get_json()
+    Posts.alter_post_description(description['description'], post_id)
+    return make_response(jsonify({"message": "changed description"}), 200)
+    
+@bp.route('/delete-post/<post_id>', methods=['GET'])
+@login_required
+def delete_image(post_id):
+    Posts.delete(post_id)
+    return jsonify({"message": "post deleted"})
