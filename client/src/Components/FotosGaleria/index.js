@@ -115,7 +115,7 @@ function FotosGaleria( urlImg ) {
                 <img src={urlImg.data.url} alt={`Imagem ${urlImg.index + 1}`} />
             </div>
             <div className="queixoImage">
-                <button onClick={() => handleShow()}>
+                <button data-testid="post-button" onClick={() => handleShow()}>
                     <img src={postImgIcon} alt="Post Image" />
                 </button>
                 <button data-testid="trash-button" onClick={async () => {
