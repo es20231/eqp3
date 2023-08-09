@@ -12,7 +12,8 @@
     background: #1E2740;
     justify-content: space-between;
     width: 100%;
-    height: 150px;
+    min-height: 100px;
+    height: fit-content;
     align-items: center;
     .avatarPerfil{
         height: 10px;
@@ -66,8 +67,9 @@
 .Arquivos{ 
     background-color: #040917;
     width: 100%;
-    min-height: calc(100vh - 252px);
+    min-height: calc(100vh - 185px);
     display: block;
+   
     
 }
     
