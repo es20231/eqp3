@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useContext, useState, useCallback } from "react";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
-import { Button, Modal, Form, InputGroup } from "react-bootstrap";
+import { Button, Modal, Form, InputGroup, Offcanvas } from "react-bootstrap";
 
 import { useNavigate } from "react-router-dom";
 import { Container, } from 'react-bootstrap';
@@ -25,6 +25,7 @@ import user_icon from "../../icons/user_icon.svg"
 import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
 import Pagination from "../../Components/Pagination";
+import SearchBar from "../../Components/SearchBar";
 
 
 function Register() {
@@ -58,7 +59,7 @@ function Register() {
         setUserName(userLocal.user.name)
         setDescription(userLocal.user.description)
         setEmail(userLocal.user.email)
-        toast.success("Ola " + userLocal.user.name + userName)
+        // toast.success("Ola " + userLocal.user.name + userName)
     }, [])
 
 
@@ -153,6 +154,8 @@ function Register() {
                             <img src={user_icon}></img>
                             TimeLine
                         </Button>{' '}
+                        <SearchBar/>
+
                     </div>
 
                     <div className="buttons_right">
