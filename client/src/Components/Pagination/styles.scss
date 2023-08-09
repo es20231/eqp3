@@ -1,0 +1,40 @@
+/* styles.scss */
+
+/* Defina a cor de fundo do tema dark */
+body {
+    background-color: #121212;
+    color: #fff;
+  }
+  
+  /* Centralize a div de paginação */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajuste o valor conforme necessário */
+  }
+  
+  /* Estilize o botão das páginas */
+  .page-button {
+    background-color: #333; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    border: none;
+    padding: 8px 12px;
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  
+    /* Estilize o hover do botão */
+    &:hover {
+      background-color: #555; /* Cor de fundo do botão no hover */
+    }
+    
+  }
+  .page-button.active {
+    
+    background-color: #13e53d; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    
+  }
+  

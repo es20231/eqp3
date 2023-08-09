@@ -10,11 +10,14 @@ class FILE():
     
 def rows_to_dict(rows):
     dictionary_list = []
-    columns = rows[0].keys()
-    for i in rows:
-        dictionary = {}
-        for col in columns:
-            dictionary[col] = i[col]
-        dictionary_list.append(dictionary)
-        
-    return dictionary_list
+    if len(rows) > 0:
+        columns = rows[0].keys()
+        for i in rows:
+            dictionary = {}
+            for col in columns:
+                dictionary[col] = i[col]
+            dictionary_list.append(dictionary)
+            
+        return dictionary_list
+    else:
+        return dictionary_list

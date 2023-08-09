@@ -37,11 +37,11 @@ const UserProvider = ({ children }) => {
 
       setUser({
         user,
-        imagePerfil: dataIMgPerfil,
+        profile_picture: dataIMgPerfil,
         email: dataApi.email,
         description: dataApi.description,
         fullname: dataApi.fullname,
-        name: dataApi.username,
+        username: dataApi.username,
         token: dataApi.token
       }); // Setting the user object
       // toast.success("dados recebidos");
@@ -53,7 +53,7 @@ const UserProvider = ({ children }) => {
     }
     // throw new Error("Invalid credentials");
     catch (error) {
-      toast.error("error context");
+       toast.warning("Login necessário");
 
       return false;
     }

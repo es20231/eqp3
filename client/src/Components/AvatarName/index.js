@@ -10,8 +10,9 @@ function AvatarName(
         <div className="Perfil01">
            
             <div className="ConjuntoFotoNome" >
-                {<img id="ImgAvatar" src={props.data.imagePerfil} /> || null}
-                <p>{props.data.name}</p>
+                {<img id="ImgAvatar" src={props.data.profile_picture} /> || null }
+                {console.log(props)}
+                <p>{props.data.username}</p>
             </div>
         </div>
     )

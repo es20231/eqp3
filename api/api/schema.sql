@@ -20,6 +20,7 @@ CREATE TABLE image (
   filename TEXT NOT NULL,
   path_name TEXT NOT NULL,
   user_id INTEGER NOT NULL,
+  type TEXT DEFAULT 'dashboard',
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
@@ -29,7 +30,9 @@ CREATE TABLE post (
   filename TEXT NOT NULL,
   author_id INTEGER NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE
+  image_id INTEGER NOT NULL,
+  CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE,
+  CONSTRAINT fk_image FOREIGN KEY (image_id) REFERENCES image(id) ON DELETE CASCADE
 );
 
 CREATE TABLE comment (

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useContext, useState, useCallback } from "react";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
-import { Button, Modal, Form, InputGroup } from "react-bootstrap";
+import { Button, Modal, Form, InputGroup, Offcanvas } from "react-bootstrap";
 
 import { useNavigate } from "react-router-dom";
 import { Container, } from 'react-bootstrap';
@@ -19,9 +19,13 @@ import EditProfile from "../../Components/EditProfile";
 //icons
 import pen_edit from "../../icons/pen_edit.svg"
 import logout_icon from "../../icons/logout_icon.svg"
+import home from "../../icons/home.svg"
+import user_icon from "../../icons/user_icon.svg"
 
 import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
+import Pagination from "../../Components/Pagination";
+import SearchBar from "../../Components/SearchBar";
 
 
 function Register() {
@@ -42,8 +46,12 @@ function Register() {
     const [description, setDescription] = useState('');
     const [email, setEmail] = useState('');
 
+    function GotoTimeline(){
+        navigate('/DashboardPerfil')
+    }
 
-    
+
+
 
     useEffect(() => {
 
@@ -51,7 +59,7 @@ function Register() {
         setUserName(userLocal.user.name)
         setDescription(userLocal.user.description)
         setEmail(userLocal.user.email)
-        toast.success("Ola " + userLocal.user.name + userName)
+        // toast.success("Ola " + userLocal.user.name + userName)
     }, [])
 
 
@@ -117,7 +125,38 @@ function Register() {
             <>
                 <div className="cabeçalho">
                     <AvatarName data={userLocal.user} />
-                    
+
+                    <div className="NavBar">
+                        <Button
+                            variant="transparent"
+                            className="text-light"
+                            type="button"
+                            disabled
+                        >
+                            <img src={home}></img>
+                            Home
+                        </Button>{' '}
+                        <Button
+                            variant="tp_1 "
+                            className=" text-light "
+                            type="button"
+
+                        >
+                            <img src={user_icon}></img>
+                            Perfil
+                        </Button>{' '}
+                        <Button
+                            variant="transparent"
+                            className=" text-light"
+                            type="button"
+                            onClick={ GotoTimeline }
+                        >
+                            <img src={user_icon}></img>
+                            TimeLine
+                        </Button>{' '}
+                        <SearchBar/>
+
+                    </div>
 
                     <div className="buttons_right">
 
@@ -133,7 +172,7 @@ function Register() {
                                 LogoutButton
                             }
                         >
-                            <img src={logout_icon}/>
+                            <img src={logout_icon} />
                             Sair
                         </Button>{' '}
 
@@ -160,7 +199,7 @@ function Register() {
                                     </Modal.Header>
                                     <Modal.Body>
                                         <p>Foto de Perfil</p>
-                                        <UploadImageProfile/>
+                                        <UploadImageProfile />
 
                                         <p>User Name</p>
                                         <InputGroup className="mb-3">
@@ -273,7 +312,10 @@ function Register() {
                     <Container >
                         {/* <ImportImage/> */}
                         <ImportListImage />
+
+
                     </Container >
+
                 </div>
             </>
         )

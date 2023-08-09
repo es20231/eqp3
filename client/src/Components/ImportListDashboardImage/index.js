@@ -8,15 +8,16 @@ import "./styles.scss";
 import FotosGaleria from "../FotosGaleria";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import Pagination from "../Pagination";
+import FotosDashboard from "../FotosDashboard";
 
-function ImportListImage() {
+function ImportListDashboardImage() {
   const api = useApi();
   const [imagesListLength, setImagesListLength] = useState(0);
   const [imagemDownload, setImagemDownload] = useState([]);
   const userLocal = useContext(UserContext);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const imagesPerPage = 6;
+  const imagesPerPage = 3;
 
   const indexOfFirstImage = (currentPage - 1) * imagesPerPage;
   const indexOfLastImage = currentPage * imagesPerPage;
@@ -25,8 +26,12 @@ function ImportListImage() {
 
   useEffect(() => {
     const importImagensApi = async () => {
-      const imagesAux = await api.importListImage();
+      console.log("name para timeline " + userLocal.user.username);
+      const imagesAux = await api.importListTimelineImage(userLocal.user.username);
       setImagesListLength(imagesAux.data.length);
+      {console.log(imagesListLength)}
+      console.log("import lista Dash")
+      console.log(imagesAux)
 
       const currentImages = imagesAux.data.slice(
         indexOfFirstImage,
@@ -36,9 +41,12 @@ function ImportListImage() {
       if (currentImages.length > 0) {
         const importImages = await Promise.all(
           currentImages.map(async (dataName) => {
+            console.log(dataName)
             return {
-              url: await api.importImage(dataName),
-              filename: dataName,
+              url: await api.importImage(dataName.filename),
+              filename: dataName.filename,
+              created:dataName.created,
+              description:dataName.description
             };
           })
         );
@@ -55,7 +63,9 @@ function ImportListImage() {
         {imagemDownload.length > 0 &&
           imagemDownload.map((urlImg, index) => (
             <Col key={index} sm={true}>
-              <FotosGaleria key={index} data={urlImg}></FotosGaleria>
+              
+              <FotosDashboard key={index} data={urlImg}/>
+              {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}
             </Col>
           ))}
       </Row>
@@ -71,4 +81,4 @@ function ImportListImage() {
   );
 }
 
-export default ImportListImage;
+export default ImportListDashboardImage;

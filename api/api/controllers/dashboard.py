@@ -20,8 +20,6 @@ Images = imageRepository()
 @login_required
 def dashboard():
     user_id = session.get('user_id')
-  
-      
 
     user_images = Images.get_id(user_id)
     files = os.listdir(PATH.UPLOAD)
@@ -68,3 +66,4 @@ def delete_image(filename):
     Images.delete(filename)
     os.remove(os.path.join(PATH.UPLOAD, filename))
     return jsonify({"message": filename+" deleted"})
+
