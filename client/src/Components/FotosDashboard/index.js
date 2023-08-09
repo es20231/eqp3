@@ -4,24 +4,23 @@ import './styles.scss'
 
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 
-function FotosDashboard(props) {
+function FotosDashboard(urlImg) {
     const { user } = useContext(UserContext)
     
-    
-    const auxData = props;
 
     return (
         <div className="containerElement">
             <div className="testaImagem">
                 
                 {/* <AvatarName  propsAvatar = {auxData} /> */}
-                <Button >aaa</Button>
+                
+                <Button >...</Button>
             </div>
 
             <div className="ContainerImg">
 
-               {<img src='https://th.bing.com/th/id/OIP.R0ncVbxDcwIslweprSNdbwHaE7?w=250&h=180&c=7&r=0&o=5&pid=1.7' /> } 
-
+            
+            <img src={urlImg.data.url} alt={`Imagem ${urlImg.index + 1}`} />
                
                
                 

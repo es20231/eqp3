@@ -8,8 +8,9 @@ import "./styles.scss";
 import FotosGaleria from "../FotosGaleria";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import Pagination from "../Pagination";
+import FotosDashboard from "../FotosDashboard";
 
-function ImportListImage() {
+function ImportListDashboardImage() {
   const api = useApi();
   const [imagesListLength, setImagesListLength] = useState(0);
   const [imagemDownload, setImagemDownload] = useState([]);
@@ -25,8 +26,11 @@ function ImportListImage() {
 
   useEffect(() => {
     const importImagensApi = async () => {
-      const imagesAux = await api.importListImage();
+      const imagesAux = await api.importListTimelineImage(userLocal.user.name);
       setImagesListLength(imagesAux.data.length);
+      {console.log(imagesListLength)}
+      console.log("import lista Dash")
+      console.log(imagesAux)
 
       const currentImages = imagesAux.data.slice(
         indexOfFirstImage,
@@ -37,8 +41,8 @@ function ImportListImage() {
         const importImages = await Promise.all(
           currentImages.map(async (dataName) => {
             return {
-              url: await api.importImage(dataName),
-              filename: dataName,
+              url: await api.importImage(dataName.filename),
+              filename: dataName.filename,
             };
           })
         );
@@ -55,7 +59,9 @@ function ImportListImage() {
         {imagemDownload.length > 0 &&
           imagemDownload.map((urlImg, index) => (
             <Col key={index} sm={true}>
-              <FotosGaleria key={index} data={urlImg}></FotosGaleria>
+              
+              <FotosDashboard key={index} data={urlImg}/>
+              {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}
             </Col>
           ))}
       </Row>
@@ -71,4 +77,4 @@ function ImportListImage() {
   );
 }
 
-export default ImportListImage;
+export default ImportListDashboardImage;
