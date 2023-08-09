@@ -95,6 +95,15 @@ class imageRepository:
         )
         db.commit()
 
+    def insertProfilePicture(self, filename, path_name, user_id):
+        db = get_db()
+        type = "profile_picture"
+        db.execute(
+            "INSERT INTO image (filename, path_name, user_id, type) VALUES (?, ?, ?, ?)",
+            (filename, path_name, user_id, type),
+        )
+        db.commit()
+
     def search(self, filename):
         db = get_db()
         return db.execute(
@@ -124,14 +133,16 @@ class imageRepository:
 
     def get(self):
         db = get_db()
-        return db.execute(
+        images = db.execute(
             'SELECT * FROM image'
         ).fetchall()
+        return rows_to_dict(images)
 
     def get_id(self, user_id):
         db = get_db()
+        type = "dashboard"
         images = db.execute(
-            'SELECT * FROM image WHERE user_id = ?', (user_id,)
+            'SELECT * FROM image WHERE user_id = ? AND type = ?', (user_id, type,)
         ).fetchall()
         return images
 

@@ -18,6 +18,7 @@ CREATE TABLE image (
   filename TEXT NOT NULL,
   path_name TEXT NOT NULL,
   user_id INTEGER NOT NULL,
+  type TEXT DEFAULT 'dashboard',
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
