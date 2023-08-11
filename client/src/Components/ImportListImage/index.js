@@ -43,6 +43,8 @@ function ImportListImage() {
           })
         );
         setImagemDownload(importImages); // importa vazio
+      }else{
+        setImagemDownload("");
       }
     };
 

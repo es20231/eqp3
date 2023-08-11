@@ -12,7 +12,7 @@ import FotosDashboard from "../FotosDashboard";
 
 function ImportListDashboardImage(props) {
 
-  
+
 
   const api = useApi();
   const [imagesListLength, setImagesListLength] = useState(0);
@@ -30,13 +30,13 @@ function ImportListDashboardImage(props) {
   useEffect(() => {
     const importImagensApi = async () => {
       //mudar essa função para receber o nome  do usuário
-      
-   
+
+
       if (props.userNameDash) {
         const imagesAux = await api.importListTimelineImage(props.userNameDash);//(userLocal.user.username);
-        console.log("download img perfil" + props.userNameDash );
+        console.log("download img perfil" + props.userNameDash);
         setImagesListLength(imagesAux.data.length);
-        
+
 
 
         const currentImages = imagesAux.data.slice(
@@ -56,13 +56,19 @@ function ImportListDashboardImage(props) {
               };
             })
           );
+
+
           setImagemDownload(importImages);
+
+        } else {
+          console.log(" else imagem download ")
+          setImagemDownload("");
         }
       }
     };
 
     importImagensApi();
-  }, [currentPageDashboard,props]);
+  }, [currentPageDashboard, props]);
 
   return (
     <>
