@@ -26,14 +26,16 @@ import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
 import Pagination from "../../Components/Pagination";
 import SearchBar from "../../Components/SearchBar";
+import NavigationBar from "../../Components/NavigationBar";
 
 
 function Register() {
 
     const userLocal = useContext(UserContext)
-    const navigate = useNavigate();
+    
     const api = useApi();
     //Modal Edit perfil 
+
 
     const [show, setShow] = useState(false);
 
@@ -46,9 +48,7 @@ function Register() {
     const [description, setDescription] = useState('');
     const [email, setEmail] = useState('');
 
-    function GotoTimeline(){
-        navigate('/DashboardPerfil')
-    }
+     const navigate = useNavigate();
 
 
 
@@ -126,37 +126,7 @@ function Register() {
                 <div className="cabeçalho">
                     <AvatarName data={userLocal.user} />
 
-                    <div className="NavBar">
-                        <Button
-                            variant="transparent"
-                            className="text-light"
-                            type="button"
-                            disabled
-                        >
-                            <img src={home}></img>
-                            Home
-                        </Button>{' '}
-                        <Button
-                            variant="tp_1 "
-                            className=" text-light "
-                            type="button"
-
-                        >
-                            <img src={user_icon}></img>
-                            Perfil
-                        </Button>{' '}
-                        <Button
-                            variant="transparent"
-                            className=" text-light"
-                            type="button"
-                            onClick={ GotoTimeline }
-                        >
-                            <img src={user_icon}></img>
-                            TimeLine
-                        </Button>{' '}
-                        <SearchBar/>
-
-                    </div>
+                   <NavigationBar page="Perfil"/>
 
                     <div className="buttons_right">
 
@@ -273,20 +243,20 @@ function Register() {
                                         </InputGroup>
 
 
-                                        {/* <p>Password</p>
-                            <InputGroup className="mb-3">
+                                        <p>Password</p>
+                                        <InputGroup className="mb-3">
 
-                                <Form.Control
-                                    placeholder={userLocal.user.password}
-                                    aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2"
-                                />
-                                <Button variant="outline-secondary" id="button-addon2">
-                                    Button
-                                </Button>
+                                            <Form.Control
+                                                placeholder={userLocal.user.password}
+                                                aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                            />
+                                            <Button variant="outline-secondary" id="button-addon2">
+                                                Button
+                                            </Button>
 
 
-                            </InputGroup> */}
+                                        </InputGroup>
 
 
 

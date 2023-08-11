@@ -33,7 +33,7 @@ const UserProvider = ({ children }) => {
       const dataApi = await api.dataUser(); // REsposta do Back com token
       const dataIMgPerfil = await api.importImageProfile();
       // console.log("----Data APi ----");
-      console.log(dataApi);
+      
 
       setUser({
         user,
@@ -78,7 +78,7 @@ const UserProvider = ({ children }) => {
             token: localStorage.getItem('userToken')
           });
 
-          console.log(user.token)
+         
 
           navigate('/Private');
         }
@@ -101,7 +101,7 @@ const UserProvider = ({ children }) => {
   async function apiVerificaSession() {
     const validateApiToken = await api.IsLogged();
     //retorna um boolean
-    console.log("test isLogged:  " + validateApiToken)
+    
     if (validateApiToken == 200) {
       return true;
     } else {
@@ -145,8 +145,7 @@ const UserProvider = ({ children }) => {
 
       setUser(null); // Clearing the user
       localStorage.removeItem("userToken"); // Clearing the localStorage
-      console.log("localStorage" + localStorage.getItem("userToken"));
-      console.log("user ->" + user.token);
+    
       await api.logout();
       return true;
     } catch (error) {

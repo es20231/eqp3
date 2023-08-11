@@ -155,16 +155,19 @@ export const useApi = () => ({
       const response = await api.post('/upload', image,
 
         {
+          headers: {
+            // 'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'multipart/form-data',
+          },
           // onUploadProgress: (progressEvent) => {
           //   const { loaded, total } = progressEvent;
           //   const percent = Math.floor((loaded * 100) / total);
           //   console.log(`${loaded} bytes uploaded | ${percent}%`);
           // },
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
         },
       );
+      console.log("resposta upload image")
+      console.log(response)
       return response;
     } catch (error) {
       handleError(error);

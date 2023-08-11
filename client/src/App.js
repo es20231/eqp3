@@ -12,6 +12,7 @@ import Home from './Routes/Home'
 import Register from './Routes/Register'
 import Private from './Routes/Private'
 import DashboardPerfil from './Routes/DashboardPerfil';
+import UserProfile from './Routes/UserProfile';
 import { RequireAuth } from './Contexts/Auth/RequireAuth';
 //Toasts
 import { ToastContainer } from "react-toastify"; // Importamos o Toastify
@@ -28,6 +29,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Private" element={<RequireAuth> <Private /> </RequireAuth>} />
           <Route path="/DashboardPerfil" element={<RequireAuth> <DashboardPerfil /> </RequireAuth>} />
+          <Route path="/user/:username" element={<RequireAuth> <UserProfile/> </RequireAuth>} />
           {/* <Route path="/UploadImage" element={<UploadImage />} /> */}
           {/* <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} /> */}

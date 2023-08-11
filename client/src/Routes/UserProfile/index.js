@@ -1,39 +1,58 @@
 import React, { useEffect } from "react";
-import { useContext,} from "react";
+import { useContext, useState, useCallback } from "react";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
-import { Button,  } from "react-bootstrap";
+import { Button, Modal, Form, InputGroup } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 import { Container, } from 'react-bootstrap';
 
-import './styles.scss'
+// import './styles.scss'
 
 //toast 
 import { toast } from "react-toastify";
-
-//icons
 
 import logout_icon from "../../icons/logout_icon.svg"
 
 import ImportListDashboardImage from "../../Components/ImportListDashboardImage";
 import NavigationBar from "../../Components/NavigationBar";
+import { useApi } from "../../hooks/UseApi";
 
 
-function DashboardPerfil() {
+function UserProfile() {
+
+    const api = useApi()
+    // recebe o nome do usurário pela props 
+
+    // busca a 
+    const { username } = useParams();
+
+    const [location,setLocation] = useState(useLocation())
+    console.log()
+    const profile_picture = location.state;
+    console.log("userObj -> ");
+    console.log(profile_picture);
+
+
+
+    //criar uma estrutura para com os dados do usuario
+
+    useEffect(() => {
+        const importImagensApi = async () => {
+            // const dataTimeLine = await api.importListTimelineImage(username);
+            const dataTimeLine = await api.importListTimelineImage(username);
+            
+        }
+        importImagensApi();
+    }, [])
 
     const userLocal = useContext(UserContext)
     const navigate = useNavigate();
 
 
 
-    function GotoTimeline() {
-        navigate('/DashboardPerfil')
-    }
-
-    function GotoPerfil() {
-        navigate('/Private')
-    }
 
 
 
@@ -42,7 +61,7 @@ function DashboardPerfil() {
         // apagando token user 
 
         const logoutCont = await userLocal.logout();
-       
+        
 
         if (logoutCont) {
             toast.success("Deslogado!");
@@ -59,13 +78,12 @@ function DashboardPerfil() {
         return (
             <>
                 <div className="cabeçalho">
-                    <AvatarName data={userLocal.user} />
+                    <p> {username} </p>
+                    {/* <AvatarName data={{profile_picture: profile_picture , username: username}} /> */}
 
-                    <NavigationBar page="timeLine" />
+                    <NavigationBar page="user" />
 
                     <div className="buttons_right">
-
-
 
                         <Button
                             variant="tp_1"
@@ -88,11 +106,11 @@ function DashboardPerfil() {
 
                     <div className="textBox" >
                         <div className="edit_perfil_name">
-                         
-                            <h5> {userLocal.user.fullname} </h5>
+
+                            {/* <h5> {userLocal.user.fullname} </h5> */}
                         </ div>
 
-                        <p> {userLocal.user.description}</p>
+                        {/* <p> {userLocal.user.description}</p> */}
                     </div>
 
 
@@ -101,8 +119,8 @@ function DashboardPerfil() {
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                        <ImportListDashboardImage userNameDash={userLocal.user.username}/>
-
+                       
+                        <ImportListDashboardImage userNameDash={username}/>
 
                     </Container >
 
@@ -112,4 +130,4 @@ function DashboardPerfil() {
     }
 }
 
-export default DashboardPerfil;
+export default UserProfile;

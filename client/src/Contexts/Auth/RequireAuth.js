@@ -9,7 +9,7 @@ import Home from "../../Routes/Home";
 export const RequireAuth = ({ children }) => {
 
   const tokenLocalStorage = localStorage.getItem('userToken')
-  console.log("renderizou Require");
+  
 
 
   if (tokenLocalStorage) {
