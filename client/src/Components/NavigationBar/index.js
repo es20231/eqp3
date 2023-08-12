@@ -5,7 +5,7 @@ import user_icon from "../../icons/user_icon.svg"
 
 import SearchBar from "../SearchBar";
 import { useNavigate } from "react-router-dom";
-
+import "./styles.scss"
 
 
 function NavigationBar({ page }) {

@@ -49,7 +49,7 @@ const UserProvider = ({ children }) => {
       // localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
       // navigate("/private");
       // return true;
-
+      console.log("profile image: " + user.profile_picture)
     }
     // throw new Error("Invalid credentials");
     catch (error) {

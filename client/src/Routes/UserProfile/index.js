@@ -21,7 +21,7 @@ import NavigationBar from "../../Components/NavigationBar";
 import { useApi } from "../../hooks/UseApi";
 
 
-function UserProfile() {
+function UserProfile(props) {
 
     const api = useApi()
     // recebe o nome do usurário pela props 
@@ -29,12 +29,21 @@ function UserProfile() {
     // busca a 
     const { username } = useParams();
 
-    const [location,setLocation] = useState(useLocation())
-    console.log()
+    const location = useLocation()
+
+    console.log(location.state)
+    if( location.state || props ){
+        // const {usernames} = location.state
+        
+         console.log("teste location -> " + props)
+         console.log( props)
+    }
     const profile_picture = location.state;
     console.log("userObj -> ");
     console.log(profile_picture);
 
+    // const dataUser = props.location.state;
+    // console.log(dataUser)
 
 
     //criar uma estrutura para com os dados do usuario

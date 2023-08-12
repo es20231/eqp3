@@ -123,6 +123,8 @@ export const useApi = () => ({
       const response = await api.get("/serve-profile-picture", { responseType: "blob" });
       if (response.status == 200) {
         // console.log(response.data);
+        // return response.data
+        
         const imgSrc = URL.createObjectURL(response.data);
         // console.log(imgSrc);
         return imgSrc;
