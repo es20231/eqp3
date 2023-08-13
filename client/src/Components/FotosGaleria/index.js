@@ -87,19 +87,24 @@
 
 // export default FotosGaleria;
 //----------------------
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import './styles.scss';
 import postImgIcon from '../../icons/image_arrow_right_icon_251943 1.svg';
 import trash from '../../icons/trash_delete_remove_icon_251766 1.svg';
 import { useApi } from "../../hooks/UseApi";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
+import Caman from "caman"
+// import * as PIXI from 'pixi.js';
+
 
 function FotosGaleria( urlImg ) {
     const api = useApi();
     const userLocal = useContext(UserContext);
     const [descriptionText, setDescriptionText] = useState('');
     const [show, setShow] = useState(false);
+    const [selectedFilter,setSelectedFilter] = useState('none')
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -108,11 +113,47 @@ function FotosGaleria( urlImg ) {
         await api.postImage(urlImg.data.filename, descriptionText);
         handleClose();
     }
+    const src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"
+
+    async function applyfilter(){
+        if (imageRef.current){
+            Caman(imageRef.current, function () {
+                        // Aplicar o filtro escolhido
+                        if (selectedFilter === "brightness") {
+                            this.brightness(10);
+                        } else if (selectedFilter === "contrast") {
+                            this.contrast(10);
+                        }
+                        else if (selectedFilter==="blackWhite"){
+                            this.greyscale();
+                        }
+                        this.render();
+
+
+                    });
+                }
+
+                //Salvar a imagem
+    }
+
+   
+
+    const imageRef= useRef(null)//Referencia para o elemento <img>
+
+
+
+   
+
+    
+
 
     return (
         <div className="containerElement">
             <div className="ContainerImg">
-                <img src={urlImg.data.url} alt={`Imagem ${urlImg.index + 1}`} />
+                <img 
+                ref={imageRef}
+                src={urlImg.data.url} 
+                alt={`Imagem ${urlImg.index + 1}`} />
             </div>
             <div className="queixoImage">
                 <button data-testid="post-button" onClick={() => handleShow()}>
@@ -138,11 +179,25 @@ function FotosGaleria( urlImg ) {
                             <Form.Label>Adicione a Descrição</Form.Label>
                             <Form.Control as="textarea" onChange={(event) => setDescriptionText(event.target.value)} rows={3} />
                         </Form.Group>
+
+                        <Form.Group controlId="ControlSelect">
+                            <Form.Label>Escolha um filtro</Form.Label>
+                            <Form.Control as="select" onChange={(event) => setSelectedFilter(event.target.value)}>
+                                <option value="none">Nenhum</option>
+                                <option value="brightness">Brilho</option>
+                                <option value="contrast">Contraste</option>
+                                <option value= "blackWhite">Preto e Branco </option>
+
+                            </Form.Control>
+                        </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
+                    </Button >
+                    <Button variant="" onClick={applyfilter}>
+                       Aplicar Filtro
                     </Button>
                     <Button variant="primary" onClick={postImage}>
                         Save Changes
