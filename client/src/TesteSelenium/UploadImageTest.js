@@ -52,14 +52,28 @@ const chrome = require('selenium-webdriver/chrome');
       const buttonConfirmUpload = await driver.findElement(By.id("buttonConfirmUploadImage"));
       await buttonConfirmUpload.click();
 
+      // talvez pegar o toast de sucesso do upload pra verificar
+
       console.log('Upload da imagem realizado com sucesso.');
 
     } catch (error) { 
       console.log('Não foi possível fazer o upload da imagem.');
     }
 
-    await driver.sleep(10000)
+    // fazer delete de uma imagem
 
+    try{
+      const trashButtons = await driver.findElements(By.data-testid("trash-button"));
+      const count = await trashButtons.length; 
+      const lastTrashButton = trashButtons[count - 1];
+      await lastTrashButton.click();
+    } catch (error) { 
+      console.log('Não foi possível fazer o delete da imagem.');
+    }
+
+    // sleep
+    await driver.sleep(10000);
+    
   } catch (error) {
     console.error('Ocorreu um erro:', error);
   } finally {
