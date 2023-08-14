@@ -7,6 +7,6 @@ INSERT INTO image(filename, path_name, user_id)
 VALUES
   ("Sfront.jpg", "test", 1);
 
-INSERT INTO post(description, filename, author_id, created)
+INSERT INTO post(description, filename, author_id, created, image_id)
 VALUES
-  ('Peter Sellers is cool', 'Sfront.jpg', 1, CURRENT_TIMESTAMP)
+  ('Peter Sellers is cool', 'Sfront.jpg', 1, CURRENT_TIMESTAMP, 1)

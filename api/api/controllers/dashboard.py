@@ -66,3 +66,4 @@ def delete_image(filename):
     Images.delete(filename)
     os.remove(os.path.join(PATH.UPLOAD, filename))
     return jsonify({"message": filename+" deleted"})
+
