@@ -30,6 +30,16 @@ def userdata():
             data[atributo] = raw_data[atributo]
     
     return jsonify(data)
+
+@bp.route('/user/<username>', methods=['GET',])
+def userData(username):
+    raw_data = Users.search_username(username)
+    data = {}
+    for atributo in raw_data.keys():
+        if atributo != "password" and atributo != "role":
+            data[atributo] = raw_data[atributo]
+    
+    return jsonify(data)
     
 @bp.route('/change_username', methods=['POST',])
 @login_required
