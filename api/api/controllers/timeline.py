@@ -100,7 +100,7 @@ def alter_comment():
     
     Comments.update_comment(content, comment_id)
     
-    message = jsonify({"content" : content, "comment_id" : comment_id})
+    message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
 
 @bp.route('/delete_comment', methods=['POST'])
@@ -114,7 +114,7 @@ def remove_comment():
     
     Comments.delete_comment(comment_id)
     
-    message = jsonify({"comment_id" : comment_id})
+    message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
 
 @bp.route('/get_post_likes', methods=['POST', 'GET'])
@@ -168,7 +168,7 @@ def like_post():
     
     Likes.insert_like(tipo, author_id, post_id=post_id)
     
-    message = jsonify({"tipo" : tipo, "author_id" : author_id, "post_id": post_id})
+    message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
 
 @bp.route('/like_comment', methods=['POST'])
@@ -195,7 +195,7 @@ def like_comment():
     
     Likes.insert_like(tipo, author_id, comment_id=comment_id)
     
-    message = jsonify({"tipo" : tipo, "author_id" : author_id, "comment_id": comment_id})
+    message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
 
 @bp.route('/remove_like', methods=['POST'])
@@ -208,5 +208,5 @@ def remove_like():
         return make_response(jsonify(message='Nenhum like fornecido'), 400)
     
     Likes.remove_like(like_id)
-    message = jsonify({"like_id" : like_id})
+    message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
