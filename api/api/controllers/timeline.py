@@ -63,9 +63,9 @@ def delete_image(post_id):
 @login_required
 def get_comments():
     json = request.get_json()
-    post_id = json.get('post_id', '')
-    
-    if post_id is None:
+    post_id = str(json.get('post_id', ''))
+
+    if not post_id.isnumeric():
         return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
     post_commets = Comments.get_comments(post_id)
@@ -78,14 +78,14 @@ def create_comment():
     json = request.get_json()
     author_id = session.get('user_id')
     content = json.get('content', '')
-    post_id = json.get('post_id', '')
+    post_id = str(json.get('post_id', ''))
     
-    if post_id is None:
+    if not post_id.isnumeric():
         return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
     Comments.insert_comment(content, author_id, post_id)
     
-    message = jsonify({"content" : content, "post_id" : post_id, "user_id": author_id})
+    message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
 
 @bp.route('/alter_comment', methods=['POST'])
@@ -93,9 +93,9 @@ def create_comment():
 def alter_comment():
     json = request.get_json()
     content = json.get('content', '')
-    comment_id = json.get('comment_id', '')
+    comment_id = str(json.get('comment_id', ''))
     
-    if comment_id is None:
+    if not comment_id.isnumeric():
         return make_response(jsonify(message='Id do Comentario nao fornecido'), 400)
     
     Comments.update_comment(content, comment_id)
@@ -107,9 +107,9 @@ def alter_comment():
 @login_required
 def remove_comment():
     json = request.get_json()
-    comment_id = json.get('comment_id', '')
+    comment_id = str(json.get('comment_id', ''))
     
-    if comment_id is None:
+    if not comment_id.isnumeric():
         return make_response(jsonify(message='Comentario nao fornecido'), 400)
     
     Comments.delete_comment(comment_id)
@@ -121,9 +121,9 @@ def remove_comment():
 @login_required
 def get_likes_from_post():
     json = request.get_json()
-    post_id = json.get('post_id', '')
+    post_id = str(json.get('post_id', ''))
     
-    if post_id is None:
+    if not post_id.isnumeric():
         return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
     post_likes = Likes.get_post_likes(post_id)
@@ -134,9 +134,9 @@ def get_likes_from_post():
 @login_required
 def get_comment_likes():
     json = request.get_json()
-    comment_id = json.get('comment_id', '')
+    comment_id = str(json.get('comment_id', ''))
     
-    if comment_id is None:
+    if not comment_id.isnumeric():
         return make_response(jsonify(message='Id do cometario nao fornecido'), 400)
     
     comment_likes = Likes.get_comment_likes(comment_id)
@@ -148,23 +148,22 @@ def get_comment_likes():
 def like_post():
     json = request.get_json()
     tipo = json.get('tipo', '')
-    author_id = json.get('author_id', '')
-    post_id = json.get('post_id', '')
+    author_id = str(json.get('author_id', ''))
+    post_id = str(json.get('post_id', ''))
     
     likes_list = Likes.get_post_likes(post_id)
-    print(likes_list)
     
     for like in likes_list:
         if like['author_id'] == author_id:
             return make_response(jsonify(message='usuario já realizou like'), 409) 
     
-    if post_id is None:
+    if not post_id.isnumeric():
         return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
     if tipo is None:
         return make_response(jsonify(message='tipo nao fornecido'), 400)
     
-    if author_id is None:
+    if not author_id.isnumeric():
         return make_response(jsonify(message='Autor do like nao fornecido'), 400)
     
     Likes.insert_like(tipo, author_id, post_id=post_id)
@@ -177,16 +176,21 @@ def like_post():
 def like_comment():
     json = request.get_json()
     tipo = json.get('tipo', '')
-    author_id = json.get('author_id', '')
-    comment_id = json.get('comment_id', '')
+    author_id = str(json.get('author_id', ''))
+    comment_id = str(json.get('comment_id', ''))
     
-    if comment_id is None:
+    likes_list = Likes.get_comment_likes(comment_id)
+    
+    for like in likes_list:
+        if like['author_id'] == author_id:
+            return make_response(jsonify(message='usuario já realizou like'), 409) 
+    if not comment_id.isnumeric():
         return make_response(jsonify(message='Id do Comentario nao fornecido'), 400)
     
     if tipo is None:
         return make_response(jsonify(message='tipo nao fornecido'), 400)
     
-    if author_id is None:
+    if not author_id.isnumeric():
         return make_response(jsonify(message='Autor do like nao fornecido'), 400)
     
     Likes.insert_like(tipo, author_id, comment_id=comment_id)
