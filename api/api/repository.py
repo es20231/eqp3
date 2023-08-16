@@ -30,6 +30,11 @@ class userRepository:
             'SELECT * FROM user WHERE id = ?', (user_id,)
             ).fetchone()
 
+    def search_username(self, username):
+        return get_db().execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+            ).fetchone()
+
     def generate_admin(self, password):
         db = get_db()
         db.execute(
