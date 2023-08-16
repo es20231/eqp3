@@ -189,8 +189,7 @@ class postRepository:
         posts = rows_to_dict(rows)
         
         return posts
-
-
+    
     def alter_post_description(self, new_description, post_id):
         db = get_db()
         db.execute(
@@ -202,5 +201,80 @@ class postRepository:
         db = get_db()
         db.execute(
             'DELETE FROM post WHERE id = ?', (post_id,)
+        )
+        db.commit()
+
+class commentRepository:
+    def insert_comment(self, content, author_id, post_id):
+        db = get_db()
+        
+        db.execute(
+            "INSERT INTO comment (content, author_id, post_id) VALUES (?, ?, ?)",
+            (content, author_id, post_id),
+        )
+        db.commit()
+    
+    def get_comments(self, post_id):
+        db = get_db()
+        rows = db.execute(
+            'SELECT * FROM comment WHERE post_id = ? ORDER BY created DESC',
+            (post_id,)
+        ).fetchall()
+        
+        comments = rows_to_dict(rows)
+        
+        return comments
+    
+    def update_comment(self, content, comment_id):
+        db = get_db()
+        db.execute(
+            "UPDATE comment SET content = ? WHERE id = ?",
+            (content, comment_id)
+        )
+        db.commit()
+        
+    def delete_comment(self, id):
+        db = get_db()
+        db.execute(
+            'DELETE FROM comment WHERE id = ?', (id,)
+        )
+        db.commit()
+
+class likeRepository:
+    def insert_like(self, tipo, author_id, post_id=None, comment_id=None):
+        db = get_db()
+        db.execute(
+            "INSERT INTO likes (tipo, author_id, post_id, comment_id) VALUES (?, ?, ?, ?)",
+            (tipo, author_id, post_id, comment_id),
+        )
+        db.commit()
+    
+    def get_post_likes(self, post_id):
+        db = get_db()
+        
+        rows = db.execute(
+            'SELECT id, tipo, author_id, post_id FROM likes WHERE post_id = ?',
+            (post_id,)
+        ).fetchall()
+        
+        post_likes = rows_to_dict(rows)
+        
+        return post_likes
+    
+    def get_comment_likes(self, comment_id):
+        db = get_db()
+        rows = db.execute(
+            'SELECT id, tipo, author_id, comment_id FROM likes WHERE comment_id = ?',
+            (comment_id,)
+        ).fetchall()
+        
+        comment_likes = rows_to_dict(rows)
+        
+        return comment_likes
+    
+    def remove_like(self, id):
+        db = get_db()
+        db.execute(
+            'DELETE FROM likes WHERE id = ?', (id,)
         )
         db.commit()
