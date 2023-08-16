@@ -62,14 +62,29 @@ const chrome = require('selenium-webdriver/chrome');
 
     // fazer delete de uma imagem
 
-    try{
-      const trashButtons = await driver.findElements(By.data-testid("trash-button"));
-      const count = await trashButtons.length; 
-      const lastTrashButton = trashButtons[count - 1];
-      await lastTrashButton.click();
-    } catch (error) { 
-      console.log('Não foi possível fazer o delete da imagem.');
-    }
+    driver.sleep(1000);
+
+    // try{
+    //   const deleteButton = await driver.findElement(By.xpath('//*[@id="root"]/div[3]/div/div[1]/div[1]/div/div[2]/button[2]/img'));
+    //   console.log(deleteButton);
+    //   // const count = deleteButtons.length; 
+    //   // const lastdeleteButtons = deleteButtons[count - 1];
+    //   // await lastdeleteButtons.click();
+    //   deleteButton.click();
+    // } catch (error) { 
+    //   console.log('Não foi possível fazer o delete da imagem.');
+    // }
+
+    // editar dados do perfil
+
+    const buttonEditProfile = await driver.findElement(By.className("edit_perfil_name"));
+    await buttonEditProfile.click(); // passar a imagem
+
+    // colocar imagem de perfil
+
+    const buttonUploadProfileImage = await driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/button"));
+    buttonUploadProfileImage.click();
+
 
     // sleep
     await driver.sleep(10000);
