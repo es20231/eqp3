@@ -254,6 +254,18 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+  DeletePostTimeline: async (idPost) => {
+    try {
+      const response = await api.get("/delete-post/" + idPost );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
 
 
 

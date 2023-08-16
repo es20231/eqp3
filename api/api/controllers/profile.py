@@ -30,7 +30,7 @@ def userdata():
             data[atributo] = raw_data[atributo]
     
     return jsonify(data)
-    
+   
 @bp.route('/change_username', methods=['POST',])
 @login_required
 def change_username():
