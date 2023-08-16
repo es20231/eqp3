@@ -202,6 +202,7 @@ class postRepository:
 class commentRepository:
     def insert_comment(self, content, author_id, post_id):
         db = get_db()
+        
         db.execute(
             "INSERT INTO comment (content, author_id, post_id) VALUES (?, ?, ?)",
             (content, author_id, post_id),
@@ -219,11 +220,11 @@ class commentRepository:
         
         return comments
     
-    def update_comment(self, content, author_id, post_id):
+    def update_comment(self, content, comment_id):
         db = get_db()
         db.execute(
-            "UPDATE comment SET content = ? WHERE author_id = ? AND post_id = ?",
-            (content, author_id, post_id)
+            "UPDATE comment SET content = ? WHERE id = ?",
+            (content, comment_id)
         )
         db.commit()
         
@@ -245,8 +246,9 @@ class likeRepository:
     
     def get_post_likes(self, post_id):
         db = get_db()
+        
         rows = db.execute(
-            'SELECT * FROM likes WHERE post_id = ? ORDER BY created DESC',
+            'SELECT id, tipo, author_id, post_id FROM likes WHERE post_id = ?',
             (post_id,)
         ).fetchall()
         
@@ -257,7 +259,7 @@ class likeRepository:
     def get_comment_likes(self, comment_id):
         db = get_db()
         rows = db.execute(
-            'SELECT * FROM likes WHERE comment_id = ? ORDER BY created DESC',
+            'SELECT id, tipo, author_id, comment_id FROM likes WHERE comment_id = ?',
             (comment_id,)
         ).fetchall()
         
