@@ -1,9 +1,9 @@
 from flask import (
-    Blueprint, g, request, jsonify, make_response
+    Blueprint, g, request, jsonify, make_response, session
 )
 
 from api.controllers.auth import login_required
-from api.repository import (imageRepository, userRepository, postRepository)
+from api.repository import (imageRepository, userRepository, postRepository, commentRepository, likeRepository)
 
 from api.utils.utils import rows_to_dict
 
@@ -12,6 +12,8 @@ bp = Blueprint('timeline', __name__, url_prefix='/')
 Images = imageRepository()
 Users = userRepository()
 Posts = postRepository()
+Comments = commentRepository()
+Likes = likeRepository()
 
 @bp.route('/timeline/<username>')
 @login_required
@@ -56,3 +58,155 @@ def change_post_description(post_id):
 def delete_image(post_id):
     Posts.delete(post_id)
     return jsonify({"message": "post deleted"})
+
+@bp.route('/get_comment', methods=['POST', 'GET'])
+@login_required
+def get_comments():
+    json = request.get_json()
+    post_id = str(json.get('post_id', ''))
+
+    if not post_id.isnumeric():
+        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
+    
+    post_commets = Comments.get_comments(post_id)
+    
+    return jsonify(post_commets)
+
+@bp.route('/create_comment', methods=['POST'])
+@login_required
+def create_comment():
+    json = request.get_json()
+    author_id = session.get('user_id')
+    content = json.get('content', '')
+    post_id = str(json.get('post_id', ''))
+    
+    if not post_id.isnumeric():
+        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
+    
+    Comments.insert_comment(content, author_id, post_id)
+    
+    message = jsonify({"message" : "sucesso"})
+    return make_response(message, 200)
+
+@bp.route('/alter_comment', methods=['POST'])
+@login_required
+def alter_comment():
+    json = request.get_json()
+    content = json.get('content', '')
+    comment_id = str(json.get('comment_id', ''))
+    
+    if not comment_id.isnumeric():
+        return make_response(jsonify(message='Id do Comentario nao fornecido'), 400)
+    
+    Comments.update_comment(content, comment_id)
+    
+    message = jsonify({"message" : "sucesso"})
+    return make_response(message, 200)
+
+@bp.route('/delete_comment', methods=['POST'])
+@login_required
+def remove_comment():
+    json = request.get_json()
+    comment_id = str(json.get('comment_id', ''))
+    
+    if not comment_id.isnumeric():
+        return make_response(jsonify(message='Comentario nao fornecido'), 400)
+    
+    Comments.delete_comment(comment_id)
+    
+    message = jsonify({"message" : "sucesso"})
+    return make_response(message, 200)
+
+@bp.route('/get_post_likes', methods=['POST', 'GET'])
+@login_required
+def get_likes_from_post():
+    json = request.get_json()
+    post_id = str(json.get('post_id', ''))
+    
+    if not post_id.isnumeric():
+        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
+    
+    post_likes = Likes.get_post_likes(post_id)
+    
+    return jsonify(post_likes)
+
+@bp.route('/get_comment_likes', methods=['POST', 'GET'])
+@login_required
+def get_comment_likes():
+    json = request.get_json()
+    comment_id = str(json.get('comment_id', ''))
+    
+    if not comment_id.isnumeric():
+        return make_response(jsonify(message='Id do cometario nao fornecido'), 400)
+    
+    comment_likes = Likes.get_comment_likes(comment_id)
+    
+    return jsonify(comment_likes)
+
+@bp.route('/like_post', methods=['POST'])
+@login_required
+def like_post():
+    json = request.get_json()
+    tipo = json.get('tipo', '')
+    author_id = str(json.get('author_id', ''))
+    post_id = str(json.get('post_id', ''))
+    
+    likes_list = Likes.get_post_likes(post_id)
+    
+    for like in likes_list:
+        if like['author_id'] == author_id:
+            return make_response(jsonify(message='usuario já realizou like'), 409) 
+    
+    if not post_id.isnumeric():
+        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
+    
+    if tipo is None:
+        return make_response(jsonify(message='tipo nao fornecido'), 400)
+    
+    if not author_id.isnumeric():
+        return make_response(jsonify(message='Autor do like nao fornecido'), 400)
+    
+    Likes.insert_like(tipo, author_id, post_id=post_id)
+    
+    message = jsonify({"message" : "sucesso"})
+    return make_response(message, 200)
+
+@bp.route('/like_comment', methods=['POST'])
+@login_required
+def like_comment():
+    json = request.get_json()
+    tipo = json.get('tipo', '')
+    author_id = str(json.get('author_id', ''))
+    comment_id = str(json.get('comment_id', ''))
+    
+    likes_list = Likes.get_comment_likes(comment_id)
+    
+    for like in likes_list:
+        if like['author_id'] == author_id:
+            return make_response(jsonify(message='usuario já realizou like'), 409) 
+    if not comment_id.isnumeric():
+        return make_response(jsonify(message='Id do Comentario nao fornecido'), 400)
+    
+    if tipo is None:
+        return make_response(jsonify(message='tipo nao fornecido'), 400)
+    
+    if not author_id.isnumeric():
+        return make_response(jsonify(message='Autor do like nao fornecido'), 400)
+    
+    Likes.insert_like(tipo, author_id, comment_id=comment_id)
+    
+    message = jsonify({"message" : "sucesso"})
+    return make_response(message, 200)
+
+@bp.route('/remove_like', methods=['POST'])
+@login_required
+def remove_like():
+    json = request.get_json()
+    like_id = json.get('like_id', '')
+    
+    if like_id is None:
+        return make_response(jsonify(message='Nenhum like fornecido'), 400)
+    
+    Likes.remove_like(like_id)
+    message = jsonify({"message" : "sucesso"})
+    return make_response(message, 200)
