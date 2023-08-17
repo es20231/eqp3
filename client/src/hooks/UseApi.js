@@ -266,7 +266,18 @@ export const useApi = () => ({
       handleError(error);
     }
   },
-
+  ImportDataUserProfile: async (username) => {
+    try {
+      const response = await api.get("/user/"  + username);
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  }
 
 
 });

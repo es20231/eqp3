@@ -29,7 +29,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Private" element={<RequireAuth> <Private /> </RequireAuth>} />
           <Route path="/DashboardPerfil" element={<RequireAuth> <DashboardPerfil /> </RequireAuth>} />
-          <Route path="/user/:username" element={ <UserProfile/> } />
+          <Route path="/user/:username" element={<RequireAuth> <UserProfile /></RequireAuth>} />
           {/* <Route path="/UploadImage" element={<UploadImage />} /> */}
           {/* <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} /> */}

@@ -21,7 +21,7 @@ import NavigationBar from "../../Components/NavigationBar";
 import { useApi } from "../../hooks/UseApi";
 
 
-function UserProfile(props) {
+function UserProfile() {
 
     const api = useApi()
     // recebe o nome do usurário pela props 
@@ -29,40 +29,29 @@ function UserProfile(props) {
     // busca a 
     const { username } = useParams();
 
-    const location = useLocation()
+    const [userProfile, setUserProfile] = useState([])
+    
 
-    console.log(location.state)
-    if( location.state || props ){
-        // const {usernames} = location.state
-        
-         console.log("teste location -> " + props)
-         console.log( props)
-    }
-    const profile_picture = location.state;
-    console.log("userObj -> ");
-    console.log(profile_picture);
-
-    // const dataUser = props.location.state;
-    // console.log(dataUser)
-
-
-    //criar uma estrutura para com os dados do usuario
+    // criar uma estrutura para com os dados do usuario
 
     useEffect(() => {
-        const importImagensApi = async () => {
-            // const dataTimeLine = await api.importListTimelineImage(username);
-            const dataTimeLine = await api.importListTimelineImage(username);
-            
+        const importDataUser = async () => {
+            const dataUser = await api.ImportDataUserProfile(username)
+            setUserProfile(userProfile => dataUser.data)
+           
+
         }
-        importImagensApi();
-    }, [])
+          // importImagensApi();
+        importDataUser();
+    }, [username])
+
+    useEffect(() => {
+        console.log("####-- PERFIL PROFILE --### ");
+        console.log(userProfile);
+    }, [userProfile]);
 
     const userLocal = useContext(UserContext)
     const navigate = useNavigate();
-
-
-
-
 
 
 
@@ -70,7 +59,7 @@ function UserProfile(props) {
         // apagando token user 
 
         const logoutCont = await userLocal.logout();
-        
+
 
         if (logoutCont) {
             toast.success("Deslogado!");
@@ -81,14 +70,16 @@ function UserProfile(props) {
         }
     }
 
-    if (!userLocal.user) {
+    
+
+    if (!userProfile) {
         return (<p>Loading</p>)
     } else {
         return (
             <>
                 <div className="cabeçalho">
-                    <p> {username} </p>
-                    {/* <AvatarName data={{profile_picture: profile_picture , username: username}} /> */}
+                  
+                    {userProfile.profile_picture && userProfile.username && <AvatarName key={userProfile.id}  data={ userProfile } />}
 
                     <NavigationBar page="user" />
 
@@ -116,10 +107,10 @@ function UserProfile(props) {
                     <div className="textBox" >
                         <div className="edit_perfil_name">
 
-                            {/* <h5> {userLocal.user.fullname} </h5> */}
+                            {<h5> {userProfile.fullname} </h5>}
                         </ div>
 
-                        {/* <p> {userLocal.user.description}</p> */}
+                        {<p> {userProfile.description}</p>}
                     </div>
 
 
@@ -128,8 +119,8 @@ function UserProfile(props) {
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                       
-                        <ImportListDashboardImage userNameDash={username}/>
+
+                        <ImportListDashboardImage userNameDash={username} />
 
                     </Container >
 

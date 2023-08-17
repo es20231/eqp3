@@ -51,7 +51,6 @@ function SearchBar() {
                         listUserSearchFormatted.map((urlImg, index) => (
                             
                             <Link key={index} to={{ pathname: `/user/${urlImg.username}`, state: urlImg }}>
-                               
                                 <AvatarName key={index} data={urlImg}></AvatarName>
                             </Link>
                         ))}

@@ -33,6 +33,7 @@ function AvatarName(props) {
     return (
         <div className="Perfil01">
             <div className="ConjuntoFotoNome">
+                {auxProps.email && console.log( "***** PERFIL PROFILE AVATAR  ***** " + auxProps.email)}
                 {auxProps.profile_picture && <img id="ImgAvatar" src={auxProps.profile_picture} />}
                 <p>{auxProps.username}</p>
             </div>
