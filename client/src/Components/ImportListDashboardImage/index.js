@@ -34,7 +34,7 @@ function ImportListDashboardImage(props) {
 
       if (props.userNameDash) {
         const imagesAux = await api.importListTimelineImage(props.userNameDash);//(userLocal.user.username);
-        console.log("download img perfil" + props.userNameDash);
+      
         setImagesListLength(imagesAux.data.length);
 
 
@@ -52,7 +52,9 @@ function ImportListDashboardImage(props) {
                 url: await api.importImage(dataName.filename),
                 filename: dataName.filename,
                 created: dataName.created,
-                description: dataName.description
+                description: dataName.description,
+                id: dataName.id,
+                image_id:dataName.image_id
               };
             })
           );
@@ -61,7 +63,7 @@ function ImportListDashboardImage(props) {
           setImagemDownload(importImages);
 
         } else {
-          console.log(" else imagem download ")
+         
           setImagemDownload("");
         }
       }

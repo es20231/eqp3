@@ -117,20 +117,15 @@ def remove_comment():
     message = jsonify({"message" : "sucesso"})
     return make_response(message, 200)
 
-@bp.route('/get_post_likes', methods=['POST', 'GET'])
+@bp.route('/get_post_likes/<int:post_id>', methods=['GET'])
 @login_required
-def get_likes_from_post():
-    json = request.get_json()
-    post_id = str(json.get('post_id', ''))
-    
-    if not post_id.isnumeric():
-        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
-    
+def get_likes_from_post(post_id):
+   
     post_likes = Likes.get_post_likes(post_id)
-    
+
     return jsonify(post_likes)
 
-@bp.route('/get_comment_likes', methods=['POST', 'GET'])
+@bp.route('/get_comment_likes', methods=['GET'])
 @login_required
 def get_comment_likes():
     json = request.get_json()
@@ -148,23 +143,24 @@ def get_comment_likes():
 def like_post():
     json = request.get_json()
     tipo = json.get('tipo', '')
-    author_id = str(json.get('author_id', ''))
-    post_id = str(json.get('post_id', ''))
+    author_id = (json.get('author_id', ''))
+    post_id = (json.get('post_id', ''))
     
     likes_list = Likes.get_post_likes(post_id)
     
     for like in likes_list:
+        print(like)
         if like['author_id'] == author_id:
             return make_response(jsonify(message='usuario já realizou like'), 409) 
     
-    if not post_id.isnumeric():
-        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
+    # if not post_id.isnumeric():
+    #     return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
     if tipo is None:
         return make_response(jsonify(message='tipo nao fornecido'), 400)
     
-    if not author_id.isnumeric():
-        return make_response(jsonify(message='Autor do like nao fornecido'), 400)
+    # if not author_id.isnumeric():
+    #     return make_response(jsonify(message='Autor do like nao fornecido'), 400)
     
     Likes.insert_like(tipo, author_id, post_id=post_id)
     

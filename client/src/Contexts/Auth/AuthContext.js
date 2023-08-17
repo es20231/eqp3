@@ -34,7 +34,8 @@ const UserProvider = ({ children }) => {
       try {
 
         const dataIMgPerfil = await api.importImageProfile();
-        // console.log("----Data APi ----");
+        console.log("----Data APi ----");
+        console.log(dataApi)
 
 
         setUser({
@@ -43,6 +44,7 @@ const UserProvider = ({ children }) => {
           email: dataApi.email,
           description: dataApi.description,
           fullname: dataApi.fullname,
+          id: dataApi.id,
           username: dataApi.username,
           token: dataApi.token
         }); // Setting the user object

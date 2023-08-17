@@ -34,12 +34,12 @@ function UploadImage() {
             formData.append('file', fileImage);
             // formData.append('user_id',userLocal.user.token);
 
-            console.log(formData);
-            {
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ':', pair[1]);
-                }
-            }
+            // console.log(formData);
+            // {
+            //     for (let pair of formData.entries()) {
+            //         console.log(pair[0] + ':', pair[1]);
+            //     }
+            // }
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
             await api.uploadImage(formData); //, userLocal.user.token
             userLocal.setUserUpdateData(!userLocal.userUpdateData) // indicar que esta atualizando
@@ -68,7 +68,7 @@ function UploadImage() {
                  {/* <img src={logo}/> */}
             </Button>
 
-            <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
+            <Modal show={showModal} onHide={handleClose} dialogClassName="custom-dialog" contentClassName="custom-content" backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Selecione a Imagem</Modal.Title>
                 </Modal.Header>

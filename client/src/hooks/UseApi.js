@@ -168,8 +168,7 @@ export const useApi = () => ({
           // },
         },
       );
-      console.log("resposta upload image")
-      console.log(response)
+     
       return response;
     } catch (error) {
       handleError(error);
@@ -277,7 +276,56 @@ export const useApi = () => ({
     } catch (error) {
       handleError(error);
     }
-  }
+  },
+
+  //likes e comentários
+  ImportLikesImage: async (post_id) => {
+    try {
+
+      const response = await api.get("/get_post_likes/" + post_id  );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  ImportCommentsImage: async (comment_id_) => {
+    try {
+      var comment_id = JSON.stringify(comment_id_);
+
+      
+      const response = await api.get("/get_comment_likes" , {comment_id} );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  setLikesImage: async (data) => {
+    try {
+      /* 
+      tipo: 1 / 0
+      author_id:
+      post_id:
+      */
+      const response = await api.post("/like_post" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
 
 
 });

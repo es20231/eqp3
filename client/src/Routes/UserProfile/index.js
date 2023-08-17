@@ -45,10 +45,7 @@ function UserProfile() {
         importDataUser();
     }, [username])
 
-    useEffect(() => {
-        console.log("####-- PERFIL PROFILE --### ");
-        console.log(userProfile);
-    }, [userProfile]);
+   
 
     const userLocal = useContext(UserContext)
     const navigate = useNavigate();
@@ -79,7 +76,7 @@ function UserProfile() {
             <>
                 <div className="cabeçalho">
                   
-                    {userProfile.profile_picture && userProfile.username && <AvatarName key={userProfile.id}  data={ userProfile } />}
+                    { userProfile.username && <AvatarName key={userProfile.id}  data={ userProfile } /> }
 
                     <NavigationBar page="user" />
 

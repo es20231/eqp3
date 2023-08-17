@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { useApi } from "../../hooks/UseApi";
+import user_icon from "../../icons/user_icon.svg"
 
 function AvatarName(props) {
     const api = useApi();
@@ -33,8 +34,8 @@ function AvatarName(props) {
     return (
         <div className="Perfil01">
             <div className="ConjuntoFotoNome">
-                {auxProps.email && console.log( "***** PERFIL PROFILE AVATAR  ***** " + auxProps.email)}
-                {auxProps.profile_picture && <img id="ImgAvatar" src={auxProps.profile_picture} />}
+                
+                {auxProps.profile_picture && <img id="ImgAvatar" src={auxProps.profile_picture} /> || <img id="ImgAvatar" src={user_icon}  />}
                 <p>{auxProps.username}</p>
             </div>
         </div>

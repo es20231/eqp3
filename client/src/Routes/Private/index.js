@@ -67,7 +67,7 @@ function Register() {
         // apagando token user 
 
         const logoutCont = await userLocal.logout();
-        console.log(logoutCont)
+        
 
         if (logoutCont) {
             toast.success("Deslogado!");
@@ -124,7 +124,7 @@ function Register() {
         return (
             <>
                 <div className="cabeçalho">
-                    { userLocal.user.profile_picture  && <AvatarName data={userLocal.user} />}
+                    { userLocal.user.username  && <AvatarName data={userLocal.user} />}
 
                    <NavigationBar page="Perfil"/>
 
