@@ -161,6 +161,7 @@ function FotosGaleria( urlImg ) {
             filter.blackAndWhite();
         }
 
+        // Se um filtro foi definido, aplica o filtro ao sprite
         if (filter) {
             sprite.filters = [filter];
         }
@@ -181,12 +182,12 @@ function FotosGaleria( urlImg ) {
          }
         }
    
-        // useEffect(() => {//Para monitorar as alterações em pixiapp e selectedFilter
-        //     if (pixiApp && selectedFilter !== null) {
-        //       // Chama a função applyFilter quando pixiapp ou selectedFilter mudam
-        //       applyFilter();
-        //     }
-        //   }, [pixiApp, selectedFilter]);
+        useEffect(() => {//Para monitorar as alterações em pixiapp e selectedFilter
+            if (pixiApp && selectedFilter !== null) {
+              // Chama a função applyFilter quando pixiapp ou selectedFilter mudam
+              applyFilter();
+            }
+          }, [pixiApp, selectedFilter]);
         
           
     async function postImage() {
