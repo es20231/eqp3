@@ -42,7 +42,9 @@ function ImportListImage() {
             };
           })
         );
-        setImagemDownload(importImages);
+        setImagemDownload(importImages); // importa vazio
+      }else{
+        setImagemDownload("");
       }
     };
 

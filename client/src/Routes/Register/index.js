@@ -35,7 +35,7 @@ function Register() {
             //se recebeu 200 
 
             toast.success("cadastro enviado")
-            console.log(data);
+          
 
             navigate("/");
 

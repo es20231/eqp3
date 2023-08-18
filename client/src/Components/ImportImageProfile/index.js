@@ -21,7 +21,7 @@ function ImportImageProfile() {
         <>
             <Button type="button" onClick={ImportImagensApi}> serve images </Button>
             {<img src={imagemDownload} />}
-            {console.log(imagemDownload)}
+           
         </>
     )
 }

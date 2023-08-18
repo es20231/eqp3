@@ -11,7 +11,7 @@ function ImportImage() {
 
     async function ImportImagensApi() {
         const images = await api.importListImage()
-        console.log(images.data)
+      
         const importImages = await api.importImage(images.data[4])
     
         // console.log(importImages);
