@@ -59,16 +59,16 @@ def delete_image(post_id):
     Posts.delete(post_id)
     return jsonify({"message": "post deleted"})
 
-@bp.route('/get_comment/<int:comment_id>', methods=[ 'GET'])
+@bp.route('/get_comment/<int:post_id>', methods=[ 'GET'])
 @login_required
-def get_comments(comment_id):
+def get_comments(post_id):
     # json = request.get_json()
     # post_id = str(json.get('post_id', ''))
 
     # if not post_id.isnumeric():
     #     return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
-    post_commets = Comments.get_comments(comment_id)
+    post_commets = Comments.get_comments(post_id)
     
     return jsonify(post_commets)
 
