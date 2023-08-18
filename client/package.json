@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.22.10",
-    "@babel/preset-react": "^7.22.5",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "moment": "^2.29.4",
+    "pixi-filters": "^5.2.1",
     "pixi.js": "^7.2.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",

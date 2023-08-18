@@ -19,11 +19,11 @@ function UploadImage() {
         // test sync
         if (e.target.files && e.target.files.length > 0 ) {
             const file = e.target.files[0];
-            const size = file.size / 1024 / 1024;
+            const size = file.size / 1024 ;
             const tamMax=16
             if (size > 16){
-                setError(`Tamanho excede o tamanho máximo é ${tamMax} MB`)
-                setImage(null)//Remove imagem 
+                toast.warning(`Tamanho excede o tamanho máximo é ${tamMax} MB`)
+                setSelectedImage(null)//Remove imagem 
                 return;
             }
             const url = URL.createObjectURL(file);

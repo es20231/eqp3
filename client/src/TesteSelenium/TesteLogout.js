@@ -6,17 +6,38 @@ const chrome = require('selenium-webdriver/chrome');
     const options = new chrome.Options();
     options.addArguments('--start-maximized'); // Iniciar maximizado em tela cheia
     const driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
-
-try{
-
-    await driver.get('http://localhost:3000/register'); // Abre a página onde o botão está localizado
+   
     
-    // Encontra e clica no botão de logout
-    const button =  await driver.findElement(By.css('.w-25'))
-    await driver.executeScript('arguments[0].click();', button);
+try{
+    
+    // Abre a página
+    await driver.get('http://localhost:3000/'); 
+
+    // Preenche o formulário
+    await driver.findElement(By.id('floatingInput')).sendKeys('aa');
+    await driver.findElement(By.id('floatingPassword')).sendKeys('aa');
+
+    // Submete o formulário
+    const buttonLogin =  await driver.findElement(By.css('.w-100'))
+    await driver.executeScript('arguments[0].click();', buttonLogin);
+
+    await driver.sleep(1500)
+
+    await driver.get('http://localhost:3000/Private'); // Abre a página onde o botão está localizado
+    
+    await driver.sleep(1500)
+
+   // Encontra e clica no botão de logout
+   const logoutButton = await driver.findElement(By.xpath('//button[contains(text(), "Sair")]'));
+   await logoutButton.click();
+
+    await driver.sleep(1500)
+
 
     // Aguarda até que a URL atual contenha a URL após o logout
     await driver.wait(until.urlContains('http://localhost:3000/'), 10000);
+
+    await driver.sleep(1500)
 
     // Verifica se a URL corresponde à URL após o logout
     if (await driver.getCurrentUrl() === 'http://localhost:3000/') {

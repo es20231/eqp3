@@ -87,15 +87,17 @@
 
 // export default FotosGaleria;
 //----------------------
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext,useEffect, useState,useRef } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import './styles.scss';
 import postImgIcon from '../../icons/image_arrow_right_icon_251943 1.svg';
 import trash from '../../icons/trash_delete_remove_icon_251766 1.svg';
 import { useApi } from "../../hooks/UseApi";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
-import Caman from "caman"
-// import * as PIXI from 'pixi.js';
+//import Caman from 'caman'
+import * as PIXI from 'pixi.js';
+//import { Application, Sprite } from 'pixi.js';
+
 
 
 function FotosGaleria( urlImg ) {
@@ -103,55 +105,102 @@ function FotosGaleria( urlImg ) {
     const userLocal = useContext(UserContext);
     const [descriptionText, setDescriptionText] = useState('');
     const [show, setShow] = useState(false);
-    const [selectedFilter,setSelectedFilter] = useState('none')
+    const [selectedFilter,setSelectedFilter] = useState(null)
+    const [pixiApp, setPixiApp] = useState(null);
+    const [imageTexture, setImageTexture] = useState(null);
+    const [filteredImageDataURL, setFilteredImageDataURL] = useState(null);
 
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
+    const imageRef = useRef(null); // Ref para a imagem
+    const containerRef = useRef(null); // Ref para o container do PixiJS
 
+  //Sequência de Renderização: Garanta que a sequência de renderização esteja correta. É importante primeiro criar a aplicação PixiJS, em seguida, carregar a textura da imagem, adicionar o sprite ao palco, aplicar o filtro e, por fim, renderizar a aplicação PixiJS.
+
+    function applyFilter() {
+        if (!pixiApp ){
+
+        // Cria uma nova instância da aplicação PixiJS
+        const app = new PIXI.Application({
+            width: 320,
+            height: 300,
+            transparent: true,
+        });
+        // Define a instância da aplicação PixiJS no estado pixiApp
+        setPixiApp(app);
+        
+        // Cria uma textura a partir da URL da imagem fornecida
+        const texture = PIXI.Texture.from(urlImg.data.url);//Pegando a imagem
+       
+        setImageTexture(texture);
+        
+        // Adiciona a visualização da aplicação PixiJS ao elemento HTML referenciado por containerRef
+       containerRef.current.appendChild(app.view);
+
+        // Cria um sprite (um elemento visual) com a textura da imagem
+        const sprite = new PIXI.Sprite(texture);//DisplayObject que envolve um recurso de imagem carregado
+        
+        // Define as coordenadas (x, y) do sprite
+        sprite.x = 0;
+        sprite.y = 0;
+
+        app.stage.addChild(sprite);//Adicionando num conteiner
+
+        let filter = null;
+
+        if (selectedFilter === 'brightness') {
+            filter = new PIXI.filters.ColorMatrixFilter();
+            filter.brightness(2);
+        } else if (selectedFilter === 'contrast') {
+            filter = new PIXI.filters.ColorMatrixFilter();
+            filter.contrast(1.5);
+        } else if (selectedFilter === 'blackWhite') {
+            filter = new PIXI.filters.ColorMatrixFilter();
+            filter.blackAndWhite();
+        }
+
+        if (filter) {
+            sprite.filters = [filter];
+        }
+        // Renderiza a aplicação PixiJS
+       app.render();
+
+       
+       // Verifica se o objeto app.view existe
+       if(app.view){
+       // Obtém os dados da imagem filtrada em formato base64
+       const filteredImageDataURL = app.view.toDataURL(); 
+       // Atualiza o estado com o valor de filteredImageDataURL
+       console.log(filteredImageDataURL)
+       setFilteredImageDataURL(filteredImageDataURL); 
+       }
+       
+    
+         }
+        }
+   
+        // useEffect(() => {//Para monitorar as alterações em pixiapp e selectedFilter
+        //     if (pixiApp && selectedFilter !== null) {
+        //       // Chama a função applyFilter quando pixiapp ou selectedFilter mudam
+        //       applyFilter();
+        //     }
+        //   }, [pixiApp, selectedFilter]);
+        
+          
     async function postImage() {
+
         await api.postImage(urlImg.data.filename, descriptionText);
         handleClose();
     }
-    const src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"
-
-    async function applyfilter(){
-        if (imageRef.current){
-            Caman(imageRef.current, function () {
-                        // Aplicar o filtro escolhido
-                        if (selectedFilter === "brightness") {
-                            this.brightness(10);
-                        } else if (selectedFilter === "contrast") {
-                            this.contrast(10);
-                        }
-                        else if (selectedFilter==="blackWhite"){
-                            this.greyscale();
-                        }
-                        this.render();
-
-
-                    });
-                }
-
-                //Salvar a imagem
-    }
-
-   
-
-    const imageRef= useRef(null)//Referencia para o elemento <img>
-
-
-
-   
-
-    
 
 
     return (
         <div className="containerElement">
-            <div className="ContainerImg">
+            <div className="ContainerImg" ref={containerRef}>
                 <img 
-                ref={imageRef}
+                ref={imageRef} // Usando a ref diretamente no elemento img
                 src={urlImg.data.url} 
                 alt={`Imagem ${urlImg.index + 1}`} />
             </div>
@@ -182,21 +231,35 @@ function FotosGaleria( urlImg ) {
 
                         <Form.Group controlId="ControlSelect">
                             <Form.Label>Escolha um filtro</Form.Label>
-                            <Form.Control as="select" onChange={(event) => setSelectedFilter(event.target.value)}>
-                                <option value="none">Nenhum</option>
+                            <div className="select-wrapper">
+                            <select onChange={(event) => setSelectedFilter(event.target.value)}>
+                                <option value="none">Sem filtro</option>
                                 <option value="brightness">Brilho</option>
                                 <option value="contrast">Contraste</option>
-                                <option value= "blackWhite">Preto e Branco </option>
-
-                            </Form.Control>
+                                <option value="blackWhite">Preto e Branco</option>
+                            </select>
+                            </div>
+                            {filteredImageDataURL && 
+                            //<div className="filtered-image-container">
+                            <img src={filteredImageDataURL} alt="Imagem Filtrada" />
+                            //</div>
+                        
+                        }
                         </Form.Group>
+
+                            {//filteredImageDataURL && 
+                            //<div className="filtered-image-container">
+                            //<img src={filteredImageDataURL} alt="Imagem Filtrada" />
+                            //</div>
+                        
+                        }
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button >
-                    <Button variant="" onClick={applyfilter}>
+                    <Button variant="primary" onClick={applyFilter}>
                        Aplicar Filtro
                     </Button>
                     <Button variant="primary" onClick={postImage}>
