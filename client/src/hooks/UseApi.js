@@ -293,22 +293,6 @@ export const useApi = () => ({
     }
   },
 
-  ImportCommentsImage: async (comment_id_) => {
-    try {
-      var comment_id = JSON.stringify(comment_id_);
-
-      
-      const response = await api.get("/get_comment_likes" , {comment_id} );
-      if (response.status == 200) {
-        return response;
-      } else {
-        return response;
-      }
-    } catch (error) {
-      handleError(error);
-    }
-  },
-
   setLikesImage: async (data) => {
     try {
       /* 
@@ -326,6 +310,41 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+
+  ImportCommentsImage: async (comment_id_) => {
+    try {
+      var comment_id = JSON.stringify(comment_id_);
+
+      
+      const response = await api.get("/get_comment/" + comment_id_ );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  setCreateCommentsImage: async (data) => {
+    try {
+      /* 
+      author_id = ('user_id')
+      content = ('content', '')
+      post_id = ('post_id', '')
+      */
+      const response = await api.post("/create_comment" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
 
 
 });

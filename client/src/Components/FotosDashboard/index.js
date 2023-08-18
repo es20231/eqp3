@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, InputGroup } from "react-bootstrap";
 import './styles.scss'
 import moment from 'moment';
 
@@ -10,6 +10,8 @@ import dislike0 from "../../icons/dislike0.svg";
 import dislike1 from "../../icons/dislike1.svg";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import { useApi } from "../../hooks/UseApi";
+import Comments from "../Comments";
+import Form from 'react-bootstrap/Form';
 
 function FotosDashboard(urlImg) {
     const { user } = useContext(UserContext)
@@ -24,6 +26,34 @@ function FotosDashboard(urlImg) {
     const [quantLike, setQuantLike] = useState('0')
     const [quantDislike, setQuantDislike] = useState('0')
     // // receber os likes e dislikes 
+
+    // COMMENTS
+    const handleCommentChange = (event) => {
+        setComments(event.target.value);
+    };
+
+    const handleAddComment = async () => {
+        try {
+            if (comments.trim() === "") {
+                return;
+            }
+
+            const commentData = {
+                author_id: user.id,
+                post_id: urlImg.data.id,
+                content: comments,
+            };
+
+            const response = await api.setCreateCommentsImage(commentData); // Substitua pelo nome do método para adicionar um comentário
+
+            // Atualizar o estado de comments e forçar a recarga dos comentários
+            setComments("");
+            setButtonClick(buttonClick === 0 ? 1 : 0);
+        } catch (error) {
+            console.error("Error adding comment:", error);
+        }
+    };
+
 
     useEffect(() => {
         // Define an async function to fetch likes and update state
@@ -48,20 +78,7 @@ function FotosDashboard(urlImg) {
         };
 
 
-        // const fetchComments = async () => {
-        //     try {
 
-
-        //         if (urlImg.data.id) {
-        //             const commentsImage = await api.ImportCommentsImage(urlImg.data.id);
-        //             setComments(commentsImage);
-        //             console.log("Likes : ", commentsImage.data);
-        //         }
-        //     } catch (error) {
-        //         console.error("Error fetching likes:", error);
-        //     }
-        // };
-        // fetchComments();
         fetchLikes(); // Call the async function to fetch and set likes
 
         // No need for dependencies array since we are not using any external variables in the effect.
@@ -81,7 +98,7 @@ function FotosDashboard(urlImg) {
 
             if (likesUsers.author_id == user.id && likesUsers.tipo == 1) {
                 setBoolLike(boolLike => 1)
-            } else if(likesUsers.author_id == user.id && likesUsers.tipo == 0 ){
+            } else if (likesUsers.author_id == user.id && likesUsers.tipo == 0) {
                 setBoolDislike(boolDislike => 1)
             }
         })
@@ -156,14 +173,41 @@ function FotosDashboard(urlImg) {
                         {boolDislike == 1 ? <img src={dislike1} /> : <img src={dislike0} />}
                         {quantDislike}
                     </button>
+                    <Comments data={{ post_id: urlImg.data.id }} />
                 </div>
+
                 <div className="DescriptionPost custom-scrollbar">
                     <h1> {urlImg.data.description} </h1>
                     <p> {moment(urlImg.data.created).format("DD MMM YYYY")}</p>
                 </div>
-                <div className="Comments">
+                <p>Comentário</p>
 
 
+                <div className="AddComments">
+
+                    {/* <input
+                        type="text"
+                        value={comments}
+                        onChange={handleCommentChange}
+                    />
+                    <button onClick={handleAddComment}>Adicionar Comentário</button> */}
+
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            placeholder="Recipient's username"
+                            aria-label="Recipient's username"
+                            aria-describedby="basic-addon2"
+                            value={comments}
+                            onChange={handleCommentChange}
+                        />
+                        <Button
+                            variant="tp_1"
+                            id="button-addon2"
+                            onClick={handleAddComment}
+                        >
+                            seta -
+                        </Button>
+                    </InputGroup>
                 </div>
             </div>
         </div >

@@ -59,16 +59,16 @@ def delete_image(post_id):
     Posts.delete(post_id)
     return jsonify({"message": "post deleted"})
 
-@bp.route('/get_comment', methods=['POST', 'GET'])
+@bp.route('/get_comment/<int:comment_id>', methods=[ 'GET'])
 @login_required
-def get_comments():
-    json = request.get_json()
-    post_id = str(json.get('post_id', ''))
+def get_comments(comment_id):
+    # json = request.get_json()
+    # post_id = str(json.get('post_id', ''))
 
-    if not post_id.isnumeric():
-        return make_response(jsonify(message='Id do Post nao fornecido'), 400)
+    # if not post_id.isnumeric():
+    #     return make_response(jsonify(message='Id do Post nao fornecido'), 400)
     
-    post_commets = Comments.get_comments(post_id)
+    post_commets = Comments.get_comments(comment_id)
     
     return jsonify(post_commets)
 
@@ -125,14 +125,14 @@ def get_likes_from_post(post_id):
 
     return jsonify(post_likes)
 
-@bp.route('/get_comment_likes', methods=['GET'])
+@bp.route('/get_comment_likes/<int:comment_id>', methods=['GET'])
 @login_required
-def get_comment_likes():
-    json = request.get_json()
-    comment_id = str(json.get('comment_id', ''))
+def get_comment_likes(comment_id):
     
-    if not comment_id.isnumeric():
-        return make_response(jsonify(message='Id do cometario nao fornecido'), 400)
+    # comment_id = str(json.get('comment_id', ''))
+    
+    # if not comment_id.isnumeric():
+    #     return make_response(jsonify(message='Id do cometario nao fornecido'), 400)
     
     comment_likes = Likes.get_comment_likes(comment_id)
     
