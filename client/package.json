@@ -5,6 +5,9 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "caman": "^4.1.2",
+    "canvas": "^2.11.2",
+    "fibers": "^5.0.3",
     "moment": "^2.29.4",
     "pixi-filters": "^5.2.1",
     "pixi.js": "^7.2.4",
