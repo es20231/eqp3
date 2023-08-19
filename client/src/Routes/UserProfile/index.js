@@ -1,40 +1,54 @@
 import React, { useEffect } from "react";
-import { useContext,} from "react";
+import { useContext, useState, useCallback } from "react";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import AvatarName from "../../Components/AvatarName";
-import { Button,  } from "react-bootstrap";
+import { Button, Modal, Form, InputGroup } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 import { Container, } from 'react-bootstrap';
 
-import './styles.scss'
+// import './styles.scss'
 
 //toast 
 import { toast } from "react-toastify";
-
-//icons
 
 import logout_icon from "../../icons/logout_icon.svg"
 
 import ImportListDashboardImage from "../../Components/ImportListDashboardImage";
 import NavigationBar from "../../Components/NavigationBar";
+import { useApi } from "../../hooks/UseApi";
 
 
-function DashboardPerfil() {
+function UserProfile() {
+
+    const api = useApi()
+    // recebe o nome do usurário pela props 
+
+    // busca a 
+    const { username } = useParams();
+
+    const [userProfile, setUserProfile] = useState([])
+    
+
+    // criar uma estrutura para com os dados do usuario
+
+    useEffect(() => {
+        const importDataUser = async () => {
+            const dataUser = await api.ImportDataUserProfile(username)
+            setUserProfile(userProfile => dataUser.data)
+           
+
+        }
+          // importImagensApi();
+        importDataUser();
+    }, [username])
+
+   
 
     const userLocal = useContext(UserContext)
     const navigate = useNavigate();
-
-
-
-    function GotoTimeline() {
-        navigate('/DashboardPerfil')
-    }
-
-    function GotoPerfil() {
-        navigate('/Private')
-    }
-
 
 
 
@@ -42,7 +56,7 @@ function DashboardPerfil() {
         // apagando token user 
 
         const logoutCont = await userLocal.logout();
-       
+
 
         if (logoutCont) {
             toast.success("Deslogado!");
@@ -53,19 +67,20 @@ function DashboardPerfil() {
         }
     }
 
-    if (!userLocal.user) {
+    
+
+    if (!userProfile) {
         return (<p>Loading</p>)
     } else {
         return (
             <>
                 <div className="cabeçalho">
-                    <AvatarName data={userLocal.user} />
+                  
+                    { userProfile.username && <AvatarName key={userProfile.id}  data={ userProfile } /> }
 
-                    <NavigationBar page="timeLine" />
+                    <NavigationBar page="user" />
 
                     <div className="buttons_right">
-
-
 
                         <Button
                             variant="tp_1"
@@ -88,11 +103,11 @@ function DashboardPerfil() {
 
                     <div className="textBox" >
                         <div className="edit_perfil_name">
-                         
-                            <h5> {userLocal.user.fullname} </h5>
+
+                            {<h5> {userProfile.fullname} </h5>}
                         </ div>
 
-                        <p> {userLocal.user.description}</p>
+                        {<p> {userProfile.description}</p>}
                     </div>
 
 
@@ -101,8 +116,8 @@ function DashboardPerfil() {
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                        <ImportListDashboardImage userNameDash={userLocal.user.username}/>
 
+                        <ImportListDashboardImage userNameDash={username} />
 
                     </Container >
 
@@ -112,4 +127,4 @@ function DashboardPerfil() {
     }
 }
 
-export default DashboardPerfil;
+export default UserProfile;

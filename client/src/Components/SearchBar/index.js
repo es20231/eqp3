@@ -4,8 +4,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useApi } from '../../hooks/UseApi';
 import AvatarName from '../AvatarName';
 import "./styles.scss"
+import { Link } from 'react-router-dom';
 
 function SearchBar() {
+    const api = useApi()
     const [show, setShow] = useState(false);
     const [listUserSearch, setListUserSearch] = useState([])
     const [listUserSearchFormatted, setListUserSearchFormatted] = useState([])
@@ -16,27 +18,21 @@ function SearchBar() {
             try {
                 const response = await api.ListTimelineUsers();
                 setListUserSearch(response.data);
-                console.log(response.data);
-                // fazer o tratamento 
-                const importImages = await Promise.all(
-                    response.data.map(async (dataName) => {
-                        return {
-                            profile_picture: await api.importImage(dataName.profile_picture),
-                            username:dataName.username
-                        }
-                    }))
 
-                setListUserSearchFormatted(importImages)
+                
+
+
+                setListUserSearchFormatted(response.data)
 
             } catch (error) {
                 console.error("Erro ao buscar os usuários:", error);
             }
         };
-
+    
         fetchData();
     }, []);
 
-    const api = useApi()
+    
     return (
         <>
             <Button variant="transparent"
@@ -53,7 +49,10 @@ function SearchBar() {
                 <Offcanvas.Body className='BodyOffCanvas'>
                     {listUserSearchFormatted.length > 0 &&
                         listUserSearchFormatted.map((urlImg, index) => (
-                            <AvatarName  key={index} data={urlImg}></AvatarName>
+                            
+                            <Link key={index} to={{ pathname: `/user/${urlImg.username}`, state: urlImg }}>
+                                <AvatarName key={index} data={urlImg}></AvatarName>
+                            </Link>
                         ))}
 
 

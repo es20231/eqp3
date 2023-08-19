@@ -51,18 +51,34 @@
             color: #eeeeee9a;
             font-size: 0.8rem;
             margin-left: 5px;
+            .modal-content {
+                background: #040917 !important;
+                
+            }
         }
         }
         
-        p{
+        > p{
             margin-left:40px ;
             // background-color: #fff;
-            color: #FFFFFF;
+            // color: #FFFFFF;
             font-size: 1rem;
         }
     }
     
 }
+
+.custom-dialog {
+    width: 80%;
+    margin: auto;
+  }
+  
+  /* Definindo uma classe para o modal-content */
+  .custom-content {
+    padding: 20px;
+    color: rgb(226, 226, 226);
+    background:#181F33 ;
+  }
 
 .Arquivos{ 
     background-color: #040917;

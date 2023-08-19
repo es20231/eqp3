@@ -26,36 +26,33 @@ function UploadImageProfile() {
         }
     };
 
-    
+
     const handleSubmit = async () => {
         if (selectedImage) {
             //chamada da função
-           
+
             const formData = new FormData(); // Cria um objeto FormData
             formData.append('file', fileImage);
             // formData.append('user_id',userLocal.user.token);
 
-            console.log(formData);
-            {for (let pair of formData.entries()) {
-                console.log(pair[0] + ':', pair[1]);
-              }}
+
             //existe algum erro na compatibilidade do arquivo a ser enviado para a API
             await api.uploadImageProfile(formData);
-            setTimeout(userLocal.setUserUpdateData( ! userLocal.userUpdateData ),200);
-             // indicar que esta atualizando
-            
+            setTimeout(userLocal.setUserUpdateData(!userLocal.userUpdateData), 200);
+            // indicar que esta atualizando
+
             toast.success("Imagem enviada com sucesso!");
             handleClose();
         } else {
             toast.warning("Por favor, selecione uma imagem!");
         }
     };
-   
+
     // upload image
     const handleClose = () => {
         setShowModal(false);
         setSelectedImage(null);
-        
+
     };
 
     const handleShow = () => {
@@ -65,12 +62,18 @@ function UploadImageProfile() {
     return (
         <>
             <Button variant="tp_2 text-light" onClick={handleShow}>
-                <img src={perfil_avatar}/>
-        
+                <img src={perfil_avatar} />
+
                 Perfil
             </Button>
 
-            <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
+            <Modal
+                show={showModal}
+                onHide={handleClose}
+                dialogClassName="custom-dialog"
+                contentClassName="custom-content"
+                backdrop="static"
+                keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Selecione a Imagem</Modal.Title>
                 </Modal.Header>

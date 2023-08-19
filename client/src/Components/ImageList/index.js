@@ -15,7 +15,7 @@ const api =useApi()
 
         await api.get("http://locahost:5000/dashboard")
         .then((response)=>{
-            console.log(response.data)
+           
             setData(response.data.image)//Quando recebe do backend
             setUrl(response.data.path_name)//recebe o endereço
         }).catch((err)=> {
