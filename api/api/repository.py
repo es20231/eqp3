@@ -255,7 +255,7 @@ class likeRepository:
         db = get_db()
         
         rows = db.execute(
-            'SELECT l.id, l.tipo, u.username, u.profile_picture'
+            'SELECT l.id, l.tipo, l.author_id, u.username, u.profile_picture'
             ' FROM likes l JOIN user u ON l.author_id = u.id WHERE l.post_id = ? '
             ' ORDER BY l.id DESC', (post_id,)
         ).fetchall()
