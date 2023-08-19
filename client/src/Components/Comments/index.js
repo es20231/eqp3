@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useApi } from '../../hooks/UseApi';
 import menssage_icon from '../../icons/message.svg'
+import AvatarName from '../AvatarName';
+import './styles.scss'
 
 function Comments(props) {
     const api = useApi()
@@ -31,9 +33,9 @@ function Comments(props) {
     
       const renderComments = () => {
         return listComments.map((dataComment) => (
-          <div  key={dataComment.id}>
-            <p>{dataComment.author_id}</p>
-            <h2>{dataComment.content}</h2>
+          <div  key={dataComment.id} className="commentBox">
+            <AvatarName tam={27} tamFont={14} key={dataComment.id} data={dataComment}/>
+            <h1>{dataComment.content}</h1>
             <p>{dataComment.created}</p>
           </div>
         ));

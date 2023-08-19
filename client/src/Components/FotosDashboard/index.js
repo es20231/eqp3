@@ -4,6 +4,7 @@ import './styles.scss'
 import moment from 'moment';
 
 //icons
+import message_send from "../../icons/message_send_iconsvg.svg";
 import like0 from "../../icons/like0.svg";
 import like1 from "../../icons/like1.svg";
 import dislike0 from "../../icons/dislike0.svg";
@@ -12,6 +13,10 @@ import { UserContext } from "../../Contexts/Auth/AuthContext";
 import { useApi } from "../../hooks/UseApi";
 import Comments from "../Comments";
 import Form from 'react-bootstrap/Form';
+import PopButton from "../PopButton";
+import AvatarName from "../AvatarName";
+
+
 
 function FotosDashboard(urlImg) {
     const { user } = useContext(UserContext)
@@ -23,8 +28,8 @@ function FotosDashboard(urlImg) {
     const [buttonClick, setButtonClick] = useState('0')
 
 
-    const [quantLike, setQuantLike] = useState('0')
-    const [quantDislike, setQuantDislike] = useState('0')
+    const [quantLike, setQuantLike] = useState([])
+    const [quantDislike, setQuantDislike] = useState([])
     // // receber os likes e dislikes 
 
     // COMMENTS
@@ -82,23 +87,29 @@ function FotosDashboard(urlImg) {
         fetchLikes(); // Call the async function to fetch and set likes
 
         // No need for dependencies array since we are not using any external variables in the effect.
-    }, [boolLike, boolDislike, buttonClick]);
+    }, [buttonClick]);
+
+
 
     useEffect(() => {
-        setQuantLike(quantLike => 0)
-        setQuantDislike(quantDislike => 0)
+        setQuantLike([])
+        setQuantDislike([])
         likes.map((likesUsers) => {
 
 
             if (likesUsers.tipo == 1) {
-                setQuantLike(quantLike => quantLike + 1)
+
+                setQuantLike(quantLike => [...quantLike, likesUsers])
+
             } else {
-                setQuantDislike(quantDislike => quantDislike + 1)
+                setQuantDislike(quantDislike => [...quantDislike, likesUsers])
             }
 
-            if (likesUsers.author_id == user.id && likesUsers.tipo == 1) {
+            if (likesUsers.username == user.username && likesUsers.tipo == 1) {
                 setBoolLike(boolLike => 1)
-            } else if (likesUsers.author_id == user.id && likesUsers.tipo == 0) {
+
+            } else if (likesUsers.username == user.username && likesUsers.tipo == 0) {
+
                 setBoolDislike(boolDislike => 1)
             }
         })
@@ -106,21 +117,30 @@ function FotosDashboard(urlImg) {
 
     return (
         <div className="containerElement">
-            <div className="testaImagem">
+            <div 
+            className="testaImagem"
+            style={{ ...(urlImg.sendToTimeLine  ? { display: 'inline-block',width: urlImg.tamBox,  } : {}) }}
+            >
+                
+                 <AvatarName tamFont={10}  tam={30} data = {urlImg.data} />{/*  precisa que o back adicione o nome do usuario e profile_picture */}
 
-                {/* <AvatarName  propsAvatar = {auxData} /> */}
-
-                <Button >...</Button>
+                
             </div>
 
             <div className="ContainerImg">
 
-                {<img src={urlImg.data.url} /> || null}
+                {<img
+                    style={{ ...(urlImg.tamBox != null ? { width: urlImg.tamBox, height: urlImg.tamBox } : {}) }}
+                    src={urlImg.data.url}
+                /> || null}
 
 
 
             </div>
-            <div className="queixoImageDashboard">
+            <div
+                className="queixoImageDashboard"
+                style={{ ...(urlImg.tamBox != null ? { width: urlImg.tamBox } : {}) }}
+            >
                 <div className="ButtonLikes">
                     <button
                         className="LikeBnt"
@@ -145,8 +165,13 @@ function FotosDashboard(urlImg) {
                         }}
                     >
                         {boolLike == 1 ? <img src={like1} /> : <img src={like0} />}
-                        {quantLike}
+
+
                     </button>
+                    {/* LISTA DOS USUÁRIOS QUE DERAM LIKE  */}
+
+                    <PopButton data={quantLike} />
+
                     <button
                         className="DislikeBnt"
                         onClick={() => {
@@ -171,8 +196,10 @@ function FotosDashboard(urlImg) {
                         }
                     >
                         {boolDislike == 1 ? <img src={dislike1} /> : <img src={dislike0} />}
-                        {quantDislike}
+
                     </button>
+                    <PopButton data={quantDislike} />
+                    {console.log(quantDislike)}
                     <Comments data={{ post_id: urlImg.data.id }} />
                 </div>
 
@@ -180,7 +207,9 @@ function FotosDashboard(urlImg) {
                     <h1> {urlImg.data.description} </h1>
                     <p> {moment(urlImg.data.created).format("DD MMM YYYY")}</p>
                 </div>
-                <p>Comentário</p>
+                {/* <div className="linhaDiv" /> */}
+
+                <br />
 
 
                 <div className="AddComments">
@@ -194,8 +223,8 @@ function FotosDashboard(urlImg) {
 
                     <InputGroup className="mb-3">
                         <Form.Control
-                            placeholder="Recipient's username"
-                            aria-label="Recipient's username"
+                            placeholder="Add Comment"
+                            aria-label="Add Comment"
                             aria-describedby="basic-addon2"
                             value={comments}
                             onChange={handleCommentChange}
@@ -205,7 +234,7 @@ function FotosDashboard(urlImg) {
                             id="button-addon2"
                             onClick={handleAddComment}
                         >
-                            seta -
+                            <img src={message_send} />
                         </Button>
                     </InputGroup>
                 </div>

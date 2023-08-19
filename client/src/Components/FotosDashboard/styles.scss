@@ -16,6 +16,7 @@
         } 
     }
     .testaImagem{
+        padding: 4px 0 2px 0;
         display: none;
         flex-direction: row;
         justify-content:space-around;
@@ -51,6 +52,14 @@
                }
             }
 
+        }
+        .AddComments{
+            width: 90%;
+        }
+        .linhaDiv{
+            margin:5px 0 10px 0;
+            width:90%;
+            border-bottom: 1px solid #ececec;
         }
         .DescriptionPost{
             width: 90%;

@@ -55,12 +55,12 @@ const UserProvider = ({ children }) => {
         // return true;
         console.log("profile image: " + user.profile_picture)
       } catch (error) {
-        toast.warning("receber imagem de perfil");
+        console.log("receber imagem de perfil");
         const dataIMgPerfil = await api.importImageProfile();
-        setUser({
-          user,
+        setUser((prevUser) => ({
+          ...prevUser,
           profile_picture: dataIMgPerfil,
-        })
+      }));
       }
     }
     // throw new Error("Invalid credentials");

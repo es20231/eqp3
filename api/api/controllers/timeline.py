@@ -23,6 +23,14 @@ def index(username):
         return jsonify(posts)
     else:
         return make_response(jsonify({"error": "user not found"}),404)
+    
+@bp.route('/timelineAll')
+@login_required
+def indexaAll():
+    
+    posts = Posts.get_all_posts()
+    return jsonify(posts)
+
 
 @bp.route('/post/<filename>', methods=['POST'])
 @login_required
@@ -153,14 +161,8 @@ def like_post():
         if like['author_id'] == author_id:
             return make_response(jsonify(message='usuario já realizou like'), 409) 
     
-    # if not post_id.isnumeric():
-    #     return make_response(jsonify(message='Id do Post nao fornecido'), 400)
-    
     if tipo is None:
         return make_response(jsonify(message='tipo nao fornecido'), 400)
-    
-    # if not author_id.isnumeric():
-    #     return make_response(jsonify(message='Autor do like nao fornecido'), 400)
     
     Likes.insert_like(tipo, author_id, post_id=post_id)
     

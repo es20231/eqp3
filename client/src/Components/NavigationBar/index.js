@@ -16,13 +16,17 @@ function NavigationBar({ page }) {
     function GotoPerfil() {
         navigate('/Private')
     }
+    function GotoTimeLineGeneral() {
+        navigate('/TimeLine')
+    }
+
     return (<>
         <Button
-            variant={page === "Home" ? "tp_1" : "transparent"}
+            variant={page === "TimeLineGeneral" ? "tp_1" : "transparent"}
             className="text-light "
             type="button"
-            
-            disabled
+            onClick={GotoTimeLineGeneral}
+            // disabled
         >
             <img src={home}></img>
             Home
