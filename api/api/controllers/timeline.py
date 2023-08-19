@@ -28,10 +28,9 @@ def index(username):
 @login_required
 def indexaAll():
     
-        posts = Posts.get_all_posts()
-        return jsonify(posts)
-    
-        return make_response(jsonify({"error": "user not found"}),404)
+    posts = Posts.get_all_posts()
+    return jsonify(posts)
+
 
 @bp.route('/post/<filename>', methods=['POST'])
 @login_required

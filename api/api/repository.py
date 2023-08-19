@@ -172,8 +172,11 @@ class postRepository:
         
     def get_all_posts(self):
         db = get_db()
+
         rows = db.execute(
-            'SELECT * FROM post ORDER BY created DESC'
+            'SELECT p.id, p.description, p.author_id, p.filename, p.created, u.username, u.profile_picture'
+            ' FROM post p JOIN user u ON p.author_id = u.id'
+            ' ORDER BY created DESC'
         ).fetchall()
         
         posts = rows_to_dict(rows)
