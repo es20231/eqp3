@@ -48,7 +48,7 @@ function TimeLine() {
     } else {
         return (
             <>
-                <div className="cabeçalho">
+                <div style={{position:'fixed',zIndex:999}} className="cabeçalho">
                     <AvatarName data={userLocal.user} />
 
                     <NavigationBar page="TimeLineGeneral" />
@@ -72,6 +72,7 @@ function TimeLine() {
                     </div>
                 </div>
 
+                <div style={{height: '100px'}}> className="NavBarSpace"</div>
 
 
 
