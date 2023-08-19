@@ -14,6 +14,7 @@ import { useApi } from "../../hooks/UseApi";
 import Comments from "../Comments";
 import Form from 'react-bootstrap/Form';
 import PopButton from "../PopButton";
+import AvatarName from "../AvatarName";
 
 
 
@@ -116,11 +117,15 @@ function FotosDashboard(urlImg) {
 
     return (
         <div className="containerElement">
-            <div className="testaImagem">
+            <div 
+            className="testaImagem"
+            style={{ ...(urlImg.sendToTimeLine  ? { display: 'inline-block',width: urlImg.tamBox,  } : {}) }}
+            >
+                {console.log("urlImg.data -> FotosDashboard **************")}
+                {console.log(urlImg.data)}
+                 <AvatarName  tam={30} data = {urlImg.data} />{/*  precisa que o back adicione o nome do usuario e profile_picture */}
 
-                {/* <AvatarName  propsAvatar = {auxData} /> */}
-
-                <Button >...</Button>
+                
             </div>
 
             <div className="ContainerImg">

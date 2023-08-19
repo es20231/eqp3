@@ -78,7 +78,7 @@ function TimeLine() {
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                        <ImportListTimeLine/>
+                        <ImportListTimeLine />
 
 
                     </Container >

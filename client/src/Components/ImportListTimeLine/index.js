@@ -79,7 +79,7 @@ function ImportListTimeLine() {
           imagemDownload.map((urlImg, index) => (
             <Col key={index} md={{ span: 6, offset: 3 }}>
 
-              <FotosDashboard key={index} data={urlImg} tamBox={435}/>
+              <FotosDashboard key={index} data={urlImg} tamBox={435} sendToTimeLine={true}/>
               {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}
             </Col>
           ))}
