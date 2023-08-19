@@ -26,14 +26,16 @@ import ImportImageProfile from "../../Components/ImportImageProfile";
 import UploadImageProfile from "../../Components/UploadImageProfile";
 import Pagination from "../../Components/Pagination";
 import SearchBar from "../../Components/SearchBar";
+import NavigationBar from "../../Components/NavigationBar";
 
 
 function Register() {
 
     const userLocal = useContext(UserContext)
-    const navigate = useNavigate();
+    
     const api = useApi();
     //Modal Edit perfil 
+
 
     const [show, setShow] = useState(false);
 
@@ -46,9 +48,7 @@ function Register() {
     const [description, setDescription] = useState('');
     const [email, setEmail] = useState('');
 
-    function GotoTimeline(){
-        navigate('/DashboardPerfil')
-    }
+     const navigate = useNavigate();
 
 
 
@@ -67,7 +67,7 @@ function Register() {
         // apagando token user 
 
         const logoutCont = await userLocal.logout();
-        console.log(logoutCont)
+        
 
         if (logoutCont) {
             toast.success("Deslogado!");
@@ -124,39 +124,9 @@ function Register() {
         return (
             <>
                 <div className="cabeçalho">
-                    <AvatarName data={userLocal.user} />
+                    { userLocal.user.username  && <AvatarName data={userLocal.user} />}
 
-                    <div className="NavBar">
-                        <Button
-                            variant="transparent"
-                            className="text-light"
-                            type="button"
-                            disabled
-                        >
-                            <img src={home}></img>
-                            Home
-                        </Button>{' '}
-                        <Button
-                            variant="tp_1 "
-                            className=" text-light "
-                            type="button"
-
-                        >
-                            <img src={user_icon}></img>
-                            Perfil
-                        </Button>{' '}
-                        <Button
-                            variant="transparent"
-                            className=" text-light"
-                            type="button"
-                            onClick={ GotoTimeline }
-                        >
-                            <img src={user_icon}></img>
-                            TimeLine
-                        </Button>{' '}
-                        <SearchBar/>
-
-                    </div>
+                   <NavigationBar page="Perfil"/>
 
                     <div className="buttons_right">
 
@@ -193,11 +163,11 @@ function Register() {
                                     Edit
                                 </button>
 
-                                <Modal show={show} onHide={handleClose}>
+                                <Modal show={show} onHide={handleClose} dialogClassName="custom-dialog" contentClassName="custom-content">
                                     <Modal.Header closeButton>
-                                        <Modal.Title>Perfil do Usuario</Modal.Title>
+                                        <Modal.Title >Perfil do Usuario</Modal.Title>
                                     </Modal.Header>
-                                    <Modal.Body>
+                                    <Modal.Body className="ModalBody">
                                         <p>Foto de Perfil</p>
                                         <UploadImageProfile />
 
@@ -205,14 +175,14 @@ function Register() {
                                         <InputGroup className="mb-3">
 
                                             <Form.Control
-                                                placeholder={userLocal.user.name}
+                                                placeholder={userLocal.user.username}
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
                                                 value={userName}
                                                 onChange={(e) => setUserName(e.target.value)}
 
                                             />
-                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditUserName}>
+                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditUserName}>
                                                 Button
                                             </Button>
 
@@ -230,7 +200,7 @@ function Register() {
                                                 onChange={(e) => setFullName(e.target.value)}
 
                                             />
-                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditFullName}>
+                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditFullName}>
                                                 Button
                                             </Button>
 
@@ -249,7 +219,7 @@ function Register() {
                                                 onChange={(e) => setDescription(e.target.value)}
 
                                             />
-                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditDescription}>
+                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditDescription}>
                                                 Button
                                             </Button>
                                         </InputGroup>
@@ -267,26 +237,26 @@ function Register() {
                                                 onChange={(e) => setEmail(e.target.value)}
 
                                             />
-                                            <Button variant="outline-secondary" id="button-addon2" onClick={handleEditEmail}>
+                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditEmail}>
                                                 Button
                                             </Button>
                                         </InputGroup>
 
 
-                                        {/* <p>Password</p>
-                            <InputGroup className="mb-3">
+                                        <p>Password</p>
+                                        <InputGroup className="mb-3">
 
-                                <Form.Control
-                                    placeholder={userLocal.user.password}
-                                    aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2"
-                                />
-                                <Button variant="outline-secondary" id="button-addon2">
-                                    Button
-                                </Button>
+                                            <Form.Control
+                                                placeholder={userLocal.user.password}
+                                                aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                            />
+                                            <Button variant="tp_2" id="button-addon2">
+                                                Button
+                                            </Button>
 
 
-                            </InputGroup> */}
+                                        </InputGroup>
 
 
 

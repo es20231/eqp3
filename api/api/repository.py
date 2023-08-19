@@ -216,9 +216,11 @@ class commentRepository:
     
     def get_comments(self, post_id):
         db = get_db()
+
         rows = db.execute(
-            'SELECT * FROM comment WHERE post_id = ? ORDER BY created DESC',
-            (post_id,)
+            'SELECT c.id, c.content, c.created, u.username, u.profile_picture'
+            ' FROM comment c JOIN user u ON c.author_id = u.id WHERE c.post_id = ? '
+            ' ORDER BY created DESC', (post_id,)
         ).fetchall()
         
         comments = rows_to_dict(rows)
@@ -253,8 +255,9 @@ class likeRepository:
         db = get_db()
         
         rows = db.execute(
-            'SELECT id, tipo, author_id, post_id FROM likes WHERE post_id = ?',
-            (post_id,)
+            'SELECT l.id, l.tipo, u.username, u.profile_picture'
+            ' FROM likes l JOIN user u ON l.author_id = u.id WHERE l.post_id = ? '
+            ' ORDER BY l.id DESC', (post_id,)
         ).fetchall()
         
         post_likes = rows_to_dict(rows)
