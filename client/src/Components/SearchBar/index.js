@@ -5,6 +5,7 @@ import { useApi } from '../../hooks/UseApi';
 import AvatarName from '../AvatarName';
 import "./styles.scss"
 import { Link } from 'react-router-dom';
+import search_icon from '../../icons/search_icon.svg'
 
 function SearchBar() {
     const api = useApi()
@@ -19,7 +20,7 @@ function SearchBar() {
                 const response = await api.ListTimelineUsers();
                 setListUserSearch(response.data);
 
-                
+
 
 
                 setListUserSearchFormatted(response.data)
@@ -28,17 +29,19 @@ function SearchBar() {
                 console.error("Erro ao buscar os usuários:", error);
             }
         };
-    
+
         fetchData();
     }, []);
 
-    
+
     return (
         <>
-            <Button variant="transparent"
+            <Button 
+                variant="transparent"
                 className=" text-light"
                 type="button"
                 onClick={handleShow}>
+                <img src={search_icon} />
                 Search
             </Button>
 
@@ -49,7 +52,7 @@ function SearchBar() {
                 <Offcanvas.Body className='BodyOffCanvas'>
                     {listUserSearchFormatted.length > 0 &&
                         listUserSearchFormatted.map((urlImg, index) => (
-                            
+
                             <Link key={index} to={{ pathname: `/user/${urlImg.username}`, state: urlImg }}>
                                 <AvatarName key={index} data={urlImg}></AvatarName>
                             </Link>

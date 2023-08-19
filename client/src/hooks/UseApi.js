@@ -241,6 +241,20 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+
+  importListTimelineImageAll: async () => {
+    try {
+      const response = await api.get("/timelineAll" );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
   ListTimelineUsers: async () => {
     try {
       const response = await api.get("/users");

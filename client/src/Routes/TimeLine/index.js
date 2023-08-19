@@ -7,7 +7,7 @@ import { Button,  } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Container, } from 'react-bootstrap';
 
-import './styles.scss'
+//  import './styles.scss'
 
 //toast 
 import { toast } from "react-toastify";
@@ -18,9 +18,10 @@ import logout_icon from "../../icons/logout_icon.svg"
 
 import ImportListDashboardImage from "../../Components/ImportListDashboardImage";
 import NavigationBar from "../../Components/NavigationBar";
+import ImportListTimeLine from "../../Components/ImportListTimeLine";
 
 
-function DashboardPerfil() {
+function TimeLine() {
 
     const userLocal = useContext(UserContext)
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ function DashboardPerfil() {
                 <div className="cabeçalho">
                     <AvatarName data={userLocal.user} />
 
-                    <NavigationBar page="TimeLine" />
+                    <NavigationBar page="TimeLineGeneral" />
 
                     <div className="buttons_right">
 
@@ -73,24 +74,11 @@ function DashboardPerfil() {
 
 
 
-                <div className="Descrição" >
-
-                    <div className="textBox" >
-                        <div className="edit_perfil_name">
-                         
-                            <h5> {userLocal.user.fullname} </h5>
-                        </ div>
-
-                        <p> {userLocal.user.description}</p>
-                    </div>
-
-
-                </div>
 
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                        <ImportListDashboardImage userNameDash={userLocal.user.username}/>
+                        <ImportListTimeLine/>
 
 
                     </Container >
@@ -101,4 +89,4 @@ function DashboardPerfil() {
     }
 }
 
-export default DashboardPerfil;
+export default TimeLine;

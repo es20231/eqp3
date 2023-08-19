@@ -88,7 +88,7 @@ function FotosDashboard(urlImg) {
         // No need for dependencies array since we are not using any external variables in the effect.
     }, [buttonClick]);
 
-    
+
 
     useEffect(() => {
         setQuantLike([])
@@ -98,10 +98,10 @@ function FotosDashboard(urlImg) {
 
             if (likesUsers.tipo == 1) {
 
-                setQuantLike(quantLike => [...quantLike ,  likesUsers ])
+                setQuantLike(quantLike => [...quantLike, likesUsers])
 
             } else {
-                setQuantDislike(quantDislike =>  [...quantDislike, likesUsers])
+                setQuantDislike(quantDislike => [...quantDislike, likesUsers])
             }
 
             if (likesUsers.username == user.username && likesUsers.tipo == 1) {
@@ -125,12 +125,18 @@ function FotosDashboard(urlImg) {
 
             <div className="ContainerImg">
 
-                {<img src={urlImg.data.url} /> || null}
+                {<img
+                    style={{ ...(urlImg.tamBox != null ? { width: urlImg.tamBox, height: urlImg.tamBox } : {}) }}
+                    src={urlImg.data.url}
+                /> || null}
 
 
 
             </div>
-            <div className="queixoImageDashboard">
+            <div
+                className="queixoImageDashboard"
+                style={{ ...(urlImg.tamBox != null ? { width: urlImg.tamBox } : {}) }}
+            >
                 <div className="ButtonLikes">
                     <button
                         className="LikeBnt"
@@ -155,12 +161,12 @@ function FotosDashboard(urlImg) {
                         }}
                     >
                         {boolLike == 1 ? <img src={like1} /> : <img src={like0} />}
-                       
-                        
+
+
                     </button>
                     {/* LISTA DOS USUÁRIOS QUE DERAM LIKE  */}
-                       
-                       <PopButton data={quantLike}/>
+
+                    <PopButton data={quantLike} />
 
                     <button
                         className="DislikeBnt"
@@ -186,9 +192,9 @@ function FotosDashboard(urlImg) {
                         }
                     >
                         {boolDislike == 1 ? <img src={dislike1} /> : <img src={dislike0} />}
-                        
+
                     </button>
-                    <PopButton data={quantDislike}/>
+                    <PopButton data={quantDislike} />
                     {console.log(quantDislike)}
                     <Comments data={{ post_id: urlImg.data.id }} />
                 </div>

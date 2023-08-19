@@ -23,6 +23,15 @@ def index(username):
         return jsonify(posts)
     else:
         return make_response(jsonify({"error": "user not found"}),404)
+    
+@bp.route('/timelineAll')
+@login_required
+def indexaAll():
+    
+        posts = Posts.get_all_posts()
+        return jsonify(posts)
+    
+        return make_response(jsonify({"error": "user not found"}),404)
 
 @bp.route('/post/<filename>', methods=['POST'])
 @login_required
