@@ -54,7 +54,8 @@ function ImportListDashboardImage(props) {
                 created: dataName.created,
                 description: dataName.description,
                 id: dataName.id,
-                image_id:dataName.image_id
+                image_id:dataName.image_id,
+
               };
             })
           );

@@ -9,30 +9,38 @@
     align-items: flex-start;
     justify-content: flex-start;
     height: 82px;
-    .ConjuntoFotoNome{
+    a{
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        img{
-            border: 1px solid white;
-            margin-left: 20px;
-            border-radius: 50%;
-            background-color: #5653EA;
-            align-items: center;
-            height: 82px;
-            width: 82px;
+        text-decoration: none;
+        opacity: 0.9;
+        .ConjuntoFotoNome{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            img{
+                border: 1px solid white;
+                margin-left: 20px;
+                border-radius: 50%;
+                background-color: #5653EA;
+                align-items: center;
+                height: 82px;
+                width: 82px;
+            }
+    
+            p{
+                position: relative;
+                top: 45%;
+                font-size: 0.7rem;
+                color: white;
+                padding:0px;
+                margin-left: 10px ;
+                line-height: calc(50% - 1.2rem);
+            }
         }
-
-        p{
-            text-align: center;
-            font-size: 1.2rem;
-            color: white;
-            padding:0 6px;
-            margin-left: 10px ;
-            line-height: calc(50% - 1.2rem);
-        }
-    }
+      }:hover{
+        opacity: 1;
+      }
+   
 
     
 }

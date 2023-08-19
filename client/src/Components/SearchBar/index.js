@@ -36,7 +36,7 @@ function SearchBar() {
 
     return (
         <>
-            <Button 
+            <Button
                 variant="transparent"
                 className=" text-light"
                 type="button"
@@ -53,9 +53,9 @@ function SearchBar() {
                     {listUserSearchFormatted.length > 0 &&
                         listUserSearchFormatted.map((urlImg, index) => (
 
-                            <Link key={index} to={{ pathname: `/user/${urlImg.username}`, state: urlImg }}>
-                                <AvatarName key={index} data={urlImg}></AvatarName>
-                            </Link>
+
+                            <AvatarName key={index} data={urlImg}></AvatarName>
+
                         ))}
 
 

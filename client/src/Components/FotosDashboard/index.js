@@ -121,9 +121,8 @@ function FotosDashboard(urlImg) {
             className="testaImagem"
             style={{ ...(urlImg.sendToTimeLine  ? { display: 'inline-block',width: urlImg.tamBox,  } : {}) }}
             >
-                {console.log("urlImg.data -> FotosDashboard **************")}
-                {console.log(urlImg.data)}
-                 <AvatarName  tam={30} data = {urlImg.data} />{/*  precisa que o back adicione o nome do usuario e profile_picture */}
+                
+                 <AvatarName tamFont={10}  tam={30} data = {urlImg.data} />{/*  precisa que o back adicione o nome do usuario e profile_picture */}
 
                 
             </div>

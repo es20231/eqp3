@@ -54,7 +54,9 @@ function ImportListTimeLine() {
                 created: dataName.created,
                 description: dataName.description,
                 id: dataName.id,
-                image_id:dataName.image_id
+                image_id:dataName.image_id,
+                username : dataName.username,
+                profile_picture :dataName.profile_picture
               };
             })
           );
@@ -74,10 +76,10 @@ function ImportListTimeLine() {
 
   return (
     <>
-      <Row md={1} className="justify-content-md-center" >
+      <Row md={1} xs={1} className="justify-content-md-center" >
         {imagemDownload.length > 0 &&
           imagemDownload.map((urlImg, index) => (
-            <Col key={index} md={{ span: 6, offset: 3 }}>
+            <Col key={index} md={{ span: 9, offset: 4 }}>
 
               <FotosDashboard key={index} data={urlImg} tamBox={435} sendToTimeLine={true}/>
               {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}

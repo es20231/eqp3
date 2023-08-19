@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { useApi } from "../../hooks/UseApi";
 import user_icon from "../../icons/user_icon.svg";
+import { Link } from "react-router-dom";
 
 function AvatarName(props) {
     const api = useApi();
@@ -45,14 +46,18 @@ function AvatarName(props) {
 
     return (
         <div style={avatarStyle} className="Perfil01">
-            <div className="ConjuntoFotoNome">
-                {auxProps.profile_picture ? (
-                    <img id="ImgAvatar" style={imageStyle} src={auxProps.profile_picture} alt="Avatar" />
-                ) : (
-                    <img id="ImgAvatar" style={imageStyle} src={user_icon} alt="Default Avatar" />
-                )}
-                <p style={nameStyle}>{auxProps.username}</p>
-            </div>
+            <Link key={auxProps.id} to={{ pathname: `/user/${auxProps.username}`, state: auxProps }}>
+                <div className="ConjuntoFotoNome">
+
+                    {auxProps.profile_picture ? (
+                        <img id="ImgAvatar" style={imageStyle} src={auxProps.profile_picture} alt="Avatar" />
+                    ) : (
+                        <img id="ImgAvatar" style={imageStyle} src={user_icon} alt="Default Avatar" />
+                    )}
+                    <p style={nameStyle}>{auxProps.username}</p>
+
+                </div>
+            </Link>
         </div>
     );
 }
