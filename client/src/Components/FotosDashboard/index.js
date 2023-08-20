@@ -10,6 +10,7 @@ import { UserContext } from "../../Contexts/Auth/AuthContext";
 import { useApi } from "../../hooks/UseApi";
 import Comments from "../Comments";
 import Form from 'react-bootstrap/Form';
+import trash from '../../icons/trash_delete_remove_icon_251766 1.svg';
 
 import AvatarName from "../AvatarName";
 import ButtonsLikes from "../ButtonsLikes";
@@ -17,11 +18,11 @@ import ButtonsLikes from "../ButtonsLikes";
 
 
 function FotosDashboard(urlImg) {
-    const { user } = useContext(UserContext)
+    const { user, setUserUpdateData, userUpdateData } = useContext(UserContext)
     const api = useApi()
     const [likes, setLikes] = useState([])
     const [comments, setComments] = useState('')
-
+    const [showElement,setShowElement] = useState(1)
     const [buttonClick, setButtonClick] = useState('0')
 
     // // receber os likes e dislikes 
@@ -43,7 +44,7 @@ function FotosDashboard(urlImg) {
                 content: comments,
             };
 
-            const response = await api.setCreateCommentsImage(commentData); 
+            const response = await api.setCreateCommentsImage(commentData);
 
             // Atualizar o estado de comments e forçar a recarga dos comentários
             setComments("");
@@ -87,6 +88,7 @@ function FotosDashboard(urlImg) {
 
 
     return (
+        
         <div className="containerElement">
             <div
                 className="testaImagem"
@@ -116,6 +118,21 @@ function FotosDashboard(urlImg) {
                     <ButtonsLikes tipo="post" data={urlImg.data} />
 
                     <Comments data={{ post_id: urlImg.data.id }} />
+                    {/* Adicionar icon Delete post se for Dashboard */}
+                    { urlImg.sendToDashboard && 
+                        <button
+                            style={{marginLeft:"5px"}}
+                            data-testid="trash-button"
+                            onClick={async () => {
+                                await api.DeletePostTimeline(urlImg.data.id);
+                                // Atualizar a pagina
+                                // setShowElement(showElement => 0)
+                                setUserUpdateData(updateData => !userUpdateData)
+                            }}>
+                            <img src={trash} alt="Delete Image" />
+                        </button>
+                    }
+
                 </div>
                 <div className="DescriptionPost custom-scrollbar">
                     <h1> {urlImg.data.description} </h1>
@@ -154,7 +171,7 @@ function FotosDashboard(urlImg) {
                 </div>
             </div>
         </div >
-    );
-}
+    );}
+
 
 export default FotosDashboard;

@@ -229,6 +229,8 @@ export const useApi = () => ({
     }
   },
 
+
+
   importListTimelineImage: async (userName) => {
     try {
       const response = await api.get("/timeline/" + userName);
@@ -267,9 +269,9 @@ export const useApi = () => ({
       handleError(error);
     }
   },
-  DeletePostTimeline: async (idPost) => {
+  DeletePostTimeline: async (id_post) => {
     try {
-      const response = await api.get("/delete-post/" + idPost );
+      const response = await api.get("/delete-post/" + id_post );
       if (response.status == 200) {
         return response;
       } else {

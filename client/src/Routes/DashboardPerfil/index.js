@@ -90,7 +90,7 @@ function DashboardPerfil() {
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                        <ImportListDashboardImage userNameDash={userLocal.user.username}/>
+                        <ImportListDashboardImage sendToDashBoardImage={true} userNameDash={userLocal.user.username}/>
 
 
                     </Container >
