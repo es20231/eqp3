@@ -359,6 +359,39 @@ export const useApi = () => ({
     }
   },
 
+  setLikesCommentsImage: async (data) => {
+    try {
+      /* 
+      author_id = ('user_id')
+      content = ('author_id', '')
+      post_id = ('comment_id', '')
+       
+      */
+      const response = await api.post("/like_comment" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  ImportLikesCommentsImage: async (comment_id) => {
+    try {
+
+      const response = await api.get("/get_comment_likes/" + comment_id  );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+
 
 
 });

@@ -5,16 +5,14 @@ import moment from 'moment';
 
 //icons
 import message_send from "../../icons/message_send_iconsvg.svg";
-import like0 from "../../icons/like0.svg";
-import like1 from "../../icons/like1.svg";
-import dislike0 from "../../icons/dislike0.svg";
-import dislike1 from "../../icons/dislike1.svg";
+
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import { useApi } from "../../hooks/UseApi";
 import Comments from "../Comments";
 import Form from 'react-bootstrap/Form';
-import PopButton from "../PopButton";
+
 import AvatarName from "../AvatarName";
+import ButtonsLikes from "../ButtonsLikes";
 
 
 
@@ -23,13 +21,9 @@ function FotosDashboard(urlImg) {
     const api = useApi()
     const [likes, setLikes] = useState([])
     const [comments, setComments] = useState('')
-    const [boolLike, setBoolLike] = useState('0')
-    const [boolDislike, setBoolDislike] = useState('0')
+
     const [buttonClick, setButtonClick] = useState('0')
 
-
-    const [quantLike, setQuantLike] = useState([])
-    const [quantDislike, setQuantDislike] = useState([])
     // // receber os likes e dislikes 
 
     // COMMENTS
@@ -49,7 +43,7 @@ function FotosDashboard(urlImg) {
                 content: comments,
             };
 
-            const response = await api.setCreateCommentsImage(commentData); // Substitua pelo nome do método para adicionar um comentário
+            const response = await api.setCreateCommentsImage(commentData); 
 
             // Atualizar o estado de comments e forçar a recarga dos comentários
             setComments("");
@@ -91,40 +85,17 @@ function FotosDashboard(urlImg) {
 
 
 
-    useEffect(() => {
-        setQuantLike([])
-        setQuantDislike([])
-        likes.map((likesUsers) => {
-
-
-            if (likesUsers.tipo == 1) {
-
-                setQuantLike(quantLike => [...quantLike, likesUsers])
-
-            } else {
-                setQuantDislike(quantDislike => [...quantDislike, likesUsers])
-            }
-
-            if (likesUsers.username == user.username && likesUsers.tipo == 1) {
-                setBoolLike(boolLike => 1)
-
-            } else if (likesUsers.username == user.username && likesUsers.tipo == 0) {
-
-                setBoolDislike(boolDislike => 1)
-            }
-        })
-    }, [likes])
 
     return (
         <div className="containerElement">
-            <div 
-            className="testaImagem"
-            style={{ ...(urlImg.sendToTimeLine  ? { display: 'inline-block',width: urlImg.tamBox,  } : {}) }}
+            <div
+                className="testaImagem"
+                style={{ ...(urlImg.sendToTimeLine ? { display: 'inline-block', width: urlImg.tamBox, } : {}) }}
             >
-                
-                 <AvatarName tamFont={10}  tam={30} data = {urlImg.data} />{/*  precisa que o back adicione o nome do usuario e profile_picture */}
 
-                
+                <AvatarName tamFont={10} tam={30} data={urlImg.data} />{/*  precisa que o back adicione o nome do usuario e profile_picture */}
+
+
             </div>
 
             <div className="ContainerImg">
@@ -141,68 +112,11 @@ function FotosDashboard(urlImg) {
                 className="queixoImageDashboard"
                 style={{ ...(urlImg.tamBox != null ? { width: urlImg.tamBox } : {}) }}
             >
-                <div className="ButtonLikes">
-                    <button
-                        className="LikeBnt"
-                        onClick={() => {
-                            const likeClick = async () => {
-                                try {
+                <div className="ButtonsLikesDash">
+                    <ButtonsLikes tipo="post" data={urlImg.data} />
 
-                                    const dataLike = {
-                                        tipo: 1,
-                                        author_id: user.id, // Usuário logado 
-                                        post_id: urlImg.data.id
-                                    }
-                                    if (dataLike.author_id && dataLike.post_id) {
-                                        const likeAux = await api.setLikesImage(dataLike)
-                                        buttonClick ? setButtonClick(buttonClick => 0) : setButtonClick(buttonClick => 1)
-                                    }
-                                } catch (e) {
-                                    console.log("409")
-                                }
-                            }
-                            likeClick();
-                        }}
-                    >
-                        {boolLike == 1 ? <img src={like1} /> : <img src={like0} />}
-
-
-                    </button>
-                    {/* LISTA DOS USUÁRIOS QUE DERAM LIKE  */}
-
-                    <PopButton data={quantLike} />
-
-                    <button
-                        className="DislikeBnt"
-                        onClick={() => {
-                            const dislikeClick = async () => {
-                                try {
-
-                                    const dataLike = {
-                                        tipo: 0,
-                                        author_id: user.id, // Usuário logado 
-                                        post_id: urlImg.data.id
-                                    }
-                                    if (dataLike.author_id && dataLike.post_id) {
-                                        const likeAux = await api.setLikesImage(dataLike)
-                                        buttonClick ? setButtonClick(buttonClick => 0) : setButtonClick(buttonClick => 1)
-                                    }
-                                } catch (e) {
-                                    console.log("409")
-                                }
-                            }
-                            dislikeClick();
-                        }
-                        }
-                    >
-                        {boolDislike == 1 ? <img src={dislike1} /> : <img src={dislike0} />}
-
-                    </button>
-                    <PopButton data={quantDislike} />
-                    {console.log(quantDislike)}
                     <Comments data={{ post_id: urlImg.data.id }} />
                 </div>
-
                 <div className="DescriptionPost custom-scrollbar">
                     <h1> {urlImg.data.description} </h1>
                     <p> {moment(urlImg.data.created).format("DD MMM YYYY")}</p>
