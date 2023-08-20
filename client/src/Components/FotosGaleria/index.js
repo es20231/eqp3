@@ -1,92 +1,3 @@
-// import  { useContext, useState } from "react";
-// import { Button,Modal,Form } from "react-bootstrap";
-// import './styles.scss'
-// import postImgIcon from '../../icons/image_arrow_right_icon_251943 1.svg';
-// import trash from '../../icons/trash_delete_remove_icon_251766 1.svg';
-// import { useApi } from "../../hooks/UseApi";
-// import { UserContext } from "../../Contexts/Auth/AuthContext";
-
-
-// function FotosGaleria(urlImg) {
-//     const api = useApi();
-//     const userLocal = useContext(UserContext)
-//     const [descriptionText, setDescriptionText] = useState('')
-//     //Modal 
-//     const [show, setShow] = useState(false);
-
-//     const handleClose = () => setShow(false);
-//     const handleShow = () => setShow(true);
-
-
-//     async function postImage() {
-//         //abre um modal para adicionar uma descrição 
-//         <>
-//             <Button variant="primary" onClick={handleShow}>
-//                 Launch demo modal
-//             </Button>
-
-//             <Modal show={show} onHide={handleClose}>
-//                 <Modal.Header closeButton>
-//                     <Modal.Title>Modal heading</Modal.Title>
-//                 </Modal.Header>
-//                 <Modal.Body>
-//                     <Form>
-
-//                         <Form.Group
-//                             className="mb-3"
-//                             controlId="exampleForm.ControlTextarea1"
-//                         >
-//                             <Form.Label>Adicione a Descrição</Form.Label>
-//                             <Form.Control as="textarea" onChange={setDescriptionText(event)} rows={3} />
-//                         </Form.Group>
-//                     </Form>
-//                 </Modal.Body>
-//                 <Modal.Footer>
-//                     <Button variant="secondary" onClick={handleClose}>
-//                         Close
-//                     </Button>
-//                     <Button variant="primary" onClick={handleClose}>
-//                         Save Changes
-//                     </Button>
-//                 </Modal.Footer>
-//             </Modal>
-//         </>
-//     }
-
-
-//     return (
-//         <div className="containerElement">
-//             <div className="ContainerImg">
-//                 <img src={urlImg.data.url} alt={`Imagem ${urlImg.index + 1}`} />
-
-//             </div>
-//             <div className="queixoImage">
-//                 <button
-//                     onClick={
-//                         async () => {
-//                             handleShow
-//                             postImage
-//                             await api.postImage(urlImg.data.filename, descriptionText)
-//                         }
-//                     }>
-//                     <img src={postImgIcon} />
-//                 </button>
-//                 <button data-testid="trash-button"
-//                     onClick={
-//                         async () => {
-//                             await api.deleteImage(urlImg.data.filename);
-//                             userLocal.setUserUpdateData(!userLocal.userUpdateData);
-//                         }}
-//                 >
-//                     <img src={trash} />
-//                 </button>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default FotosGaleria;
-//----------------------
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import './styles.scss';
@@ -94,10 +5,6 @@ import postImgIcon from '../../icons/image_arrow_right_icon_251943 1.svg';
 import trash from '../../icons/trash_delete_remove_icon_251766 1.svg';
 import { useApi } from "../../hooks/UseApi";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
-import Caman from 'caman';
-//import * as PIXI from 'pixi.js';
-//import { Application, Sprite } from 'pixi.js';
-
 
 
 function FotosGaleria(urlImg) {
@@ -105,30 +12,66 @@ function FotosGaleria(urlImg) {
     const userLocal = useContext(UserContext);
     const [descriptionText, setDescriptionText] = useState('');
     const [show, setShow] = useState(false);
-    const [selectedFilter,setSelectedFilter] = useState('');
+    const [selectedFilter,setSelectedFilter] = useState('none');//Filtro selecionado
+    const [imagemEditada, setImagemEditada] = useState(null);//Armazenar imagem editada
+
 
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => { setSelectedFilter('none'); 
+                                setShow(true)};
+
+    const imageFilterRef = useRef(null);//Cirar uma referência
+
 
   
 
+    async function applyFilter() {
+        const elementoImagem = imageFilterRef.current;
+        if (elementoImagem) {
+            elementoImagem.classList.remove('none', 'duotone', 'invert', 'grayscale'); // Remove todas as classes de filtro existentes para limpar filtros anteriores
+            elementoImagem.classList.add(selectedFilter);// Adiciona a classe correspondente ao filtro selecionado
 
     
-  
-
-   
-    function applyFilter() {
-        
+            // Obter a imagem editada em base64
+            const imagemEditadaBase64 = await obterBase64DaImagem(elementoImagem);
+           console.log(imagemEditadaBase64)//Enviar para o banco de dados
+           setImagemEditada(imagemEditadaBase64); // Armazena a imagem editada
 
         }
-   
-       
+        //handleClose();
+
+    }
+    async function obterBase64DaImagem(elementoImagem) {//Converte a imagem em um formato de dados basae64
+        return new Promise((resolve) => {
+            const canvas = document.createElement('canvas');//Cria um canvas com mesma altura e largura da imagem 
+            canvas.width = elementoImagem.width;
+            canvas.height = elementoImagem.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(elementoImagem, 0, 0);
+    
+            canvas.toBlob((blob) => {//Converte o conteúdo do canvas em um objeto binário grande
+                const leitor = new FileReader();//Le o blob e transformar em um formato base64
+                leitor.onload = () => resolve(leitor.result);
+                leitor.readAsDataURL(blob);
+            });
+        });
+    }
         
           
     async function postImage() {
-    const aplicandoFiltro = urlImg.data.filename
+        
+        const formData = new FormData();
+        formData.append('file.url',imagemEditada);//Imagem no formato base64
+        formData.append('file.name',urlImg.data.filename);//nome da imagem
+
+        //formData.append('description', descriptionText);
+
+
+        //const aplicandoFiltro = urlImg.data.filename
+        
         await api.postImage(urlImg.data.filename, descriptionText);//Enviar esse arquivo ja editado
+
         handleClose();
     }
 
@@ -140,8 +83,6 @@ function FotosGaleria(urlImg) {
                     src={urlImg.data.url}
                     alt={`Imagem ${urlImg.index + 1}`}
                 />
-               
-
             </div>
             <div className="queixoImage">
                 <button data-testid="post-button" onClick={() => handleShow()}>
@@ -173,20 +114,30 @@ function FotosGaleria(urlImg) {
                             <div className="select-wrapper">
                                 <select onChange={ (event) => setSelectedFilter(event.target.value)}>
                                     <option value="none">Sem filtro</option>
-                                    <option value="brightness">Brilho</option>
-                                    <option value="contrast">Contraste</option>
-                                    <option value="blackWhite">Preto e Branco</option>
+                                    <option value="sepia">Sepia</option>
+                                    <option value="invert">Invert</option>
+                                    <option value="grayscale">Grayscale</option>
                                 </select>
                             </div>
-                            
+                
+                     <div className={`ContainerFiltro ${selectedFilter}`}>
+                        <img
+                            ref={imageFilterRef}
+                            src={urlImg.data.url}
+                            alt={`Imagem ${urlImg.index + 1}`}
+                            style={{maxWidth: '250px',maxHeight: '200px'}}
+                        />
+                    </div>
+            
+                     
+ 
                         </Form.Group>
 
-                      
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Close+
                     </Button >
                     <Button variant="primary" onClick={applyFilter}>
                         Aplicar Filtro
@@ -199,5 +150,4 @@ function FotosGaleria(urlImg) {
         </div>
     );
 }
-
 export default FotosGaleria

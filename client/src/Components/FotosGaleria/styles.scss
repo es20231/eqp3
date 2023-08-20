@@ -37,8 +37,30 @@
         }
         // Button{
             
-
-        // }
+        // } 
     } 
     
+}
+.ContainerFiltro {
+    /* Estilos comuns para o contêiner da imagem */
+    display: inline-block;
+    position: relative;
+}
+
+.none img {
+    /* Nenhum filtro aplicado */
+    filter: none;
+}
+
+.sepia img {
+    filter: sepia(80%);
+}
+.invert img {
+    /* Exemplo de filtro invertido */
+    filter: invert(100%);
+}
+
+.grayscale img {
+    /* Exemplo de filtro em escala de cinza */
+    filter: grayscale(100%);
 }
