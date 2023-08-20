@@ -4,12 +4,16 @@ import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import icon_user from '../../icons/user_icon.svg'
 import icon_login from '../../icons/login_icon.svg'
+import icon_Djavu from '../../icons/UnionDjavu2.svg'
+import icon_Djavu2 from '../../icons/DDjavu.svg'
+
 // import Navbar1 from "../../Components/Header";
 
 //Api
 
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
+import InfiniteLoader from "../../Components/InfiniteLoader";
 
 function Home() {
 
@@ -46,13 +50,13 @@ function Home() {
         {/* <Navbar1/> */}
         <div className="Home">
             <Container className="DivLeftH "     >
-                <h1>Teste</h1>
+                <InfiniteLoader />
 
             </Container>
             <div className=" DivRightH">
                 <div className="BackgraundFormulario">
                     <Form
-                        
+
                         className="FormularioInicial"
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -60,10 +64,11 @@ function Home() {
                         }}
                     >
                         {/* imagem da Logo*/}
-
-
+                       
+                        <img className="icon-3d" style={{ height: "65px" }} src={icon_Djavu2} />
+                       
                         <Button variant="tp_2" className="w-full d-flex justify-content-center  align-items-center text-light" onClick={GotoRegister} >
-                            <img src={icon_user} />
+                            <img className="icon-3d" src={icon_user} />
                             Criar Conta
                         </Button>{' '}
 
