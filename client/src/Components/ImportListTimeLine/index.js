@@ -4,13 +4,13 @@
 import { useContext, useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { useApi } from "../../hooks/UseApi";
-import "./styles.scss";
+// import "./styles.scss";
 import FotosGaleria from "../FotosGaleria";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import Pagination from "../Pagination";
 import FotosDashboard from "../FotosDashboard";
 
-function ImportListDashboardImage(props) {
+function ImportListTimeLine() {
 
 
 
@@ -20,7 +20,7 @@ function ImportListDashboardImage(props) {
   const userLocal = useContext(UserContext);
 
   const [currentPageDashboard, setCurrentPageDashboard] = useState(1);
-  const imagesPerPage = 3;
+  const imagesPerPage = 6;
 
   const indexOfFirstImage = (currentPageDashboard - 1) * imagesPerPage;
   const indexOfLastImage = currentPageDashboard * imagesPerPage;
@@ -32,8 +32,8 @@ function ImportListDashboardImage(props) {
       //mudar essa função para receber o nome  do usuário
 
 
-      if (props.userNameDash) {
-        const imagesAux = await api.importListTimelineImage(props.userNameDash);//(userLocal.user.username);
+      if (userLocal) {
+        const imagesAux = await api.importListTimelineImageAll();//(userLocal.user.username);
       
         setImagesListLength(imagesAux.data.length);
 
@@ -55,7 +55,8 @@ function ImportListDashboardImage(props) {
                 description: dataName.description,
                 id: dataName.id,
                 image_id:dataName.image_id,
-
+                username : dataName.username,
+                profile_picture :dataName.profile_picture
               };
             })
           );
@@ -71,16 +72,16 @@ function ImportListDashboardImage(props) {
     };
 
     importImagensApi();
-  }, [currentPageDashboard, props]);
+  }, [currentPageDashboard]);
 
   return (
     <>
-      <Row md={3}>
+      <Row md={1} xs={1} className="justify-content-md-center" >
         {imagemDownload.length > 0 &&
           imagemDownload.map((urlImg, index) => (
-            <Col key={index} sm={true}>
+            <Col key={index} md={{ span: 9, offset: 4 }}>
 
-              <FotosDashboard key={index} data={urlImg} />
+              <FotosDashboard key={index} data={urlImg} tamBox={435} sendToTimeLine={true}/>
               {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}
             </Col>
           ))}
@@ -97,4 +98,4 @@ function ImportListDashboardImage(props) {
   );
 }
 
-export default ImportListDashboardImage;
+export default ImportListTimeLine;

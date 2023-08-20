@@ -172,8 +172,11 @@ class postRepository:
         
     def get_all_posts(self):
         db = get_db()
+
         rows = db.execute(
-            'SELECT * FROM post ORDER BY created DESC'
+            'SELECT p.id, p.description, p.author_id, p.filename, p.created, u.username, u.profile_picture'
+            ' FROM post p JOIN user u ON p.author_id = u.id'
+            ' ORDER BY created DESC'
         ).fetchall()
         
         posts = rows_to_dict(rows)
@@ -255,7 +258,7 @@ class likeRepository:
         db = get_db()
         
         rows = db.execute(
-            'SELECT l.id, l.tipo, u.username, u.profile_picture'
+            'SELECT l.id, l.tipo, l.author_id, u.username, u.profile_picture'
             ' FROM likes l JOIN user u ON l.author_id = u.id WHERE l.post_id = ? '
             ' ORDER BY l.id DESC', (post_id,)
         ).fetchall()
