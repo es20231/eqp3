@@ -1,20 +1,24 @@
-import  { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import './styles.scss';
-import { Button,Container,FloatingLabel,Form } from "react-bootstrap";
-import {  useNavigate } from "react-router-dom";
-import icon_user  from '../../icons/user_icon.svg'
-import icon_login  from '../../icons/login_icon.svg'
+import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import icon_user from '../../icons/user_icon.svg'
+import icon_login from '../../icons/login_icon.svg'
+import icon_Djavu from '../../icons/UnionDjavu2.svg'
+import icon_Djavu2 from '../../icons/DDjavu.svg'
+
 // import Navbar1 from "../../Components/Header";
 
 //Api
 
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
+import InfiniteLoader from "../../Components/InfiniteLoader";
 
 function Home() {
 
     const navigate = useNavigate();
-    function GotoRegister(){
+    function GotoRegister() {
         navigate('/Register')
     }
     const userLocal = useContext(UserContext);
@@ -46,12 +50,13 @@ function Home() {
         {/* <Navbar1/> */}
         <div className="Home">
             <Container className="DivLeftH "     >
-                <h1>Teste</h1>
+                <InfiniteLoader />
 
             </Container>
             <div className=" DivRightH">
                 <div className="BackgraundFormulario">
                     <Form
+
                         className="FormularioInicial"
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -59,25 +64,41 @@ function Home() {
                         }}
                     >
                         {/* imagem da Logo*/}
-
-
+                       
+                        <img className="icon-3d" style={{ height: "65px" }} src={icon_Djavu2} />
+                       
                         <Button variant="tp_2" className="w-full d-flex justify-content-center  align-items-center text-light" onClick={GotoRegister} >
-                            <img src={icon_user}/>
+                            <img className="icon-3d" src={icon_user} />
                             Criar Conta
-                            </Button>{' '}
+                        </Button>{' '}
 
 
                         {/* Divisoria */}
-                        <FloatingLabel controlId="floatingInput" label="Name User" className="mb-2">
+                        <FloatingLabel style={{
+                            background: '#181f3380',
+                            color: 'white'
+                        }} controlId="floatingInput" label="Name User" className="mb-2">
                             <Form.Control
+                                style={{
+                                    background: '#181f3380',
+                                    color: 'white'
+                                }}
+                                
                                 type="name"
                                 placeholder="Name"
                                 value={dataTemp.userName}
                                 onChange={e => setDataTemp({ ...dataTemp, userName: e.target.value })} />
                         </FloatingLabel>
 
-                        <FloatingLabel controlId="floatingPassword" label="Password" className="mb-2">
+                        <FloatingLabel style={{
+                            background: '#181f3380',
+                            color: 'white'
+                        }} controlId="floatingPassword" label="Password" className="mb-2">
                             <Form.Control
+                                style={{
+                                    background: '#181f3380',
+                                    color: 'white'
+                                }}
                                 type="password"
                                 placeholder="Password"
                                 value={dataTemp.password}
@@ -91,7 +112,7 @@ function Home() {
                             className="w-100 "
                             type="submit"
                         >
-                            <img src={icon_login}/>
+                            <img src={icon_login} />
                             Entrar
                         </Button>{' '}
 

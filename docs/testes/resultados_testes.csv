@@ -49,7 +49,10 @@ CT-TS-04-c01,Cénario de teste: Fluxo Principal - Testar o upload de uma imagem 
 CT-TS-05-c01,Testa a listagem das imagens de upload no dashboard do usuário,Sistema,Passou
 CT-TS-06-c01,Testar deletar a imagem ao apertar botão de deletar imagem, Sistema,Passou
 CT-TS-07-c01,Testar a edição de perfil ao apertar botão 'editar perfil',Sistema,Passou
-
+CT-TS-08-c01,Testar pesquisa de um usuário,Sistema,Passou
+CT-TS-09-c01,Testar posta uma foto,Sistema,Passou
+CT-TS-10-c01,Testar curtir uma foto 'editar perfil',Sistema,
+CT-TS-11-c01,Testar comentar em uma foto',Sistema,
 
 
 

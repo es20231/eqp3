@@ -30,6 +30,11 @@ class userRepository:
             'SELECT * FROM user WHERE id = ?', (user_id,)
             ).fetchone()
 
+    def search_username(self, username):
+        return get_db().execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+            ).fetchone()
+
     def generate_admin(self, password):
         db = get_db()
         db.execute(
@@ -167,8 +172,11 @@ class postRepository:
         
     def get_all_posts(self):
         db = get_db()
+
         rows = db.execute(
-            'SELECT * FROM post ORDER BY created DESC'
+            'SELECT p.id, p.description, p.author_id, p.filename, p.created, u.username, u.profile_picture'
+            ' FROM post p JOIN user u ON p.author_id = u.id'
+            ' ORDER BY created DESC'
         ).fetchall()
         
         posts = rows_to_dict(rows)
@@ -184,8 +192,7 @@ class postRepository:
         posts = rows_to_dict(rows)
         
         return posts
-
-
+    
     def alter_post_description(self, new_description, post_id):
         db = get_db()
         db.execute(
@@ -197,5 +204,84 @@ class postRepository:
         db = get_db()
         db.execute(
             'DELETE FROM post WHERE id = ?', (post_id,)
+        )
+        db.commit()
+
+class commentRepository:
+    def insert_comment(self, content, author_id, post_id):
+        db = get_db()
+        
+        db.execute(
+            "INSERT INTO comment (content, author_id, post_id) VALUES (?, ?, ?)",
+            (content, author_id, post_id),
+        )
+        db.commit()
+    
+    def get_comments(self, post_id):
+        db = get_db()
+
+        rows = db.execute(
+            'SELECT c.id, c.content, c.created, u.username, u.profile_picture'
+            ' FROM comment c JOIN user u ON c.author_id = u.id WHERE c.post_id = ? '
+            ' ORDER BY created DESC', (post_id,)
+        ).fetchall()
+        
+        comments = rows_to_dict(rows)
+        
+        return comments
+    
+    def update_comment(self, content, comment_id):
+        db = get_db()
+        db.execute(
+            "UPDATE comment SET content = ? WHERE id = ?",
+            (content, comment_id)
+        )
+        db.commit()
+        
+    def delete_comment(self, id):
+        db = get_db()
+        db.execute(
+            'DELETE FROM comment WHERE id = ?', (id,)
+        )
+        db.commit()
+
+class likeRepository:
+    def insert_like(self, tipo, author_id, post_id=None, comment_id=None):
+        db = get_db()
+        db.execute(
+            "INSERT INTO likes (tipo, author_id, post_id, comment_id) VALUES (?, ?, ?, ?)",
+            (tipo, author_id, post_id, comment_id),
+        )
+        db.commit()
+    
+    def get_post_likes(self, post_id):
+        db = get_db()
+        
+        rows = db.execute(
+            'SELECT l.id, l.tipo, l.author_id, u.username, u.profile_picture'
+            ' FROM likes l JOIN user u ON l.author_id = u.id WHERE l.post_id = ? '
+            ' ORDER BY l.id DESC', (post_id,)
+        ).fetchall()
+        
+        post_likes = rows_to_dict(rows)
+        
+        return post_likes
+    
+    def get_comment_likes(self, comment_id):
+        db = get_db()
+        rows = db.execute(
+            'SELECT l.id, l.tipo, l.author_id, l.comment_id, u.username, u.profile_picture'
+            ' FROM likes l JOIN user u ON l.author_id = u.id WHERE comment_id = ?' 
+            ' ORDER BY l.id DESC',(comment_id,)
+        ).fetchall()
+        
+        comment_likes = rows_to_dict(rows)
+        
+        return comment_likes
+    
+    def remove_like(self, id):
+        db = get_db()
+        db.execute(
+            'DELETE FROM likes WHERE id = ?', (id,)
         )
         db.commit()

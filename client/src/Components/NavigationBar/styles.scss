@@ -1,0 +1,52 @@
+$mobile-max-width: 900px;
+$web-min-width: 900px;
+Button{
+    opacity: 0.8;
+}:hover{
+    opacity: 1;
+}
+.containerNavBar{
+    display: flex;
+.ButtonsCenter{
+    display: flex;
+}}
+
+.buttons_right{
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+
+@media screen and (max-width: $mobile-max-width) {
+  .Web {
+    display: none;
+  }
+  .Smart {
+    display: inline-block;
+    .buttons_right {
+        
+        width: 100%;
+        
+        }
+    }
+    .ButtonsCenter{
+        width: 100%;
+        Button{
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: $mobile-max-width) {
+  .Web {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+  }
+  .Smart {
+    display: none;
+  }
+}

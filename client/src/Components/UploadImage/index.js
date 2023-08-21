@@ -1,60 +1,58 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-// import "./styles.scss";
 import { useApi } from "../../hooks/UseApi";
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/Auth/AuthContext";
 import image_plus_icon from "../../icons/image_plus_icon.svg"
 
-
 function UploadImage() {
     const [showModal, setShowModal] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [fileImage, setFileImage] = useState('');
+    const [selectedImages, setSelectedImages] = useState([]); // Alterado para array de imagens
+    const [fileImages, setFileImages] = useState([]); // Alterado para array de arquivos
     const api = useApi();
     const userLocal = useContext(UserContext);
 
     const handleChange = (e) => {
         e.preventDefault();
-        // test sync
+
         if (e.target.files && e.target.files.length > 0) {
-            const file = e.target.files[0];
-            const url = URL.createObjectURL(file);
-            setSelectedImage(url);
-            setFileImage(file);
+            const newFiles = Array.from(e.target.files);
+            const newSelectedImages = newFiles.map(file => URL.createObjectURL(file));
+
+            setSelectedImages(prevImages => [...prevImages, ...newSelectedImages]);
+            setFileImages(prevFiles => [...prevFiles, ...newFiles]);
         }
     };
-
 
     const handleSubmit = async () => {
-        if (selectedImage) {
-            //chamada da função
+        if (selectedImages.length > 0) {
+            const formData = new FormData();
 
-            const formData = new FormData(); // Cria um objeto FormData
-            formData.append('file', fileImage);
-            // formData.append('user_id',userLocal.user.token);
+            fileImages.forEach(file => {
+                // console.log("test-------- file")
+                // console.log(file)
+                formData.append('file', file);
+                // console.log(formData);
+                // {
+                //     for (let pair of formData.entries()) {
+                //         console.log(pair[0] + ':', pair[1]);
+                //     }
+                // }
 
-            console.log(formData);
-            {
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ':', pair[1]);
-                }
-            }
-            //existe algum erro na compatibilidade do arquivo a ser enviado para a API
-            await api.uploadImage(formData); //, userLocal.user.token
-            userLocal.setUserUpdateData(!userLocal.userUpdateData) // indicar que esta atualizando
-            toast.success("Imagem enviada com sucesso!");
+            });
+
+            await api.uploadImage(formData);
+            userLocal.setUserUpdateData(!userLocal.userUpdateData);
+            toast.success("Imagens enviadas com sucesso!");
             handleClose();
         } else {
-            toast.warning("Por favor, selecione uma imagem!");
+            toast.warning("Por favor, selecione pelo menos uma imagem!");
         }
     };
 
-    // upload image
     const handleClose = () => {
         setShowModal(false);
-        setSelectedImage(null);
-
+        setSelectedImages([]);
     };
 
     const handleShow = () => {
@@ -72,22 +70,26 @@ function UploadImage() {
                  {/* <img src={logo}/> */}
             </Button>
 
-            <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
+            <Modal show={showModal} onHide={handleClose} dialogClassName="custom-dialog" contentClassName="custom-content" backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Selecione a Imagem</Modal.Title>
+                    <Modal.Title>Selecione a(s) Imagem(ns)</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="divImageUpload">
-                    {selectedImage && <img src={selectedImage} alt="Imagem selecionada" />}
+                    {selectedImages.map((image, index) => (
+                        <img key={index} src={image} alt={`Imagem ${index}`} />
+                    ))}
                     <input
                         type="file"
                         accept="image/*"
+                        multiple
                         onChange={handleChange}
                         id = 'inputUploadImage' 
-                        />
+                       
+                    />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Fechar
                     </Button>
                     <Button 
                         variant="primary" 

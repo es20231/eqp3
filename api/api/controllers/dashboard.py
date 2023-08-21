@@ -38,17 +38,19 @@ def dashboard():
 def upload():
     user_id = session.get('user_id')
 
+    files = request.files.getlist("file")
     try:
-        file = request.files['file']
-        extension = os.path.splitext(file.filename)[1].lower()
+        for file in files:
+            print(file.filename)
+            extension = os.path.splitext(file.filename)[1].lower()
 
-        if file:
-            if extension not in FILE.ALLOWED_EXTENSIONS:
-                return 'File not allowed'
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(PATH.UPLOAD, filename))
-            Images.insert(filename, os.path.join(
-                PATH.UPLOAD, filename), user_id)
+            if file:
+                if extension not in FILE.ALLOWED_EXTENSIONS:
+                    return 'File not allowed'
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(PATH.UPLOAD, filename))
+                Images.insert(filename, os.path.join(
+                    PATH.UPLOAD, filename), user_id)
     except RequestEntityTooLarge:
         return 'File is larger than the 16MB limit.'
 

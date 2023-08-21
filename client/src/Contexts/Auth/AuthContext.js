@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
-    imagePerfil:'',
+    imagePerfil: '',
     fullname: '',
     password: '',
     token: '',
@@ -31,29 +31,41 @@ const UserProvider = ({ children }) => {
   const dataUserApi = async () => {
     try {
       const dataApi = await api.dataUser(); // REsposta do Back com token
-      const dataIMgPerfil = await api.importImageProfile();
-      // console.log("----Data APi ----");
-      console.log(dataApi);
+      try {
 
-      setUser({
-        user,
-        profile_picture: dataIMgPerfil,
-        email: dataApi.email,
-        description: dataApi.description,
-        fullname: dataApi.fullname,
-        username: dataApi.username,
-        token: dataApi.token
-      }); // Setting the user object
-      // toast.success("dados recebidos");
+        const dataIMgPerfil = await api.importImageProfile();
+        console.log("----Data APi ----");
+        console.log(dataApi)
 
-      // localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
-      // navigate("/private");
-      // return true;
 
+        setUser({
+          user,
+          profile_picture: dataIMgPerfil,
+          email: dataApi.email,
+          description: dataApi.description,
+          fullname: dataApi.fullname,
+          id: dataApi.id,
+          username: dataApi.username,
+          token: dataApi.token
+        }); // Setting the user object
+        // toast.success("dados recebidos");
+
+        // localStorage.setItem("userToken", dataApi.data.token); // Storing the user token in the localStorage
+        // navigate("/private");
+        // return true;
+        console.log("profile image: " + user.profile_picture)
+      } catch (error) {
+        console.log("receber imagem de perfil");
+        const dataIMgPerfil = await api.importImageProfile();
+        setUser((prevUser) => ({
+          ...prevUser,
+          profile_picture: dataIMgPerfil,
+      }));
+      }
     }
     // throw new Error("Invalid credentials");
     catch (error) {
-       toast.warning("Login necessário");
+      toast.warning("Login necessário");
 
       return false;
     }
@@ -78,9 +90,9 @@ const UserProvider = ({ children }) => {
             token: localStorage.getItem('userToken')
           });
 
-          console.log(user.token)
 
-          navigate('/Private');
+
+          navigate("/TimeLine"); // 1
         }
         else {
           // toast.warning("sem token no localStorage")
@@ -93,7 +105,7 @@ const UserProvider = ({ children }) => {
 
     }
 
-    
+
     verificarToken();
     dataUserApi();
   }, [userUpdateData])
@@ -101,7 +113,7 @@ const UserProvider = ({ children }) => {
   async function apiVerificaSession() {
     const validateApiToken = await api.IsLogged();
     //retorna um boolean
-    console.log("test isLogged:  " + validateApiToken)
+
     if (validateApiToken == 200) {
       return true;
     } else {
@@ -145,8 +157,7 @@ const UserProvider = ({ children }) => {
 
       setUser(null); // Clearing the user
       localStorage.removeItem("userToken"); // Clearing the localStorage
-      console.log("localStorage" + localStorage.getItem("userToken"));
-      console.log("user ->" + user.token);
+
       await api.logout();
       return true;
     } catch (error) {

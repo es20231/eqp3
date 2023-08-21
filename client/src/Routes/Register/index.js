@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 
 import icon_cadastrar from "../../icons/cadastrar_icon.svg"
 import logout_icon from "../../icons/logout_icon.svg"
+import InfiniteLoader from "../../Components/InfiniteLoader";
 
 function Register() {
     const [username, setName] = useState('');
@@ -35,7 +36,7 @@ function Register() {
             //se recebeu 200 
 
             toast.success("cadastro enviado")
-            console.log(data);
+
 
             navigate("/");
 
@@ -53,7 +54,7 @@ function Register() {
         {/* <Navbar1/> */}
         <div className="Register">
             <div className=" DivLeft">
-                <h1>Teste</h1>
+               <InfiniteLoader/>
 
             </div>
             <div className=" DivRight">
@@ -76,8 +77,16 @@ function Register() {
                         {/* imagem da Logo*/}
                         {/* <Button variant="primary">Criar Conta</Button>{' '} */}
                         {/* Divisoria */}
-                        <FloatingLabel controlId="floatingInput" label="User" className="mb-2" >
+                        <FloatingLabel style={{
+                            background: '#181f3380',
+                            color: 'white'
+                        }}
+                            controlId="floatingInput" label="User" className="mb-2" >
                             <Form.Control
+                                style={{
+                                    background: '#181f3380',
+                                    color: 'white'
+                                }}
                                 type="text"
                                 placeholder="User123"
                                 value={username}
@@ -85,8 +94,15 @@ function Register() {
                             />
                         </FloatingLabel>
 
-                        <FloatingLabel controlId="floatingInput" label="User_Full_Name" className="mb-2" >
+                        <FloatingLabel style={{
+                            background: '#181f3380',
+                            color: 'white'
+                        }} controlId="floatingInput" label="User_Full_Name" className="mb-2" >
                             <Form.Control
+                                style={{
+                                    background: '#181f3380',
+                                    color: 'white'
+                                }}
                                 type="text"
                                 placeholder="UserOliveira"
                                 value={fullname}
@@ -94,8 +110,17 @@ function Register() {
                             />
                         </FloatingLabel>
 
-                        <FloatingLabel controlId="floatingInput" label="Email address" className="mb-2">
+                        <FloatingLabel
+                            style={{
+                                background: '#181f3380',
+                                color: 'white'
+                            }}
+                            controlId="floatingInput" label="Email address" className="mb-2">
                             <Form.Control
+                                style={{
+                                    background: '#181f3380',
+                                    color: 'white'
+                                }}
                                 type="email"
                                 placeholder="name@example.com"
                                 value={email}
@@ -103,8 +128,15 @@ function Register() {
                             />
                         </FloatingLabel>
 
-                        <FloatingLabel controlId="floatingPassword" label="Password" className="mb-2">
+                        <FloatingLabel style={{
+                            background: '#181f3380',
+                            color: 'white'
+                        }} controlId="floatingPassword" label="Password" className="mb-2">
                             <Form.Control
+                                style={{
+                                    background: '#181f3380',
+                                    color: 'white'
+                                }}
                                 type="password"
                                 placeholder="Password"
                                 value={password}

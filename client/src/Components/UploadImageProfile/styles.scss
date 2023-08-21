@@ -11,3 +11,14 @@
         max-height: 200px;
     }
 }
+.custom-dialog {
+    width: 80%;
+    margin: auto;
+  }
+  
+  /* Definindo uma classe para o modal-content */
+  .custom-content {
+    padding: 20px;
+    color: rgb(226, 226, 226);
+    background:#181F33 ;
+  }

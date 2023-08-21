@@ -24,7 +24,9 @@ function ImportListImage() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
+
     const importImagensApi = async () => {
+      if(userLocal.user){
       const imagesAux = await api.importListImage();
       setImagesListLength(imagesAux.data.length);
 
@@ -42,9 +44,11 @@ function ImportListImage() {
             };
           })
         );
-        setImagemDownload(importImages);
+        setImagemDownload(importImages); // importa vazio
+      }else{
+        setImagemDownload("");
       }
-    };
+    }};
 
     importImagensApi();
   }, [userLocal.userUpdateData,  currentPage]);

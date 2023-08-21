@@ -1,5 +1,38 @@
 .offcanvas{
-    background-color: black !important;
+    background-color: #181f33 !important;
+    
+      input {
+        background: #e2e2e22c;
+        border: 0;
+        outline: none;
+        width: 80%;
+        border-radius: 15px;
+        max-width: 400px;
+        font-size: 1.5em;
+        transition: padding 0.3s 0.2s ease;
+        text-transform: 5px center;
+        margin-bottom: 5px;
+        color: #fff;
+        padding-left: 20px; 
+      
+        &:focus {
+          padding-bottom: 5px;
+        }
+      
+        // sibling magic ;o
+        &:focus {
+          &:after {
+            transform: scaleX(1);
+          }
+        }
+      }
+      ::placeholder{
+        color: #ddd9;
+
+      }
+
+    
+
 }
 .BodyOffCanvas{
     display: flex;
@@ -7,6 +40,18 @@
     justify-content: flex-start;
     align-items: flex-start;
     overflow: auto;
+    .input_icon{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+    }
+    a{
+      text-decoration: none;
+      opacity: 0.7;
+    }:hover{
+      opacity: 1;
+    }
     div{
         margin-bottom:10px;
     }

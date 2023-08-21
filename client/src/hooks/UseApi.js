@@ -4,7 +4,7 @@ import { toast, useProgress } from "react-toastify";
 
 const config = {
   withCredentials: true,
-  baseURL: "http://localhost:5000",
+  baseURL: "http://localhost:5000", //http://192.168.15.11:5000
 };
 
 const api = axios.create(config);
@@ -123,6 +123,8 @@ export const useApi = () => ({
       const response = await api.get("/serve-profile-picture", { responseType: "blob" });
       if (response.status == 200) {
         // console.log(response.data);
+        // return response.data
+        
         const imgSrc = URL.createObjectURL(response.data);
         // console.log(imgSrc);
         return imgSrc;
@@ -155,16 +157,18 @@ export const useApi = () => ({
       const response = await api.post('/upload', image,
 
         {
+          headers: {
+            // 'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'multipart/form-data',
+          },
           // onUploadProgress: (progressEvent) => {
           //   const { loaded, total } = progressEvent;
           //   const percent = Math.floor((loaded * 100) / total);
           //   console.log(`${loaded} bytes uploaded | ${percent}%`);
           // },
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
         },
       );
+     
       return response;
     } catch (error) {
       handleError(error);
@@ -225,6 +229,8 @@ export const useApi = () => ({
     }
   },
 
+
+
   importListTimelineImage: async (userName) => {
     try {
       const response = await api.get("/timeline/" + userName);
@@ -237,6 +243,20 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+
+  importListTimelineImageAll: async () => {
+    try {
+      const response = await api.get("/timelineAll" );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
   ListTimelineUsers: async () => {
     try {
       const response = await api.get("/users");
@@ -249,6 +269,130 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+  DeletePostTimeline: async (id_post) => {
+    try {
+      const response = await api.get("/delete-post/" + id_post );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  ImportDataUserProfile: async (username) => {
+    try {
+      const response = await api.get("/user/"  + username);
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  //likes e comentários
+  ImportLikesImage: async (post_id) => {
+    try {
+
+      const response = await api.get("/get_post_likes/" + post_id  );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  setLikesImage: async (data) => {
+    try {
+      /* 
+      tipo: 1 / 0
+      author_id:
+      post_id:
+      */
+      const response = await api.post("/like_post" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  ImportCommentsImage: async (comment_id_) => {
+    try {
+      var comment_id = JSON.stringify(comment_id_);
+
+      
+      const response = await api.get("/get_comment/" + comment_id_ );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  setCreateCommentsImage: async (data) => {
+    try {
+      /* 
+      author_id = ('user_id')
+      content = ('content', '')
+      post_id = ('post_id', '')
+      */
+      const response = await api.post("/create_comment" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  setLikesCommentsImage: async (data) => {
+    try {
+      /* 
+      author_id = ('user_id')
+      content = ('author_id', '')
+      post_id = ('comment_id', '')
+       
+      */
+      const response = await api.post("/like_comment" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  ImportLikesCommentsImage: async (comment_id) => {
+    try {
+
+      const response = await api.get("/get_comment_likes/" + comment_id  );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
 
 
 

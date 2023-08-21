@@ -64,5 +64,11 @@
             }
 
     }
+    }
 }
-}
+
+@media screen and (max-width: 900px) {
+    .DivLeft{
+      display: none;
+    } 
+  }
