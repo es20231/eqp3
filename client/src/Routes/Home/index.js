@@ -83,6 +83,7 @@ function Home() {
                                     background: '#181f3380',
                                     color: 'white'
                                 }}
+                                
                                 type="name"
                                 placeholder="Name"
                                 value={dataTemp.userName}

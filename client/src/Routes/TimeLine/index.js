@@ -7,7 +7,7 @@ import { Button,  } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Container, } from 'react-bootstrap';
 
-//  import './styles.scss'
+ import './styles.scss'
 
 //toast 
 import { toast } from "react-toastify";
@@ -53,23 +53,7 @@ function TimeLine() {
 
                     <NavigationBar page="TimeLineGeneral" />
 
-                    <div className="buttons_right">
-
-
-
-                        <Button
-                            variant="tp_1"
-                            className="w-25  d-flex justify-content-center  align-items-center text-light"
-                            type="button"
-                            onClick={
-                                LogoutButton
-                            }
-                        >
-                            <img src={logout_icon} />
-                            Sair
-                        </Button>{' '}
-
-                    </div>
+                    
                 </div>
 
                 <div style={{height: '100px'}}> className="NavBarSpace"</div>

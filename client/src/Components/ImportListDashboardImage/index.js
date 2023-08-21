@@ -89,7 +89,7 @@ function ImportListDashboardImage(props) {
       <Pagination
         totalImages={imagesListLength}
         imagesPerPage={imagesPerPage}
-        currentPageDashboard={currentPageDashboard}
+        currentPage={currentPageDashboard}
         onPageChange={paginate}
       />
       <br />
