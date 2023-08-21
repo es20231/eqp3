@@ -4,6 +4,8 @@
     box-sizing: border-box;
     
 }
+$redColor: rgba(244,67,54,1);
+$blueColor:rgba(33,150,243,1);
 
 .Home{
     display: flex;
@@ -42,6 +44,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 15px;
+        
         .FormularioInicial{
             display: flex;
             flex-direction: column;
@@ -49,7 +52,7 @@
             width: 70%;
             max-width: 320px;
             height: 70vh;
-            max-height: 264px;
+            max-height: 354px;
             /* border-radius: 25px; */
             justify-content: space-evenly;
             .ButtonCriarConta{
@@ -59,3 +62,40 @@
     }
 }
 }
+
+.icon-3d {
+    padding: 10px;
+    -webkit-animation: icon3d 200ms 10;
+    animation: icon3d 200ms 10;
+    color: #fff;
+    &:hover {
+      -webkit-animation: icon3d 200ms infinite;
+            animation: icon3d 200ms infinite;
+    }
+  }
+  
+  @keyframes icon3d {
+    0% {
+      text-shadow: 5px 4px $redColor, -5px -6px $blueColor;
+    }
+    25% {
+      text-shadow: -5px -6px $redColor, 5px 4px $blueColor;
+    }
+    50% {
+      text-shadow: 5px -4px $redColor, -8px 4px $blueColor;
+    }
+    75% {
+      text-shadow: -8px -4px $redColor, -5px -4px $blueColor;
+    }
+    100% {
+      text-shadow: -5px 0 $redColor, 5px -4px $blueColor;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .DivLeftH {
+      display: none;
+    }
+    
+  }
+  

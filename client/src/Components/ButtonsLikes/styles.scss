@@ -1,0 +1,18 @@
+.ButtonLikes{
+    display: flex;
+    
+        min-height: 45px;
+        padding: 5px 0;
+        width: 90%;
+        margin: 5px;
+        >button{
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            color: #fff;
+           >img{
+            margin-right:3px;
+           }
+        }
+
+    }

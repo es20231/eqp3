@@ -128,25 +128,7 @@ function Register() {
 
                    <NavigationBar page="Perfil"/>
 
-                    <div className="buttons_right">
-
-                        <UploadImage />
-
-
-
-                        <Button
-                            variant="tp_1"
-                            className="w-25  d-flex justify-content-center  align-items-center text-light"
-                            type="button"
-                            onClick={
-                                LogoutButton
-                            }
-                        >
-                            <img src={logout_icon} />
-                            Sair
-                        </Button>{' '}
-
-                    </div>
+                    
                 </div>
 
 

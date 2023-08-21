@@ -270,8 +270,9 @@ class likeRepository:
     def get_comment_likes(self, comment_id):
         db = get_db()
         rows = db.execute(
-            'SELECT id, tipo, author_id, comment_id FROM likes WHERE comment_id = ?',
-            (comment_id,)
+            'SELECT l.id, l.tipo, l.author_id, l.comment_id, u.username, u.profile_picture'
+            ' FROM likes l JOIN user u ON l.author_id = u.id WHERE comment_id = ?' 
+            ' ORDER BY l.id DESC',(comment_id,)
         ).fetchall()
         
         comment_likes = rows_to_dict(rows)

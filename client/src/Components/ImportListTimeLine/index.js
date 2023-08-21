@@ -81,7 +81,7 @@ function ImportListTimeLine() {
           imagemDownload.map((urlImg, index) => (
             <Col key={index} md={{ span: 9, offset: 4 }}>
 
-              <FotosDashboard key={index} data={urlImg} tamBox={435} sendToTimeLine={true}/>
+               <FotosDashboard key={index} data={urlImg} tamBox={435} sendToTimeLine={true}/>{/* 70vw */}
               {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}
             </Col>
           ))}
@@ -90,7 +90,7 @@ function ImportListTimeLine() {
       <Pagination
         totalImages={imagesListLength}
         imagesPerPage={imagesPerPage}
-        currentPageDashboard={currentPageDashboard}
+        currentPage={currentPageDashboard}
         onPageChange={paginate}
       />
       <br />

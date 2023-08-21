@@ -10,6 +10,8 @@ function SearchBar() {
     const api = useApi();
     const [show, setShow] = useState(false);
     const [listUserSearch, setListUserSearch] = useState([]);
+    const [teste, setTeste] = useState([])
+
     const [searchValue, setSearchValue] = useState(''); // Estado para armazenar o valor da barra de pesquisa
 
     const handleClose = () => {
@@ -33,12 +35,13 @@ function SearchBar() {
     }, []);
 
     // Filtrar a lista de usuários com base no valor de pesquisa
-    
-        const filteredUsers = listUserSearch.filter(user =>
+
+
+    const filteredUsers = listUserSearch.filter(user =>
             user.username.toLowerCase().includes(searchValue.toLowerCase())
         );
-    
-    
+
+
 
     return (
         <>
@@ -58,12 +61,12 @@ function SearchBar() {
                 </Offcanvas.Header>
                 <Offcanvas.Body className="BodyOffCanvas">
                     <div className="input_icon">
-                        
+
                         <input
                             type="text"
                             placeholder="Search by user name"
                             value={searchValue}
-                            onChange={e => setSearchValue(searchValue => e.target.value)}
+                            onChange={e => setSearchValue(e.target.value)}
 
                         />
                         <img src={search_icon} alt="Search" />

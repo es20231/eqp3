@@ -52,23 +52,7 @@ function DashboardPerfil() {
 
                     <NavigationBar page="TimeLine" />
 
-                    <div className="buttons_right">
-
-
-
-                        <Button
-                            variant="tp_1"
-                            className="w-25  d-flex justify-content-center  align-items-center text-light"
-                            type="button"
-                            onClick={
-                                LogoutButton
-                            }
-                        >
-                            <img src={logout_icon} />
-                            Sair
-                        </Button>{' '}
-
-                    </div>
+                   
                 </div>
 
 
@@ -90,7 +74,7 @@ function DashboardPerfil() {
                 <div className="Arquivos">
                     <Container >
                         {/* <ImportImage/> */}
-                        <ImportListDashboardImage userNameDash={userLocal.user.username}/>
+                        <ImportListDashboardImage sendToDashBoardImage={true} userNameDash={userLocal.user.username}/>
 
 
                     </Container >

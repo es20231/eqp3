@@ -80,7 +80,7 @@ function ImportListDashboardImage(props) {
           imagemDownload.map((urlImg, index) => (
             <Col key={index} sm={true}>
 
-              <FotosDashboard key={index} data={urlImg} />
+              <FotosDashboard key={index} sendToDashboard={props.sendToDashBoardImage} data={urlImg} />
               {/* <FotosGaleria key={index} data={urlImg}></FotosGaleria> */}
             </Col>
           ))}
@@ -89,7 +89,7 @@ function ImportListDashboardImage(props) {
       <Pagination
         totalImages={imagesListLength}
         imagesPerPage={imagesPerPage}
-        currentPageDashboard={currentPageDashboard}
+        currentPage={currentPageDashboard}
         onPageChange={paginate}
       />
       <br />

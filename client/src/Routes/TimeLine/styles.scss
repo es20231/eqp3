@@ -1,0 +1,25 @@
+.Arquivos{ 
+    background-color: #040917;
+    width: 100vw;
+    min-height: calc(100vh - 185px);
+    display: block;
+   
+    
+}
+
+@media screen and (max-width: 900px) {
+   
+    .cabeçalho{
+        max-height: 30px;
+
+    }
+    .Arquivos{ 
+        background-color: #040917;
+        width: 100vw;
+        min-height: calc(100vh - 185px);
+        display: block;
+       
+        
+    }
+    
+  }

@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 
 import icon_cadastrar from "../../icons/cadastrar_icon.svg"
 import logout_icon from "../../icons/logout_icon.svg"
+import InfiniteLoader from "../../Components/InfiniteLoader";
 
 function Register() {
     const [username, setName] = useState('');
@@ -53,7 +54,7 @@ function Register() {
         {/* <Navbar1/> */}
         <div className="Register">
             <div className=" DivLeft">
-                <h1>Teste</h1>
+               <InfiniteLoader/>
 
             </div>
             <div className=" DivRight">

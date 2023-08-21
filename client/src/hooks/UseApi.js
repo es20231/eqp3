@@ -4,7 +4,7 @@ import { toast, useProgress } from "react-toastify";
 
 const config = {
   withCredentials: true,
-  baseURL: "http://localhost:5000",
+  baseURL: "http://localhost:5000", //http://192.168.15.11:5000
 };
 
 const api = axios.create(config);
@@ -229,6 +229,8 @@ export const useApi = () => ({
     }
   },
 
+
+
   importListTimelineImage: async (userName) => {
     try {
       const response = await api.get("/timeline/" + userName);
@@ -267,9 +269,9 @@ export const useApi = () => ({
       handleError(error);
     }
   },
-  DeletePostTimeline: async (idPost) => {
+  DeletePostTimeline: async (id_post) => {
     try {
-      const response = await api.get("/delete-post/" + idPost );
+      const response = await api.get("/delete-post/" + id_post );
       if (response.status == 200) {
         return response;
       } else {
@@ -358,6 +360,39 @@ export const useApi = () => ({
       handleError(error);
     }
   },
+
+  setLikesCommentsImage: async (data) => {
+    try {
+      /* 
+      author_id = ('user_id')
+      content = ('author_id', '')
+      post_id = ('comment_id', '')
+       
+      */
+      const response = await api.post("/like_comment" , data );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+  ImportLikesCommentsImage: async (comment_id) => {
+    try {
+
+      const response = await api.get("/get_comment_likes/" + comment_id  );
+      if (response.status == 200) {
+        return response;
+      } else {
+        return response;
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
 
 
 

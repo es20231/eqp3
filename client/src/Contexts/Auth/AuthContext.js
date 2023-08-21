@@ -92,7 +92,7 @@ const UserProvider = ({ children }) => {
 
 
 
-          navigate('/Private');
+          navigate("/TimeLine"); // 1
         }
         else {
           // toast.warning("sem token no localStorage")
