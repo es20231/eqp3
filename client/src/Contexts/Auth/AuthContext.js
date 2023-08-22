@@ -91,8 +91,8 @@ const UserProvider = ({ children }) => {
           });
 
 
-
-          navigate("/TimeLine"); // 1
+          
+          navigate(1); // 1
         }
         else {
           // toast.warning("sem token no localStorage")

@@ -85,6 +85,7 @@ function NavigationBar({ page }) {
                     {page == "Perfil" && <UploadImage />}
                     {/* button sair */}
                     <Button
+                        id="LogoutButton"
                         variant="secondary"
                         className="  d-flex justify-content-center  align-items-center text-light"
                         type="button"

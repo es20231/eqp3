@@ -140,7 +140,10 @@ function Register() {
                             {/* Edit Button */}
                             <>
 
-                                <button variant="primary" onClick={handleShow}>
+                                <button 
+                                id="EditProfile"
+                                variant="primary" 
+                                onClick={handleShow}>
                                     <img src={pen_edit}></img>
                                     Edit
                                 </button>
@@ -157,6 +160,7 @@ function Register() {
                                         <InputGroup className="mb-3">
 
                                             <Form.Control
+                                                id="ChangeUserName"
                                                 placeholder={userLocal.user.username}
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
@@ -164,7 +168,8 @@ function Register() {
                                                 onChange={(e) => setUserName(e.target.value)}
 
                                             />
-                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditUserName}>
+                                            <Button 
+                                             variant="tp_2" id="ChangeUserNameButton" onClick={handleEditUserName}>
                                                 Button
                                             </Button>
 
@@ -175,6 +180,7 @@ function Register() {
                                         <InputGroup className="mb-3">
 
                                             <Form.Control
+                                            id="ChangeUserFullName"
                                                 placeholder={userLocal.user.fullname}
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
@@ -182,7 +188,7 @@ function Register() {
                                                 onChange={(e) => setFullName(e.target.value)}
 
                                             />
-                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditFullName}>
+                                            <Button variant="tp_2" id="ChangeUserFullNameButton" onClick={handleEditFullName}>
                                                 Button
                                             </Button>
 
@@ -194,6 +200,7 @@ function Register() {
                                         <InputGroup className="mb-3">
 
                                             <Form.Control
+                                            id="ChangeUserDescription"
                                                 placeholder={userLocal.user.description}
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
@@ -201,7 +208,7 @@ function Register() {
                                                 onChange={(e) => setDescription(e.target.value)}
 
                                             />
-                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditDescription}>
+                                            <Button variant="tp_2" id="ChangeUserDescriptionButton" onClick={handleEditDescription}>
                                                 Button
                                             </Button>
                                         </InputGroup>
@@ -211,6 +218,7 @@ function Register() {
                                         <InputGroup className="mb-3">
 
                                             <Form.Control
+                                            id="ChangeUserEmail"
                                                 type="email"
                                                 placeholder={userLocal.user.email}
                                                 aria-label="Recipient's username"
@@ -219,7 +227,7 @@ function Register() {
                                                 onChange={(e) => setEmail(e.target.value)}
 
                                             />
-                                            <Button variant="tp_2" id="button-addon2" onClick={handleEditEmail}>
+                                            <Button variant="tp_2" id="ChangeUserEmailButton" onClick={handleEditEmail}>
                                                 Button
                                             </Button>
                                         </InputGroup>
@@ -229,11 +237,12 @@ function Register() {
                                         <InputGroup className="mb-3">
 
                                             <Form.Control
+                                            id="ChangeUserPassword"
                                                 placeholder={userLocal.user.password}
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
                                             />
-                                            <Button variant="tp_2" id="button-addon2">
+                                            <Button variant="tp_2" id="ChangeUserPasswordButton">
                                                 Button
                                             </Button>
 
@@ -244,7 +253,9 @@ function Register() {
 
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button variant="tp_1" onClick={handleClose}>
+                                        <Button
+                                         id="CloseModalEditProfile"
+                                         variant="tp_1" onClick={handleClose}>
                                             Close
                                         </Button>
 

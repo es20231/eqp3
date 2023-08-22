@@ -61,7 +61,7 @@ function UploadImage() {
 
     return (
         <>
-            <Button variant="tp_2 text-light border-0 bg-transparent" onClick={handleShow}>
+            <Button variant="tp_2 text-light border-0 bg-transparent" id="buttonUploadImage" onClick={handleShow}>
                 <img src={image_plus_icon} alt="Adicionar Imagem" />
             </Button>
 
@@ -74,6 +74,7 @@ function UploadImage() {
                         <img key={index} src={image} alt={`Imagem ${index}`} />
                     ))}
                     <input
+                        id="inputUploadImage"
                         type="file"
                         accept="image/*"
                         multiple
@@ -84,7 +85,10 @@ function UploadImage() {
                     <Button variant="secondary" onClick={handleClose}>
                         Fechar
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button
+                        id="buttonConfirmUploadImage"
+                        variant="primary"
+                        onClick={handleSubmit}>
                         Confirmar
                     </Button>
                 </Modal.Footer>

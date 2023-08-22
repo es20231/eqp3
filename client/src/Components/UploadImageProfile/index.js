@@ -61,7 +61,10 @@ function UploadImageProfile() {
 
     return (
         <>
-            <Button variant="tp_2 text-light" onClick={handleShow}>
+            <Button 
+            id="OpenEditProfilePicture"
+            variant="tp_2 text-light" 
+            onClick={handleShow}>
                 <img src={perfil_avatar} />
 
                 Perfil
@@ -80,6 +83,7 @@ function UploadImageProfile() {
                 <Modal.Body className="divImageUpload">
                     {selectedImage && <img src={selectedImage} alt="Imagem selecionada" />}
                     <input
+                        id="SelectImageInput"
                         type="file"
                         accept="image/*"
                         onChange={handleChange} />
@@ -88,7 +92,10 @@ function UploadImageProfile() {
                     <Button variant="tp_1" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="tp_2" onClick={handleSubmit}>
+                    <Button
+                     id="ConfirmImageInput"
+                     variant="tp_2" 
+                     onClick={handleSubmit}>
                         Confirmar
                     </Button>
                 </Modal.Footer>

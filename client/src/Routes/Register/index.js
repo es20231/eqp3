@@ -83,6 +83,7 @@ function Register() {
                         }}
                             controlId="floatingInput" label="User" className="mb-2" >
                             <Form.Control
+                            id= "UserName"
                                 style={{
                                     background: '#181f3380',
                                     color: 'white'
@@ -94,17 +95,22 @@ function Register() {
                             />
                         </FloatingLabel>
 
-                        <FloatingLabel style={{
+                        <FloatingLabel 
+                        style={{
                             background: '#181f3380',
                             color: 'white'
-                        }} controlId="floatingInput" label="User_Full_Name" className="mb-2" >
+                        }} 
+                        controlId="floatingInput" 
+                        label="User Full Name" 
+                        className="mb-2" >
                             <Form.Control
+                                id = "UserFullName"
                                 style={{
                                     background: '#181f3380',
                                     color: 'white'
                                 }}
                                 type="text"
-                                placeholder="UserOliveira"
+                                placeholder="Full Name"
                                 value={fullname}
                                 onChange={e => setNameCompleto(e.target.value)}
                             />
@@ -117,6 +123,7 @@ function Register() {
                             }}
                             controlId="floatingInput" label="Email address" className="mb-2">
                             <Form.Control
+                            id = "UserEmail"
                                 style={{
                                     background: '#181f3380',
                                     color: 'white'
@@ -133,6 +140,7 @@ function Register() {
                             color: 'white'
                         }} controlId="floatingPassword" label="Password" className="mb-2">
                             <Form.Control
+                            id="UserPassword"
                                 style={{
                                     background: '#181f3380',
                                     color: 'white'
@@ -149,6 +157,7 @@ function Register() {
                         </FloatingLabel> */}
                         {/* verificar o layout */}
                         <Button
+                            id="ButtonRegister"
                             variant="tp_1"
                             type="submit"
                             className="text-light"

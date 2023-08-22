@@ -27,17 +27,17 @@ function FotosGaleria( urlImg ) {
                 <img src={urlImg.data.url} alt={`Imagem ${urlImg.index + 1}`} />
             </div>
             <div className="queixoImage">
-                <button onClick={() => handleShow()}>
+                <button id={ "post-"+urlImg.data.filename } onClick={() => handleShow()}>
                     <img src={postImgIcon} alt="Post Image" />
                 </button>
-                <button data-testid="trash-button" onClick={async () => {
+                <button  id={ "DeletePost-"+urlImg.data.filename } onClick={async () => {
                     await api.deleteImage(urlImg.data.filename);
                     userLocal.setUserUpdateData(!userLocal.userUpdateData);
                 }}>
                     <img src={trash} alt="Delete Image" />
                 </button>
             </div>
-            <Modal show={show} onHide={handleClose} dialogClassName="custom-dialog" contentClassName="custom-content">
+            <Modal show={show}  onHide={handleClose} dialogClassName="custom-dialog" contentClassName="custom-content">
                 <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
@@ -48,7 +48,7 @@ function FotosGaleria( urlImg ) {
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Adicione a Descrição</Form.Label>
-                            <Form.Control as="textarea" onChange={(event) => setDescriptionText(event.target.value)} rows={3} />
+                            <Form.Control id={ "Description-"+urlImg.data.filename } as="textarea" onChange={(event) => setDescriptionText(event.target.value)} rows={3} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -56,7 +56,7 @@ function FotosGaleria( urlImg ) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={postImage}>
+                    <Button id={ "SaveChanges-"+urlImg.data.filename } variant="primary" onClick={postImage}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

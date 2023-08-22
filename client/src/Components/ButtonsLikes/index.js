@@ -102,6 +102,7 @@ function ButtonsLikes(props) {
         <div className="ButtonLikes">
             <button
                 className="LikeBnt"
+                id={"LikePost-"+props.data.filename}
                 onClick={() => {
                     const likeClick = async () => {
                         try {
