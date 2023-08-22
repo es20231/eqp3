@@ -12,10 +12,12 @@
             height: 300px;
             width: 320px;
             margin: 0;
-
+            max-width: 435px;
+            max-height: 435px;
         } 
     }
     .testaImagem{
+        max-width: 435px;
         padding: 4px 0 2px 0;
         display: none;
         flex-direction: row;
@@ -26,6 +28,8 @@
     }
 
     .queixoImageDashboard{
+        max-width: 435px;
+        max-height: 435px;
         display: flex;
         flex-direction: column;
         justify-content:space-around;

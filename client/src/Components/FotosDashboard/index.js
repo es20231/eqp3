@@ -22,7 +22,7 @@ function FotosDashboard(urlImg) {
     const api = useApi()
     const [likes, setLikes] = useState([])
     const [comments, setComments] = useState('')
-    const [showElement,setShowElement] = useState(1)
+    const [showElement, setShowElement] = useState(1)
     const [buttonClick, setButtonClick] = useState('0')
 
     // // receber os likes e dislikes 
@@ -88,7 +88,7 @@ function FotosDashboard(urlImg) {
 
 
     return (
-        
+
         <div className="containerElement">
             <div
                 className="testaImagem"
@@ -117,11 +117,11 @@ function FotosDashboard(urlImg) {
                 <div className="ButtonsLikesDash">
                     <ButtonsLikes tipo="post" data={urlImg.data} />
 
-                    <Comments data={{ post_id: urlImg.data.id }} />
+                    <Comments data={{ post_id: urlImg.data.id, filename: urlImg.data.filename }} />
                     {/* Adicionar icon Delete post se for Dashboard */}
-                    { urlImg.sendToDashboard && 
+                    {urlImg.sendToDashboard &&
                         <button
-                            style={{marginLeft:"5px"}}
+                            style={{ marginLeft: "5px" }}
                             data-testid="trash-button"
                             onClick={async () => {
                                 await api.DeletePostTimeline(urlImg.data.id);
@@ -154,6 +154,7 @@ function FotosDashboard(urlImg) {
 
                     <InputGroup className="mb-3">
                         <Form.Control
+                            id={"CommentsPost-" + urlImg.data.filename}
                             placeholder="Add Comment"
                             aria-label="Add Comment"
                             aria-describedby="basic-addon2"
@@ -161,8 +162,9 @@ function FotosDashboard(urlImg) {
                             onChange={handleCommentChange}
                         />
                         <Button
+                            id={"SendCommentsPost-" + urlImg.data.filename}
                             variant="tp_1"
-                            id="button-addon2"
+
                             onClick={handleAddComment}
                         >
                             <img src={message_send} />
@@ -171,7 +173,8 @@ function FotosDashboard(urlImg) {
                 </div>
             </div>
         </div >
-    );}
+    );
+}
 
 
 export default FotosDashboard;

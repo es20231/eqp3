@@ -7,25 +7,25 @@
 }
 
 .cabeçalho{
-    display: flex;
-    flex-direction: row;
-    background: #1E2740;
-    justify-content: space-evenly;
-    width: 100%;
-    min-height: 100px;
-    height: -moz-fit-content;
-    height: fit-content;
-    align-items: center;
+    // display: flex;
+    // flex-direction: row;
+    // background: #1E2740;
+    // justify-content: space-evenly;
+    // width: 100%;
+    // min-height: 100px;
+    // height: -moz-fit-content;
+    // height: fit-content;
+    // align-items: center;
     .avatarPerfil{
         height: 10px;
     }
-    .buttons_right{
-        display: flex;
-        width: 30%;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-direction: row;
-    }
+    // .buttons_right{
+    //     display: flex;
+    //     width: 30%;
+    //     align-items: center;
+    //     justify-content: space-evenly;
+    //     flex-direction: row;
+    // }
 
 }
 
